@@ -1,0 +1,1 @@
+poner todo los scripst en esta carpeta,  por cada pagina crear un solo script con el  formato script-NombrePagina.js
