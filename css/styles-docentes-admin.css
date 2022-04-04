@@ -45,6 +45,7 @@ body{
     margin-left: auto;
     margin-right: 10px;
     line-height: 0.9;
+    cursor: pointer;
 }
 
 .btn-nuevo-docente:hover{
@@ -165,6 +166,7 @@ body{
     height: 42px;
     font-size: 21px;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .btn-cancelar{
