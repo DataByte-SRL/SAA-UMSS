@@ -15,6 +15,100 @@
     
 </head>
 <body>
+    <main class="contenido-main">
+        <h1 class="titulo-contenido">Administracion de Aulas</h1>
+
+        <div class="herramientas">
+            <div class="buscador">
+            </div>
+
+            <div class="filtro">
+            </div>
+
+            <button class="btn-nuevo-docente">Nueva Aula</button>     
+        </div>
+
+        <div class="seccion-tabla">
+
+        </div>
+
+    </main>
+
+
+
+    <div class="overlay-nueva-aula">
+
+        <div class="formulario-nueva-aula">
+            <h1 class="titulo-formulario-nueva-aula">FORMULLARIO NUEVA AULA</h1>
+            <form action="">
+                <div class="seccion-input input-facultad">
+                    <label>Facultad:</label>
+                    <select>
+                        <option disabled selected>Seleccionar una Facultad</option>
+                        <option value="">Ciencias agricolas y Pecuarias</option>
+                        <option value="">CS.Bioquimicas</option>
+                        <option value="">Ciencias Económicas</option>
+                        <option value="">Desarrollo Rural</option>
+                        <option value="">Odontologia</option>
+                        <option value="">Medicina</option>
+                        <option value="">Arquitectura</option>
+                        <option value="">Humanidades</option>
+                        <option value="">Ciencias Juridicas</option>
+                        <option value="">Ciencias y Tecnologia</option>
+                        <option value="">Ciencias Sociales</option>
+                        <option value="">Ciencias Veterinarias</option>
+                        <option value="">Enfermeria</option>
+                    </select>
+                    <div class="mensaje-error-formulario">
+                    </div>
+                </div>
+                <div class="seccion-input input-nombre">
+                    <label>Nombre:</label>
+                    <input  spellcheck="false" type="text" placeholder="Nombre de la nueva aula">
+                    <div class="mensaje-error-formulario">
+                    </div>
+                </div>
+                
+                <div class="seccion-input input-capacidad">
+                    <label>Capacidad:</label>
+                    <input spellcheck="false" type="number" placeholder="Capacidad de estdudiantes para un examen">
+                    <div class="mensaje-error-formulario">
+                    </div>
+                </div>
+
+                <div class="seccion-input input-detalles">
+                    <label>Detalles:</label>
+                    <input spellcheck="false" type="text" placeholder="Informacion adicional del aula">
+                    <div class="mensaje-error-formulario">
+                    </div>
+                </div>
+
+                <div class="seccion-input input-proyector">
+                    <label>Proyector:</label>
+                    <div class="lista-radiobtns">
+                        <div class="radiobtn">
+                            <input type="radio" id="si"  value="si"  name="proyector">
+                            <label for="si">si</label>
+                        </div>
+                        <div class="radiobtn">
+                            <input type="radio" id="no"  value="no" name="proyector" checked>
+                            <label for="no">no</label>
+
+                        </div>
+                    </div>
+                </div>
+         
+                            
+            </form>
+
+            <div class="seccion-botones-formulario">
+                <button class="btn-formulario btn-cancelar">cancelar</button>
+                <button class="btn-formulario btn-aceptar">aceptar</button>
+            </div>                                                                                             
+        </div>
+    </div>
+    
+    <script src="js/script-aulas-admin.js"></script>
 
     
 </body>
