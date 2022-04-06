@@ -1,4 +1,4 @@
-var btn_nuevo_usuario = document.querySelector(".btn-nuevo-docente");
+var btn_nuevo_usuario = document.querySelector(".btn-encabezado-a");
 var btn_cancelar_form = document.querySelector(".seccion-botones-form-a .btn-cancelar");
 var overlay_form = document.querySelector(".overlay-form-a");
 var form = document.querySelector(".form-a");

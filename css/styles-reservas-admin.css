@@ -11,26 +11,5 @@ body{
     flex-direction: column;
 }
 
-.titulo-contenido{
-    width: 90%;
-    margin: auto;
-    border-bottom: 1px solid  #D4D4D4;
-    margin-top: 70px;
-    margin-bottom: 20px;
-    color: #2D2929;
-    font-size: 30px;
-    font-weight: bold;
-    line-height: 1.5;
-    padding-left: 10px;
-}
-
-.herramientas{
-    width: 85%;
-    margin: 10px auto 10px auto;
-    display: flex;
-    flex-direction: row;
-    
-}
-
 
 
