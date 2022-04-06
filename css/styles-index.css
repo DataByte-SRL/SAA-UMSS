@@ -8,6 +8,7 @@ body{
 
 main{
    padding-top: 90px ;
+   min-height: 100vh;
 }
 
 header{
@@ -39,6 +40,7 @@ header{
     border-bottom: 3px solid  #1071E5;
 
 }
+
 /*  footer */
 footer{
     font-size: 15px;
@@ -125,7 +127,6 @@ footer p{
     font-size: 3.3em;
     color: #1B4B94;
     margin-bottom: 80px;
-    
 }
 
 .seccion-input-sesion{
@@ -259,6 +260,16 @@ footer p{
     }
 
 }
+
+
+@media(max-width: 991px){
+
+    .nav-item {
+        margin: auto;
+    }
+
+}
+
 
 /*
 font-family: 'New Rocker', cursive;

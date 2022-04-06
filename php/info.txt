@@ -1,1 +1,0 @@
-poner todo el coddigo php en esta carpeta

@@ -1,0 +1,189 @@
+
+body{
+    font-family: 'Arimo', sans-serif;
+    box-sizing: border-box;
+}
+
+.contenido-main{
+    width: 90%;
+    height: 80vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-contenido{
+    width: 90%;
+    margin: auto;
+    border-bottom: 1px solid  #D4D4D4;
+    margin-top: 70px;
+    margin-bottom: 20px;
+    color: #2D2929;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.5;
+    padding-left: 10px;
+}
+
+.herramientas{
+    width: 85%;
+    margin: 10px auto 10px auto;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.btn-nuevo-docente{
+    background-color: #1071E5;
+    font-size: 15px;
+    color: white;
+    border: none;
+    width: 140px;
+    height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: auto;
+    margin-right: 10px;
+    line-height: 0.9;
+    cursor: pointer;
+}
+
+.btn-nuevo-docente:hover{
+    background-color: #3589f0;
+
+}
+
+
+/*   FORMULARIO   *//*
+
+.overlay-nuevo-docente{
+    position: fixed;
+    background: rgba(0,0,0,0.1);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.formulario-activo{
+    visibility: visible;
+}
+
+.formulario-nuevo-docente{
+    background: #FFFFFF;
+    padding: 15px;
+    border-radius: 50px;
+    width: 1100px;
+    height: 650px;
+    box-shadow: 0px 0px 20px rgb(201, 201, 201);
+    transition: 0.4s ease all ;
+    transform: scale(0.7);
+    opacity: 0;
+    
+}
+.titulo-formulario-nuevo-docente{
+    width: 95%;
+    text-align: center;
+    border-bottom: 1px solid  #D4D4D4;
+    line-height: 1.5;
+    font-size: 33px;
+    font-weight: bold;
+    margin: 10px auto 45px auto;
+}
+
+.seccion-input{
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    height: 30px;
+    align-items: center;
+    margin: 0 auto 25px auto;
+}
+
+.seccion-input label{
+    font-size: 20px;
+    color: #2D2929;
+    text-align: end;
+    width: 12%;
+    margin: auto 25px auto 50px;
+}
+
+.seccion-input input,select{
+    outline: none;
+    text-decoration: none;
+    border: none;
+    border-bottom: 1px solid #D4D4D4;
+    line-height: 1.5;
+    font-size: 18px;
+    width: 75%;
+    padding-left: 5px;
+    padding-right: 5x;
+    font-weight: 0;
+     color: black;
+}
+.seccion-input input::placeholder{
+    color: #D4D4D4;
+}
+.seccion-input input:focus::placeholder{
+    color: transparent;
+}
+.seccion-input:hover input{
+    border-bottom: 1px solid #473af7;
+
+}
+.seccion-input select:focus{
+    border-bottom: 1px solid #473af7;
+}
+.seccion-input input:focus{
+    border-bottom: 1px solid #473af7;
+}
+
+.mensaje-error-formulario{
+    width: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seccion-botones-formulario{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 45px auto 10px auto;
+}
+
+.btn-formulario{
+    width: 140px;
+    color: white;
+    border: none;
+    height: 42px;
+    font-size: 21px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-cancelar{
+    background: #FF0000;
+    margin-right: 60px;
+}
+.btn-cancelar:hover{
+    background: #f05757;
+}
+.btn-aceptar{
+    background: #1071E5;
+    margin-left: 60px;
+}
+.btn-aceptar:hover{
+    background: #4386d8;
+}
+
+.formulario-nuevo-docente.formulario-activo{
+    opacity: 1;
+    transform: scale(1);
+}*/

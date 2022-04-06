@@ -1,0 +1,251 @@
+/* ESTILOS DE POPIPS  */
+/* clases
+
+  .overlay-form-a 
+  .form-a
+  .titulo-form-a
+  .seccion-input-form-a
+  .mensaje-error-form-a
+  .seccion-input-form-a .lista-radiobtns
+  .seccion-input-form-a .radiobtn
+  .seccion-botones-form-a
+  .seccion-botones-form-a .btn-formulario
+  .seccion-botones-form-a .btn-cancelar
+  .seccion-botones-form-a .btn-aceptar
+
+*/
+.overlay-form-a{
+    position: fixed;
+    background: rgba(0,0,0,0.1);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+}
+
+.formulario-activo{
+    visibility: visible;
+}
+
+.form-a{
+    background: #FFFFFF;
+    padding: 15px;
+    border-radius: 50px;
+    width: 1100px;
+   /* height: 650px;*/
+    box-shadow: 0px 0px 20px rgb(201, 201, 201);
+    transition: 0.4s ease all ;
+    transform: scale(0.7);
+    opacity: 0;
+    
+}
+.titulo-form-a{
+    width: 95%;
+    text-align: center;
+    border-bottom: 1px solid  #D4D4D4;
+    line-height: 1.5;
+    font-size: 33px;
+    font-weight: bold;
+    margin: 10px auto 45px auto;
+}
+
+.seccion-input-form-a{
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    height: 30px;
+    align-items: center;
+    margin: 0 auto 25px auto;
+}
+
+.seccion-input-form-a label{
+    font-size: 20px;
+    color: #2D2929;
+    text-align: end;
+    width: 12%;
+    min-width: 150px;
+    margin: auto 25px auto 50px;
+}
+
+.seccion-input-form-a input,select{
+    outline: none;
+    text-decoration: none;
+    border: none;
+    border-bottom: 1px solid #D4D4D4;
+    line-height: 1.5;
+    font-size: 18px;
+    width: 75%;
+    padding-left: 5px;
+    padding-right: 5x;
+    font-weight: 0;
+     color: black;
+}
+.seccion-input-form-a input::placeholder{
+    color: #D4D4D4;
+}
+.seccion-input-form-a input:focus::placeholder{
+    color: transparent;
+}
+.seccion-input-form-a:hover input{
+    border-bottom: 1px solid #473af7;
+
+}
+.seccion-input-form-a select:focus{
+    border-bottom: 1px solid #473af7;
+}
+.seccion-input-form-a input:focus{
+    border-bottom: 1px solid #473af7;
+}
+
+.mensaje-error-form-a{
+    width: 5%;
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.seccion-input-form-a .lista-radiobtns{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 75%;
+}
+.seccion-input-form-a .radiobtn{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    margin-right: 20px;
+}
+.seccion-input-form-a .radiobtn label{
+    min-width: 20px;
+    max-width: 100px;
+    margin: auto 10px auto 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.seccion-input-form-a .radiobtn input{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+.seccion-botones-form-a{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 45px auto 10px auto;
+}
+
+
+.seccion-botones-form-a .btn-formulario{
+    width: 140px;
+    color: white;
+    border: none;
+    height: 42px;
+    font-size: 21px;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 4px rgb(102, 102, 102);
+}
+
+.seccion-botones-form-a .btn-cancelar{
+    background: #FF0000;
+    margin-right: 60px;
+}
+.seccion-botones-form-a .btn-cancelar:hover{
+    background: #f05757;
+}
+.seccion-botones-form-a .btn-aceptar{
+    background: #1071E5;
+    margin-left: 60px;
+}
+.seccion-botones-form-a .btn-aceptar:hover{
+    background: #4386d8;
+}
+
+.form-a.formulario-activo{
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+@media(max-width: 1330px){
+    .seccion-input-form-a label{
+        width: 18%;
+        margin: 10px;
+    }
+
+}
+
+
+@media(max-width: 1000px){
+    .form-a {
+        width: 100%;
+    }
+
+    .titulo-form-a{
+        line-height: 1.5;
+        font-size: 30px;
+    }
+
+}
+
+@media(max-width: 700px){
+    .form-a {
+        width: 100%;
+    }
+
+    .titulo-form-a{
+        line-height: 1.5;
+        font-size: 20px;
+    }
+    .seccion-input-form-a label{
+        font-size: 16px;
+    }
+    .seccion-input-form-a input,select{
+        font-size: 15px;
+    }
+
+    .seccion-botones-form-a .btn-formulario{
+        width: 125px;
+        color: white;
+        border: none;
+        height: 36px;
+        font-size: 17px;
+    }
+
+    .seccion-botones-form-a .btn-cancelar{
+        margin-right: 50px;
+    }
+    .seccion-botones-form-a .btn-aceptar{
+        margin-left: 50px;
+    }
+
+
+}
+
+
+@media(max-width: 600px){
+    
+    .seccion-input-form-a label{
+        min-width: 110px;
+    
+    }
+    .seccion-botones-form-a .btn-cancelar{
+        margin-right: 20px;
+    }
+    .seccion-botones-form-a .btn-aceptar{
+        margin-left: 20px;
+    }
+
+
+}
