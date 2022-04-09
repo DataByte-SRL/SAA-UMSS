@@ -62,6 +62,8 @@
 
         <div class="seccion-tabla">
 
+            
+
         </div>
 
     </main>
@@ -98,46 +100,54 @@
     <div class="overlay-form-a">
         <div class="form-a ">
             <h1 class="titulo-form-a ">FORMULLARIO NUEVA AULA</h1>
-            <form action="">
+            <form action="" id="formulario-nuevo-aula">
                 <div class="seccion-input-form-a   input-facultad">
-                    <label>Facultad:</label>
-                    <select>
-                        <option disabled selected>Seleccionar una Facultad</option>
-                        <option value="">Ciencias agricolas y Pecuarias</option>
-                        <option value="">CS.Bioquimicas</option>
-                        <option value="">Ciencias Económicas</option>
-                        <option value="">Desarrollo Rural</option>
-                        <option value="">Odontologia</option>
-                        <option value="">Medicina</option>
-                        <option value="">Arquitectura</option>
-                        <option value="">Humanidades</option>
-                        <option value="">Ciencias Juridicas</option>
-                        <option value="">Ciencias y Tecnologia</option>
-                        <option value="">Ciencias Sociales</option>
-                        <option value="">Ciencias Veterinarias</option>
-                        <option value="">Enfermeria</option>
+                    <label  >Facultad:</label>
+                    <select name="facultad" id="facultad" >
+                        <option value="0" disabled selected>Seleccionar una Facultad</option>
+                        <option value="1">Ciencias agricolas y Pecuarias</option>
+                        <option value="2">CS.Bioquimicas</option>
+                        <option value="3">Ciencias Económicas</option>
+                        <option value="4">Desarrollo Rural</option>
+                        <option value="5">Odontologia</option>
+                        <option value="6">Medicina</option>
+                        <option value="7">Arquitectura</option>
+                        <option value="8">Humanidades</option>
+                        <option value="9">Ciencias Juridicas</option>
+                        <option value="10">Ciencias y Tecnologia</option>
+                        <option value="11">Ciencias Sociales</option>
+                        <option value="12">Ciencias Veterinarias</option>
+                        <option value="13">Enfermeria</option>
                     </select>
-                    <div class="mensaje-error-form-a   ">
+                    <div class="mensaje-error-form-a seccion-advertencia-facultad ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
                 <div class="seccion-input-form-a  input-nombre">
                     <label>Nombre:</label>
-                    <input  spellcheck="false" type="text" placeholder="Nombre de la nueva aula">
-                    <div class="mensaje-error-form-a   ">
+                    <input name="nombre" id="nombre"  spellcheck="false" type="text" placeholder="(Campo Obligatorio))">
+                    <div class="mensaje-error-form-a seccion-advertencia-nombre ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
                 
                 <div class="seccion-input-form-a  input-capacidad">
                     <label>Capacidad:</label>
-                    <input spellcheck="false" type="number" placeholder="Capacidad de estdudiantes para un examen">
-                    <div class="mensaje-error-form-a   ">
+                    <input name="capacidad"  id="capacidad"  spellcheck="false" type="number" placeholder="(Campo Obligatorio))">
+                    <div class="mensaje-error-form-a seccion-advertencia-capacidad ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
 
                 <div class="seccion-input-form-a  input-detalles">
                     <label>Detalles:</label>
-                    <input spellcheck="false" type="text" placeholder="Informacion adicional del aula">
-                    <div class="mensaje-error-form-a   ">
+                    <input name="detalles" id="detalles" spellcheck="false" type="text" placeholder="(Campo Opcional)">
+                    <div class="mensaje-error-form-a seccion-advertencia-detalles ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
 
@@ -145,18 +155,20 @@
                     <label>Proyector:</label>
                     <div class="lista-radiobtns">
                         <div class="radiobtn">
-                            <input type="radio" id="si"  value="si"  name="proyector">
+                            <input type="radio" id="si"  value="si"  name="proyector"  >
                             <label for="si">si</label>
                         </div>
                         <div class="radiobtn">
-                            <input type="radio" id="no"  value="no" name="proyector" checked>
+                            <input type="radio" id="no"  value="no" name="proyector"  checked>
                             <label for="no">no</label>
 
                         </div>
                     </div>
-                </div>
-         
-                            
+                    <div class="mensaje-error-form-a seccion-advertencia-proyector ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
+                    </div>
+                </div>    
             </form>
 
             <div class="seccion-botones-form-a">
@@ -167,6 +179,7 @@
     </div>
     
 
+    <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-aulas-admin.js"></script>
