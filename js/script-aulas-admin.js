@@ -1,6 +1,4 @@
-var btn_nuevo_usuario = document.querySelector(".btn-encabezado-a");
-
-
+var btn_nueva_aula = document.querySelector(".btn-encabezado-a");
 
 
 var overlay_form = document.querySelector(".overlay-form-a");
@@ -12,24 +10,20 @@ var btn_aceptar_form = document.querySelector(".seccion-botones-form-a .btn-acep
 var mensajeError = document.querySelectorAll(".mensaje-error-form-a")
 
 
-
 ponerFuncionBotones();
-mostrarMesajeErrorFormulario();
-
+ponerFuncionalidadMesajeErrorFom();
 
 
 
 
 function ponerFuncionBotones(){
     
-    btn_nuevo_usuario.addEventListener("click",()=>{
-         overlay_form.classList.add("formulario-activo"); 
-         form.classList.add("formulario-activo"); 
+    btn_nueva_aula.addEventListener("click",()=>{
+        abrirFormulario();
     });
     btn_cancelar_form.addEventListener("click",()=>{
-        overlay_form.classList.remove("formulario-activo");
-        form.classList.remove("formulario-activo"); 
-        borrarDatosForm("formulario-nuevo-aula");
+        cerrarFormulario();
+        borrarDatosForm("formulario-nueva-aula");
     });
     overlay_form.addEventListener("click",(e)=>{
         if(e.target.classList.contains("overlay-form-a")){
@@ -40,30 +34,25 @@ function ponerFuncionBotones(){
     });
 
     btn_aceptar_form.addEventListener('click',()=>{
-        obtenerDatosFormulario();
+        var datosFormulario = obtenerDatosFormulario();
+        var resValidacion = ValidarDatosFormulario(datosFormulario)
+        if (resValidacion == "1") {
+            guardarDatosEnBD(datosFormulario , "agregarAula.php");
+        }
     });
 }
 
 
 
 function obtenerDatosFormulario(){
-    $(function(){
-
-        var datosForm ={
-         facultad : $('#facultad').val(),
-         nombre : $('#nombre').val(),
-         capacidad : $('#capacidad').val(),
-         detalles : $('#detalles').val(),
-         proyector : $('input[name="proyector"]:checked').val()
-        };
-    
-         console.log(ValidarDatosFormulario(datosForm));
-
-
-         //  borrarDatosForm("formulario-nuevo-aula");
-        
-    });
-
+     var datosForm ={
+      facultad : $('#facultad').val(),
+      nombre : $('#nombre').val(),
+      capacidad : $('#capacidad').val(),
+      detalles : $('#detalles').val(),
+      proyector : $('input[name="proyector"]:checked').val()
+     };
+    return  datosForm;
 }
 
 
@@ -84,12 +73,12 @@ function ValidarDatosFormulario(datos){
     if(expresion.test(datos['nombre'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-nombre');
     }else{
-        darMesajeErrorInput("seccion-advertencia-nombre","Debe tener almenos 1 caracter");
+        darMesajeErrorInput("seccion-advertencia-nombre","Debe tener almenos 1 caracter y maximo 20");
         res = 0;
     }
 
     /* validando capacidad */
-    expresion= /^\s*[0-9]{1,7}\s*$/;
+    expresion= /^\s*[0-9]{1,20}\s*$/;
     if(expresion.test(datos['capacidad'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-capacidad');
     }else{
@@ -97,6 +86,14 @@ function ValidarDatosFormulario(datos){
         res = 0;
     }
     /* validando detalles */
+    datos['detalles'].trim()
+    if(datos['detalles'].length <= 100) {
+        borrarMensajeErrorInput( 'seccion-advertencia-detalles');
+        console.log("detalles acptados")
+    }else{
+        darMesajeErrorInput("seccion-advertencia-detalles","Maximo 100 caracteres");
+        res = 0;
+    }
 
     // se aceptara cualquier tipo de caracter icluco puede  esta vacio
 
@@ -114,7 +111,36 @@ function ValidarDatosFormulario(datos){
 
 
 
-function mostrarMesajeErrorFormulario(){
+function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo despues de validad los datos
+    $(function(){
+       $.post("./php/"+ nombreArchivoPHP,datosForm,function(respuestaArchivoPHP){
+           //dependiendo del dato mostraremos  una alerta
+           if(respuestaArchivoPHP == "1"){ // exito
+               cerrarFormulario();
+               borrarDatosForm("formulario-nueva-aula");
+               Swal.fire({
+                   title : "Registro Exitoso!",
+                   icon: "success",
+                   showConfirmButton: false,
+                   timer: 1300
+               });
+           }else{
+               Swal.fire({
+                   title : "Error!",
+                   text: "No se puedo agregar por estos motivos",
+                   icon: "error" ,
+                   confirmButtonColor:"#1071E5",
+                   confirmButtonText:"Aceptar"
+               });
+           }
+           
+        });
+    });
+}
+
+
+
+function ponerFuncionalidadMesajeErrorFom(){
     mensajeError.forEach(element => {
         var img = element.querySelector(".img-advertencia");
         img.addEventListener("mouseenter",()=>{
@@ -175,67 +201,13 @@ function borrarDatosForm(nombreForm){
 
 }
 
-
-
-
-/*var btn_nuevo_usuario = document.querySelector(".btn-encabezado-a");
-var btn_cancelar_form = document.querySelector(".seccion-botones-form-a .btn-cancelar");
-var overlay_form = document.querySelector(".overlay-form-a");
-var form = document.querySelector(".form-a");
-
-var mensajeError = document.querySelectorAll(".mensaje-error-form-a")
-
-ponerFuncionBotones();
-mostrarMesajeErrorFormulario();
-
-
-function mostrarMesajeErrorFormulario(){
-    mensajeError.forEach(element => {
-        var img = element.querySelector(".img-advertencia");
-        img.addEventListener("mouseenter",()=>{
-            var m = element.querySelector(".mensaje-error");
-            m.classList.remove("oculto");
-             
-        });
-        img.addEventListener("mouseleave",()=>{
-            var m = element.querySelector(".mensaje-error");
-            m.classList.add("oculto");
-       });
-    });
-}
-
-
-
-
-
-
-
-
-
-
-
-
-function ponerFuncionBotones(){
-    
-    btn_nuevo_usuario.addEventListener("click",()=>{
-         overlay_form.classList.add("formulario-activo"); 
-         form.classList.add("formulario-activo"); 
-    });
-    btn_cancelar_form.addEventListener("click",()=>{
-        overlay_form.classList.remove("formulario-activo");
-        form.classList.remove("formulario-activo"); 
-         //funcion para pobra doso los datos de los imputs 
-    }); 
-    overlay_form.addEventListener("click",(e)=>{
-        if(e.target.classList.contains("overlay-form-a")){
-                 overlay_form.classList.remove("formulario-activo");
-                form.classList.remove("formulario-activo"); 
-
-        }
-    });
-
+function cerrarFormulario(){
+    overlay_form.classList.remove("formulario-activo");
+    form.classList.remove("formulario-activo"); 
 
 }
 
-
-*/
+function abrirFormulario(){
+    overlay_form.classList.add("formulario-activo"); 
+    form.classList.add("formulario-activo"); 
+}

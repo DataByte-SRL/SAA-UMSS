@@ -14,7 +14,7 @@ var mensajeError = document.querySelectorAll(".mensaje-error-form-a")
 
 
 ponerFuncionBotones();
-mostrarMesajeErrorFormulario();
+ponerFuncionalidadMesajeErrorFom();
 
 
 
@@ -23,12 +23,10 @@ mostrarMesajeErrorFormulario();
 function ponerFuncionBotones(){
     
     btn_nuevo_usuario.addEventListener("click",()=>{
-         overlay_form.classList.add("formulario-activo"); 
-         form.classList.add("formulario-activo"); 
+        abrirFormulario();
     });
     btn_cancelar_form.addEventListener("click",()=>{
-        overlay_form.classList.remove("formulario-activo");
-        form.classList.remove("formulario-activo"); 
+        cerrarFormulario();
         borrarDatosForm("formulario-nuevo-docente");
     });
     overlay_form.addEventListener("click",(e)=>{
@@ -40,35 +38,29 @@ function ponerFuncionBotones(){
     });
 
     btn_aceptar_form.addEventListener('click',()=>{
-        obtenerDatosFormulario();
+        var datosFormulario = obtenerDatosFormulario();
+        var resValidacion = ValidarDatosFormulario(datosFormulario)
+        if (resValidacion == "1") {
+            guardarDatosEnBD(datosFormulario , "agregarDocente.php");
+        }
     });
 }
 
 
 
 function obtenerDatosFormulario(){
-    $(function(){
-
-        var datosForm ={
-         codigosis : $('#codigosis').val(),
-         nombre : $('#nombre').val(),
-         apellido : $('#apellido').val(),
-         ci : $('#ci').val(),
-         facultad : $('#facultad').val(),
-         departamento : $('#departamento').val(),
-         celular : $('#celular').val(),
-         telefono : $('#telefono').val(),
-         correo : $('#correo').val(),
-        };
-     
-
-       console.log(ValidarDatosFormulario(datosForm));
-
-
-         //  borrarDatosForm("formulario-nuevo-docente");
-        
-    });
-
+    var datosForm ={
+     codigosis : $('#codigosis').val(),
+     nombre : $('#nombre').val(),
+     apellido : $('#apellido').val(),
+     ci : $('#ci').val(),
+     facultad : $('#facultad').val(),
+     departamento : $('#departamento').val(),
+     celular : $('#celular').val(),
+     telefono : $('#telefono').val(),
+     correo : $('#correo').val(),
+    };
+     return datosForm ;  
 }
 
 
@@ -153,8 +145,36 @@ function ValidarDatosFormulario(datos){
 }
 
 
+function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo despues de validad los datos
+    $(function(){
+       $.post("./php/"+ nombreArchivoPHP,datosForm,function(respuestaArchivoPHP){
+           //dependiendo del dato mostraremos  una alerta
+           if(respuestaArchivoPHP == "1"){ // exito
+               cerrarFormulario();
+               borrarDatosForm("formulario-nuevo-docente");
+               Swal.fire({
+                   title : "Registro Exitoso!",
+                   icon: "success",
+                   showConfirmButton: false,
+                   timer: 1300
+               });
+           }else{
+               Swal.fire({
+                   title : "Error!",
+                   text: "No se puedo agregar por estos motivos",
+                   icon: "error" ,
+                   confirmButtonColor:"#1071E5",
+                   confirmButtonText:"Aceptar"
+               });
+           }
+           
+        });
+    });
+}
 
-function mostrarMesajeErrorFormulario(){
+
+
+function ponerFuncionalidadMesajeErrorFom(){
     mensajeError.forEach(element => {
         var img = element.querySelector(".img-advertencia");
         img.addEventListener("mouseenter",()=>{
@@ -213,4 +233,15 @@ function borrarDatosForm(nombreForm){
         
     }
 
+}
+
+function cerrarFormulario(){
+    overlay_form.classList.remove("formulario-activo");
+    form.classList.remove("formulario-activo"); 
+
+}
+
+function abrirFormulario(){
+    overlay_form.classList.add("formulario-activo"); 
+    form.classList.add("formulario-activo"); 
 }

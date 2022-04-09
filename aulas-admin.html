@@ -91,8 +91,6 @@
         <p class="fila-4">Diseñado por<span class="empresa-disenadora"> DataByte S.R.L</span></p>
         
 
-
-
     </footer>
 
 
@@ -100,7 +98,7 @@
     <div class="overlay-form-a">
         <div class="form-a ">
             <h1 class="titulo-form-a ">FORMULLARIO NUEVA AULA</h1>
-            <form action="" id="formulario-nuevo-aula">
+            <form action="" id="formulario-nueva-aula">
                 <div class="seccion-input-form-a   input-facultad">
                     <label  >Facultad:</label>
                     <select name="facultad" id="facultad" >
@@ -126,7 +124,7 @@
                 </div>
                 <div class="seccion-input-form-a  input-nombre">
                     <label>Nombre:</label>
-                    <input name="nombre" id="nombre"  spellcheck="false" type="text" placeholder="(Campo Obligatorio))">
+                    <input name="nombre" id="nombre"  spellcheck="false" type="text" placeholder="(Campo Obligatorio))" maxlength="20">
                     <div class="mensaje-error-form-a seccion-advertencia-nombre ">
                         <div class="img-advertencia  oculto"></div>
                         <p class="mensaje-error oculto"> </p>
@@ -144,7 +142,7 @@
 
                 <div class="seccion-input-form-a  input-detalles">
                     <label>Detalles:</label>
-                    <input name="detalles" id="detalles" spellcheck="false" type="text" placeholder="(Campo Opcional)">
+                    <input name="detalles" id="detalles" spellcheck="false" type="text" placeholder="(Campo Opcional)" maxlength="100">
                     <div class="mensaje-error-form-a seccion-advertencia-detalles ">
                         <div class="img-advertencia  oculto"></div>
                         <p class="mensaje-error oculto"> </p>
@@ -180,7 +178,7 @@
     
 
     <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-aulas-admin.js"></script>
 
