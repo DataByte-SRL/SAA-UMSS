@@ -1,0 +1,278 @@
+/*          HEADER-FOOTER         */
+body{
+    font-family: 'Arimo', sans-serif ;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+main{
+   padding-top: 90px ;
+   min-height: 100vh;
+}
+
+header{
+    border-bottom: 1px solid #D4D4D4;
+    position: fixed;
+    width: 100%;
+    background: white;
+}
+
+.navbar-brand{
+    font-family: 'New Rocker', cursive;
+    color: #3E3A7C!important;
+    font-size: 3.3em ;
+}
+
+.nav-item{
+    margin-left: 4.3em;
+}
+
+.nav-link{
+    font-size: 1.3em;
+}
+.nav-link:hover{
+    color: #1071E5!important;
+}
+
+.nav-link.active{
+    color: #1071E5!important;
+    border-bottom: 3px solid  #1071E5;
+
+}
+
+/*  footer */
+footer{
+    font-size: 15px;
+    height: 12.6em;
+    background: #303239 ;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+footer p{
+   margin: 0;
+   margin-bottom: 10px;
+}
+.fila-1{
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
+.fila-2{
+    font-size: 0.8em;
+}
+.enlaces{
+    height: 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+.enlaces a{
+    width: 1.3em;
+    height: 1.3em;
+    margin: auto 10px auto 10px;
+}
+.enlaces img{
+     height: 1.2em;
+}
+
+.enlaces img:hover{
+    height: 1.3em;
+}
+
+.fila-4{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.fila-4 p{
+    font-size: 1em;
+}
+
+.fila-4 .empresa-disenadora{
+    font-size: 1.1em;
+    margin-left: 5px;
+    text-decoration: none;
+    color: #1071E5;
+
+}
+
+/*-------------------------------------*/
+
+
+.contenido-main-inicio-sesion{
+    width: 80%;
+    margin: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.inicio-sesion{
+    width: 35%;
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.titulo-inicio-sesion{
+    font-size: 3.3em;
+    color: #1B4B94;
+    margin-bottom: 80px;
+}
+
+.seccion-input-sesion{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 70px;
+}
+.seccion-input-sesion label{
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+.seccion-input-sesion input{
+    font-size: 1em;
+    padding: 5px 10px;
+    text-decoration: none;
+    border: none;
+    border-bottom: 1px solid #ADABAB;
+    outline: none;
+}
+.seccion-input-sesion input:focus{
+    border-bottom: 1px solid #473af7;
+}
+.seccion-input-sesion:hover input{
+    border-bottom: 1px solid #473af7;
+
+}
+.btn-iniciar-sesion{
+    color: white;
+    text-align: center;
+    font-size: 1em;
+    width: 11.6em;
+    height: 2.5em;
+    border: none;
+    background: #1071E5;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-iniciar-sesion:hover{
+    background: #4889d8;
+}
+
+.info{ 
+    width: 40%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.info img{
+    
+     width: 100%;
+     height: auto;
+     margin: auto;
+}
+
+.tituli-info{
+    color: #545454;
+    width: 100%;
+    font-size: 9em;
+    font-weight: 400;
+
+}
+
+.contenido-info{
+    width: 95%;
+    font-size: 3.4em;
+    text-align: justify;
+    color: #9B9B9B;
+    font-weight: 400;
+    line-height: 2;
+    
+}
+
+
+
+@media(max-width: 1400px){
+
+    body{
+        font-size: 13px;
+    }
+
+    .nav-link{
+        font-size: 1.5em;
+    }
+
+    .contenido-main{
+        width: 90%;
+    }
+
+
+    
+}
+
+@media(max-width: 1200px){
+
+    .contenido-main{
+        width: 95%;
+    }
+    
+}
+
+@media(max-width: 1070px){
+
+    body{
+        font-size: 10px;
+    }
+
+    .nav-link{
+        font-size: 1.8em;
+    }
+
+    .info{
+        display: none;
+
+    }
+    .inicio-sesion{
+        width: 100%;
+        font-size: 15px;
+    }
+
+    footer{
+        font-size: 13px;
+    }
+}
+
+@media(max-width: 400px){
+
+    .titulo-inicio-sesion{
+        font-size: 2.5em;
+    }
+
+}
+
+
+@media(max-width: 991px){
+
+    .nav-item {
+        margin: auto;
+    }
+
+}
+
+
+/*
+font-family: 'New Rocker', cursive;
+ font-family: 'Arimo', sans-serif;
+*/
+

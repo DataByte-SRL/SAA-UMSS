@@ -1,0 +1,15 @@
+body{
+    font-family: 'Arimo', sans-serif;
+    box-sizing: border-box;
+}
+
+.contenido-main{
+    width: 90%;
+    height: 80vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
