@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 $servidor = "mysql-andre.alwaysdata.net";
 $usuario="andre_root";

@@ -6,8 +6,12 @@ body{
 
 .contenido-main{
     width: 90%;
-    height: 80vh;
+    min-height: 80vh;
     margin: auto;
     display: flex;
     flex-direction: column;
+}
+
+.codigosis-tabla{
+    color: #1071E5!important;
 }

@@ -15,7 +15,7 @@ var mensajeError = document.querySelectorAll(".mensaje-error-form-a")
 
 ponerFuncionBotones();
 ponerFuncionalidadMesajeErrorFom();
-
+llenarTablaDocnetes();
 
 
 
@@ -142,6 +142,37 @@ function ValidarDatosFormulario(datos){
         borrarMensajeErrorInput( 'seccion-advertencia-correo');
     }
     return res;
+}
+
+
+function llenarTablaDocnetes(){
+    $.post("./php/consultaListaDocentes.php","datos",function(respuesta){
+        console.log(respuesta);
+        var lista = JSON.parse(respuesta);
+        var template = "";
+        
+        console.log(lista);
+        var n = 1;
+
+        lista.forEach(element => {
+            
+             template += ` <tr>
+                               <td>${n}</td>
+                               <td class="codigosis-tabla">${element[0]}</td>
+                               <td>${element[1]}</td>
+                               <td>${element[2]}</td>
+                               <td>${element[3]}</td>
+                               <td>${element[4]}</td>
+                               <td>${element[5]}</td>
+                               <td>${element[6]}</td>
+                               <td>${element[7]}</td>
+                               <td>${element[8]}</td>
+                               <td>${element[9]}</td>
+                         </tr>`;
+            n++;
+        });
+        $('#tbody-lista-docentes').html(template);
+    });
 }
 
 
