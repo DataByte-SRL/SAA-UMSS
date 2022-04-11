@@ -176,11 +176,11 @@ body{
 .btn-cancelar:hover{
     background: #f05757;
 }
-.btn-aceptar{
+.btn-registrar{
     background: #1071E5;
     margin-left: 60px;
 }
-.btn-aceptar:hover{
+.btn-registrar:hover{
     background: #4386d8;
 }
 
