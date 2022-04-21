@@ -15,7 +15,7 @@ var mensajeError = document.querySelectorAll(".mensaje-error-form-a")
 
 ponerFuncionBotones();
 ponerFuncionalidadMesajeErrorFom();
-llenarTablaDocnetes();
+
 
 
 
@@ -50,12 +50,12 @@ function ponerFuncionBotones(){
 
 function obtenerDatosFormulario(){
     var datosForm ={
-     codigosis : $('#codigosis').val(),
+     codigoSis : $('#codigosis').val(),
      nombre : $('#nombre').val(),
      apellido : $('#apellido').val(),
      ci : $('#ci').val(),
-     facultad : $('#facultad').val(),
-     departamento : $('#departamento').val(),
+     codFacultad : $('#facultad').val(),
+    // departamento : $('#departamento').val(),
      celular : $('#celular').val(),
      telefono : $('#telefono').val(),
      correo : $('#correo').val(),
@@ -69,7 +69,7 @@ function ValidarDatosFormulario(datos){
     var res = 1 ;  // se cambiara a 0 si hay error
     /*  Validando codigo sis */
     var expresion= /^\s*[0-9]{1,20}\s*$/;
-    if(expresion.test(datos['codigosis'].trim())) {
+    if(expresion.test(datos['codigoSis'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-codigosis');
     }else{
         darMesajeErrorInput("seccion-advertencia-codigosis","Campo obligatorio ,solo se aceptan numeros");
@@ -100,20 +100,20 @@ function ValidarDatosFormulario(datos){
         res = 0;
     }
     /* validando facultad */
-    if(datos['facultad']  == ""  ||  datos['facultad']  == null) {
+    if(datos['codFacultad']  == ""  ||  datos['codFacultad']  == null) {
         darMesajeErrorInput("seccion-advertencia-facultad","Debe selecionar una facultad");
         res = 0;
     }else{
         borrarMensajeErrorInput( 'seccion-advertencia-facultad');
     }
-    /* validando departamento */
+    /* validando departamento 
     expresion= /^\s*[a-zA-Z\s]{0,25}\s*$/;
     if(expresion.test(datos['departamento'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-departamento');
     }else{
         darMesajeErrorInput("seccion-advertencia-departamento","Solo se aceptan letras,entre 5 y 25 caracteres ");
         res = 0;
-    }
+    }*/
     /* validando celular */
     expresion= /^\s*[0-9]{7}\s*$/;
     if(expresion.test(datos['celular'].trim())) {
@@ -145,7 +145,13 @@ function ValidarDatosFormulario(datos){
 }
 
 
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+llenarTablaDocnetes();
+
 function llenarTablaDocnetes(){
+    var loader = document.querySelector(".seccion-loader");
+    loader.classList.remove("oculto");
     $.post("./php/consultaListaDocentes.php","datos",function(respuesta){
         console.log(respuesta);
         var lista = JSON.parse(respuesta);
@@ -155,26 +161,31 @@ function llenarTablaDocnetes(){
         var n = 1;
 
         lista.forEach(element => {
-            
+           console.log(element.codigoSis);
              template += ` <tr>
                                <td>${n}</td>
-                               <td class="codigosis-tabla">${element[0]}</td>
-                               <td>${element[1]}</td>
-                               <td>${element[2]}</td>
-                               <td>${element[3]}</td>
-                               <td>${element[4]}</td>
-                               <td>${element[5]}</td>
-                               <td>${element[6]}</td>
-                               <td>${element[7]}</td>
-                               <td>${element[8]}</td>
-                               <td>${element[9]}</td>
+                               <td class="codigosis-tabla">${element.codigoSis}</td>
+                               <td>${element.nombre}</td>
+                               <td>${element.apellido}</td>
+                               <td>${element.ci}</td>
+                               <td>${element.codFacultad}</td>
+                               <td>${element.telefono}</td>
+                               <td>${element.correo}</td>
+                               <td>${element.celular}</td>
+                               <td>${element.contrasena}</td>
+                             
                          </tr>`;
             n++;
         });
+        loader.classList.add("oculto");
         $('#tbody-lista-docentes').html(template);
     });
-}
 
+    
+
+
+}
+/*---------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo despues de validad los datos
     $(function(){
@@ -183,6 +194,7 @@ function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo de
            if(respuestaArchivoPHP == "1"){ // exito
                cerrarFormulario();
                borrarDatosForm("formulario-nuevo-docente");
+               llenarTablaDocnetes();
                Swal.fire({
                    title : "Registro Exitoso!",
                    icon: "success",
@@ -192,7 +204,7 @@ function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo de
            }else{
                Swal.fire({
                    title : "Error!",
-                   text: "No se puedo agregar por estos motivos",
+                   text: "No se puedo agregar por los siguientes motivos" +respuestaArchivoPHP ,
                    icon: "error" ,
                    confirmButtonColor:"#1071E5",
                    confirmButtonText:"Aceptar"
