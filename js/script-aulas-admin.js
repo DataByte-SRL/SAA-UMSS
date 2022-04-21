@@ -46,8 +46,8 @@ function ponerFuncionBotones(){
 
 function obtenerDatosFormulario(){
      var datosForm ={
-      facultad : $('#facultad').val(),
-      nombre : $('#nombre').val(),
+      codFacultad : $('#facultad').val(),
+      codAula : $('#nombre').val(),
       capacidad : $('#capacidad').val(),
       detalles : $('#detalles').val(),
       proyector : $('input[name="proyector"]:checked').val()
@@ -61,16 +61,16 @@ function ValidarDatosFormulario(datos){
     var res = 1 ;  // se cambiara a 0 si hay error
 
     /* validando facultad */
-    if(datos['facultad']  == ""  ||  datos['facultad']  == null) {
+    if(datos['codFacultad']  == ""  ||  datos['codFacultad']  == null) {
         darMesajeErrorInput("seccion-advertencia-facultad","Debe selecionar una facultad");
         res = 0;
     }else{
         borrarMensajeErrorInput( 'seccion-advertencia-facultad');
     }
 
-    /* Validando nombre */
+    /* Validando codAula */
     var expresion= /^\s*[a-zA-Z0-9\s]{1,20}\s*$/;
-    if(expresion.test(datos['nombre'].trim())) {
+    if(expresion.test(datos['codAula'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-nombre');
     }else{
         darMesajeErrorInput("seccion-advertencia-nombre","Debe tener almenos 1 caracter y maximo 20");
@@ -108,9 +108,45 @@ function ValidarDatosFormulario(datos){
 
     return res;
 }
+/* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 
+llenarTablaAulas();
 
+function llenarTablaAulas(){
+    var loader = document.querySelector(".seccion-loader");
+    loader.classList.remove("oculto");
+    $.post("./php/consultaListaAulas.php","datos",function(respuesta){
+        console.log(respuesta);
+        var lista = JSON.parse(respuesta);
+        var template = "";
+        
+        console.log(lista);
+        var n = 1;
+
+        lista.forEach(element => {
+           console.log(element.codigoSis);
+             template += ` <tr>
+                               <td>${n}</td>
+                               <td class="codigosis-tabla">${element.codFacultad}</td>
+                               <td>${element.codAula}</td>
+                               <td>${element.detalles}</td>
+                               <td>${element.capacidad}</td>
+                               <td>${element.proyector}</td>
+                             
+                         </tr>`;
+            n++;
+        });
+        loader.classList.add("oculto");
+        $('#tbody-lista-docentes').html(template);
+    });
+
+    
+
+
+}
+
+/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo despues de validad los datos
     $(function(){
        $.post("./php/"+ nombreArchivoPHP,datosForm,function(respuestaArchivoPHP){
@@ -124,10 +160,11 @@ function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo de
                    showConfirmButton: false,
                    timer: 1300
                });
+               llenarTablaAulas()
            }else{
                Swal.fire({
                    title : "Error!",
-                   text: "No se puedo agregar por estos motivos",
+                   text: "No se puedo agregar por estos motivos:"+respuestaArchivoPHP,
                    icon: "error" ,
                    confirmButtonColor:"#1071E5",
                    confirmButtonText:"Aceptar"

@@ -52,6 +52,13 @@
 
         <div class="herramientas-encabezado-a">
             <div class="buscador-encabezado-a">
+                <input type="text" class="encabezado-input-buscar" placeholder="Buscar coincidencias">
+                <button class="btn-input-bucar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+                    </svg>
+                    Buscar
+                </button>
             </div>
 
             <div class="filtro-encabezado-a">
@@ -61,6 +68,30 @@
         </div>
 
         <div class="seccion-tabla">
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Facultad</th>
+                        <th>Codigo Aula</th>
+                        <th>Destalles</th>
+                        <th>Capacidad</th>
+                        <th>Proyector</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-lista-docentes">
+                   
+                </tbody>
+               
+            </table>
+
+            <div class="seccion-loader  ">
+                <div class="contenedor-loader">
+                    <div class="loader ">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
 
             
 
@@ -97,7 +128,7 @@
 
     <div class="overlay-form-a">
         <div class="form-a ">
-            <h1 class="titulo-form-a ">FORMULLARIO NUEVA AULA</h1>
+            <h1 class="titulo-form-a ">FORMULARIO NUEVA AULA</h1>
             <form action="" id="formulario-nueva-aula">
                 <div class="seccion-input-form-a   input-facultad">
                     <label  >Facultad:</label>
@@ -123,9 +154,18 @@
                     </div>
                 </div>
                 <div class="seccion-input-form-a  input-nombre">
-                    <label>Nombre:</label>
+                    <label>Codigo Aula:</label>
                     <input name="nombre" id="nombre"  spellcheck="false" type="text" placeholder="(Campo Obligatorio))" maxlength="20">
                     <div class="mensaje-error-form-a seccion-advertencia-nombre ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
+                    </div>
+                </div>
+
+                <div class="seccion-input-form-a  input-detalles">
+                    <label>Detalles:</label>
+                    <input name="detalles" id="detalles" spellcheck="false" type="text" placeholder="(Campo Opcional)" maxlength="100">
+                    <div class="mensaje-error-form-a seccion-advertencia-detalles ">
                         <div class="img-advertencia  oculto"></div>
                         <p class="mensaje-error oculto"> </p>
                     </div>
@@ -140,14 +180,7 @@
                     </div>
                 </div>
 
-                <div class="seccion-input-form-a  input-detalles">
-                    <label>Detalles:</label>
-                    <input name="detalles" id="detalles" spellcheck="false" type="text" placeholder="(Campo Opcional)" maxlength="100">
-                    <div class="mensaje-error-form-a seccion-advertencia-detalles ">
-                        <div class="img-advertencia  oculto"></div>
-                        <p class="mensaje-error oculto"> </p>
-                    </div>
-                </div>
+            
 
                 <div class="seccion-input-form-a  input-proyector">
                     <label>Proyector:</label>
@@ -185,3 +218,4 @@
     
 </body>
 </html>
+
