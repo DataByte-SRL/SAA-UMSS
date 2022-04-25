@@ -147,44 +147,124 @@ function ValidarDatosFormulario(datos){
 
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-llenarTablaDocnetes();
+obtenerListaBaseDatos();
+var paginaActual= 1;
+var cantPaginas = 1;
+var maxFilasPagina = 50; 
+datosTabla = [];
 
-function llenarTablaDocnetes(){
+function obtenerListaBaseDatos(){
     var loader = document.querySelector(".seccion-loader");
     loader.classList.remove("oculto");
     $.post("./php/consultaListaDocentes.php","datos",function(respuesta){
-        console.log(respuesta);
         var lista = JSON.parse(respuesta);
-        var template = "";
-        
-        console.log(lista);
-        var n = 1;
+        datosTabla = lista;
+        datosTabla.sort((a,b)=>{
+            var nombreA = a.nombre.toLowerCase();
+            var nombreB = b.nombre.toLowerCase();
+            
+            if (nombreA < nombreB) {
+                return -1;
+            }
 
-        lista.forEach(element => {
-           console.log(element.codigoSis);
-             template += ` <tr>
-                               <td>${n}</td>
-                               <td class="codigosis-tabla">${element.codigoSis}</td>
-                               <td>${element.nombre}</td>
-                               <td>${element.apellido}</td>
-                               <td>${element.ci}</td>
-                               <td>${element.codFacultad}</td>
-                               <td>${element.telefono}</td>
-                               <td>${element.correo}</td>
-                               <td>${element.celular}</td>
-                               <td>${element.contrasena}</td>
-                             
-                         </tr>`;
-            n++;
+            if (nombreA > nombreB) {
+                return 1;
+            }
+            return 0;
         });
         loader.classList.add("oculto");
-        $('#tbody-lista-docentes').html(template);
+        establecerPaginacion();
+        ponerFuncionBotonesPaginacion();
+        cargarDatosPaginaTablaDocente(1);
     });
+}
 
-    
+function cargarDatosPaginaTablaDocente(numPagina){
+    var template = "";
+    if (numPagina < 1 || numPagina > cantPaginas) {
+        return;
+    }
+    paginaActual = numPagina;
 
+    var aux =  ((numPagina-1) * (maxFilasPagina));
+
+    for (let index = aux ; index < (aux + maxFilasPagina) && index < datosTabla.length ; index++) {
+        var element = datosTabla[index];
+        template += ` <tr>
+                          <td>${index+1}</td>
+                          <td class="codigosis-tabla">${element.codigoSis}</td>
+                          <td>${element.nombre}</td>
+                          <td>${element.apellido}</td>
+                          <td>${element.ci}</td>
+                          <td>${element.codFacultad}</td>
+                          <td>${element.telefono}</td>
+                          <td>${element.correo}</td>
+                          <td>${element.celular}</td>
+                          <td>${element.contrasena}</td>
+                        
+                    </tr>`;
+    }
+    $('#tbody-lista-docentes').html(template);
+    var numerosPaginacion = document.querySelectorAll(".page-item-numero");
+    for (let index = 0; index < numerosPaginacion.length; index++) {
+        element = numerosPaginacion[index];
+        if (index == numPagina -1 ) {
+            element.classList.add("active"); 
+        }else{
+            element.classList.remove("active");
+        }
+        
+    }
 
 }
+
+
+function establecerPaginacion(){
+    var template = ``;
+
+    cantPaginas = Math.ceil(datosTabla.length / maxFilasPagina);
+
+    if (cantPaginas == 0) {
+         cantPaginas = 1;
+    }
+
+    for (let index = 1; index <= cantPaginas; index++) {
+        template += `<li class="page-item page-item-numero" value = '${index}' ><a class="page-link value = '${index}' " href="#">${index}</a></li>`;
+    }
+     $('#numeros-paginacion').html(template);
+     (document.querySelector(".seccion-paginacion")).classList.remove("oculto");
+    
+
+}
+
+
+function ponerFuncionBotonesPaginacion(){
+
+    var numerosPaginacion = document.querySelectorAll(".page-item-numero");
+    var btnAtras = document.querySelector(".page-item-atras");
+    var btnAdelante = document.querySelector(".page-item-adelante");
+    var n = 1;
+    numerosPaginacion.forEach(element => {
+        var aux = n;
+        element.addEventListener("click", (e)=>{
+             cargarDatosPaginaTablaDocente(aux);
+        });
+        n++;
+    });
+
+    btnAtras.addEventListener("click",()=>{
+        cargarDatosPaginaTablaDocente(paginaActual-1);
+    });
+    btnAdelante.addEventListener("click",()=>{
+        cargarDatosPaginaTablaDocente(paginaActual+1);
+    });
+
+}
+
+
+
+
+
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo despues de validad los datos
@@ -288,3 +368,6 @@ function abrirFormulario(){
     overlay_form.classList.add("formulario-activo"); 
     form.classList.add("formulario-activo"); 
 }
+
+
+

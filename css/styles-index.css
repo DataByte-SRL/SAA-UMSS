@@ -4,6 +4,7 @@ body{
     font-size: 15px;
     margin: 0;
     padding: 0;
+    min-width: 400px;
 }
 
 main{
@@ -15,7 +16,14 @@ header{
     border-bottom: 1px solid #D4D4D4;
     position: fixed;
     width: 100%;
-    background: white;
+    background-color: #f9fafb;
+}
+
+.contenedor-navegacion{
+    width: 90%;
+    max-width: 90%;
+    margin: auto;
+    
 }
 
 .navbar-brand{
