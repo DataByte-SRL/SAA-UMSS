@@ -1,4 +1,5 @@
 <?php
+    conectar();
 function conectar(){
     /*$servidor = "mysql-giusseppe.alwaysdata.net";
     $usuario="giusseppe";
@@ -9,13 +10,12 @@ function conectar(){
     $usuario="andre";
     $contrasena="cualquiera";
     $BD="andre_base_datos";
-    try{
-        $conexion = mysqli_connect($servidor,$usuario,$contrasena,$BD);
-        return $conexion;
-    }catch(Exception $error){
-        echo"no se pudo conectar a la base de datos";
+
+    $conexion = new mysqli($servidor,$usuario,$contrasena,$BD);
+    if($conexion-> connect_error){
+        die("conexion fallida". $conexion-> connect_error);
     }
-    
+    echo "conexion exitosa";
     
 }
 ?>
