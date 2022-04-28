@@ -5,6 +5,7 @@ var overlay_form = document.querySelector(".overlay-form-a");
 var form = document.querySelector(".form-a");
 
 
+var btn_buscar= document.querySelector(".btn-input-bucar");
 var btn_cancelar_form = document.querySelector(".seccion-botones-form-a .btn-cancelar");
 var btn_aceptar_form = document.querySelector(".seccion-botones-form-a .btn-aceptar");
 var mensajeError = document.querySelectorAll(".mensaje-error-form-a")
@@ -18,6 +19,11 @@ ponerFuncionalidadMesajeErrorFom();
 
 function ponerFuncionBotones(){
     
+    btn_buscar.addEventListener("click",()=>{
+       buscar($(".opcion-busqueda").val(),document.querySelector(".encabezado-input-buscar").value);
+    });
+    ponerEventoInputBuscar();
+
     btn_nueva_aula.addEventListener("click",()=>{
         abrirFormulario();
     });
@@ -69,11 +75,11 @@ function ValidarDatosFormulario(datos){
     }
 
     /* Validando codAula */
-    var expresion= /^\s*[a-zA-Z0-9\s]{1,20}\s*$/;
+    var expresion= /^\s*[a-zA-Z0-9\-\s]{1,20}\s*$/;
     if(expresion.test(datos['codAula'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-nombre');
     }else{
-        darMesajeErrorInput("seccion-advertencia-nombre","Debe tener almenos 1 caracter y maximo 20");
+        darMesajeErrorInput("seccion-advertencia-nombre","Solo se acepta entre 1-20 caracteres alfanumericos y el simbolo - ");
         res = 0;
     }
 
@@ -113,17 +119,28 @@ function ValidarDatosFormulario(datos){
 obtenerListaBaseDatos();
 var paginaActual= 1;
 var cantPaginas = 1;
-var maxFilasPagina = 50; 
+var maxFilasPagina = Number($(".select-filtro-mostrar").val()); 
+if (!(maxFilasPagina == 25 ||maxFilasPagina == 50 ||maxFilasPagina == 70 ||maxFilasPagina == 100 )){
+    maxFilasPagina = 50;
+    establecerPaginacion();
+    ponerFuncionBotonesPaginacion();
+    cargarDatosPaginaTablaDocente(1);
+}
+
+datosTablaOriginal = [];
 datosTabla = [];
 
 
 function obtenerListaBaseDatos(){
+    $('#tbody-lista-aulas').html("");
     var loader = document.querySelector(".seccion-loader");
     loader.classList.remove("oculto");
     $.post("./php/consultaListaAulas.php","datos",function(respuesta){
         var lista = JSON.parse(respuesta);
+        datosTablaOriginal = lista;
         datosTabla = lista;
         loader.classList.add("oculto");
+        verificarYAplicarFiltrosAulas();
         establecerPaginacion();
         ponerFuncionBotonesPaginacion();
         cargarDatosPaginaTablaAula(1);
@@ -143,7 +160,7 @@ function cargarDatosPaginaTablaAula(numPagina){
         var element = datosTabla[index];
         template += ` <tr>
                            <td>${index+1}</td>
-                           <td class="codigosis-tabla">${element.codFacultad}</td>
+                           <td class="codigosis-tabla">${element.nombreFacultad}</td>
                            <td>${element.codAula}</td>
                            <td>${element.detalles}</td>
                            <td>${element.capacidad}</td>
@@ -208,6 +225,142 @@ function ponerFuncionBotonesPaginacion(){
 
 }
 
+ponerFuncionalidadFiltrosAulas();
+
+
+function ponerFuncionalidadFiltrosAulas(){
+
+    $(".select-filtro-facultad").change(function(){
+        document.querySelector(".encabezado-input-buscar").value ="";
+        verificarYAplicarFiltrosAulas();
+    });
+
+    $(".select-filtro-ordenar").change(function(){
+        document.querySelector(".encabezado-input-buscar").value ="";
+        verificarYAplicarFiltrosAulas();
+    });
+
+    $(".select-filtro-mostrar").change(function(){
+        console.log($(this).val())
+        cambiarCantidadDatosAMostrar(Number($(this).val()));
+    });
+    
+
+}
+
+function verificarYAplicarFiltrosAulas(){
+
+    if (datosTablaOriginal.length == 0) {
+        return;
+    }
+ 
+    var facultad = $(".select-filtro-facultad").val();
+    var ordenar = $(".select-filtro-ordenar").val();
+
+    datosTabla = datosTablaOriginal;
+
+    var expresion= /^\s*[0-9]{1,5}\s*$/;
+
+    if (expresion.test(facultad)){
+        var filtradoFacultad = datosTabla.filter(item =>{
+            if (facultad  == 0) {
+                return 1;
+            }
+           return item.codFacultad == facultad;
+        });
+
+        datosTabla = filtradoFacultad;
+    }
+
+    if (ordenar == "codigo-aula") {
+        datosTabla.sort((a,b)=>{
+            var codAulaA = a.codAula.toLowerCase();
+            var codAulaB = b.codAula.toLowerCase();
+            
+            if (codAulaA < codAulaB) {
+                return -1;
+            }
+
+            if (codAulaA > codAulaB) {
+                return 1;
+            }
+            return 0;
+        });
+    }else if(ordenar == "capacidad"){
+        datosTabla.sort((a,b)=>{
+            var capacidadA = Number(a.capacidad.trim());
+            var capacidadB = Number(b.capacidad.trim());
+
+            if (capacidadA < capacidadB) {
+                return -1;
+            }
+
+            if (capacidadA > capacidadB) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+
+    establecerPaginacion();
+    ponerFuncionBotonesPaginacion();
+    cargarDatosPaginaTablaAula(1);
+}
+
+
+
+function buscar(nombreColum,busqueda){
+
+    if (datosTablaOriginal.length == 0) {
+        return ;
+    }
+
+    datosTabla = datosTablaOriginal ; 
+    verificarYAplicarFiltrosAulas();
+
+    if (busqueda.length != 0) {
+        var datoBusqueda = busqueda.toLowerCase();
+        datoBusqueda = datoBusqueda.trim();
+        datoBusqueda = datoBusqueda.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+    
+        arregloFiltrado = datosTabla.filter(element =>{
+            var datoColum = element[""+nombreColum].toLowerCase();
+            datoColum = datoColum.trim();
+            datoColum = datoColum.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+            
+            if (datoColum.search(datoBusqueda) >= 0) {
+                return 1;
+            } 
+            return 0;
+        });
+    
+        datosTabla = arregloFiltrado;
+    }
+    establecerPaginacion();
+    ponerFuncionBotonesPaginacion();
+    cargarDatosPaginaTablaAula(1);
+    
+}
+
+function  ponerEventoInputBuscar(){
+    document.querySelector(".encabezado-input-buscar").addEventListener('keyup', function(e) {
+        var keycode = e.keyCode || e.which;
+        if (keycode == 13) {
+            buscar($(".opcion-busqueda").val(),document.querySelector(".encabezado-input-buscar").value);
+        }
+      });
+
+}
+
+
+function cambiarCantidadDatosAMostrar(cant){
+    if (cant == 25 ||cant == 50 ||cant == 70 ||cant == 100 ) {
+        maxFilasPagina = cant;
+        establecerPaginacion();
+        ponerFuncionBotonesPaginacion();
+        cargarDatosPaginaTablaAula(1);
+    }
+}
 
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
 function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo despues de validad los datos
@@ -223,7 +376,7 @@ function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo de
                    showConfirmButton: false,
                    timer: 1300
                });
-               llenarTablaAulas()
+               obtenerListaBaseDatos();
            }else{
                Swal.fire({
                    title : "Error!",

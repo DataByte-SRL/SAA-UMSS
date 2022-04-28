@@ -55,7 +55,14 @@
 
         <div class="herramientas-encabezado-a">
             <div class="buscador-encabezado-a">
-                <input type="text" class="encabezado-input-buscar" placeholder="Buscar coincidencias">
+                <input type="text" class="encabezado-input-buscar" placeholder="Buscar codigo de aula">
+                <select  class="opcion-busqueda">
+                    <option  value="codAula" selected>Codigo Aula</option>
+                    <option  value="detalles">Detalles</option>
+                    <option  value="capacidad">Capacidad</option>
+                    <option  value="proyector">Proyector</option>
+    
+                </select>
                 <button class="btn-input-bucar">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
@@ -65,6 +72,46 @@
             </div>
 
             <div class="filtro-encabezado-a">
+                <div class="opcion-filtro  filtro-facultada">
+                     <label >Facultad:</label>
+                     <select  class="select-filtro-facultad">
+                        <option  value="0"  selected>Todas</option>
+                        <option  value="1">Ciencias agricolas y Pecuarias</option>
+                        <option  value="2">CS.Bioquimicas</option>
+                        <option  value="3">Ciencias Económicas</option>
+                        <option  value="4">Desarrollo Rural</option>
+                        <option  value="5">Odontologia</option>
+                        <option  value="6">Medicina</option>
+                        <option  value="7">Arquitectura</option>
+                        <option  value="8">Humanidades</option>
+                        <option  value="9">Ciencias Juridicas</option>
+                        <option  value="10">Ciencias y Tecnologia</option>
+                        <option  value="11">Ciencias Sociales</option>
+                        <option  value="12">Ciencias Veterinarias</option>
+                        <option  value="13">Enfermeria</option>
+                    </select>
+
+                </div>
+                <div class="opcion-filtro  filtro-ordenar">
+                    <label >Odenar por:</label>
+                    <select  class="select-filtro-ordenar">
+                        <option  value="codigo-aula"  selected>Codigo Aula</option>
+                        <option   value="capacidad">Capacidad</option>
+                    </select>
+
+                </div>
+
+                <div class="opcion-filtro  filtro-facultada">
+                    <label >Mostrar:</label>
+                    <select  class="select-filtro-mostrar">
+                       <option  value="25">25</option>
+                       <option  value="50" selected>50</option>
+                       <option  value="70">70</option>
+                       <option  value="100">100</option>
+                   </select>
+               </div>
+
+                
             </div>
 
             <button class="btn-encabezado-a">Nueva Aula</button>     
