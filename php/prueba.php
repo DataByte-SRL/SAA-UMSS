@@ -1,24 +1,23 @@
 <?php
+include("conectar.php");
+/*
+$servidor = "mysql-andre.alwaysdata.net";
+$usuario="andre";
+$contrasena="cualquiera";
+$BD ="andre_base_datos";
 
-$servidor = "mysql-giusseppe.alwaysdata.net";
-$usuario="giusseppe";
-$contrasena="tonio2203";
-$BD="giusseppe_reservas_umss";
+$conexion = new mysqli($servidor,$usuario,$contrasena,$BD);
+    if($conexion-> connect_errno){
+        die("conexion fallida". $conexion-> connect_error);
+    }else{
+        echo "conexion exitosa";
+    }
+*/
+$con=conectar();
 
-$conexionPDO = new PDO("mysql:host=$servidor;dbname=$BD",$usuario,$contrasena);
-$conexionPDO->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+$con-> query("insert into Docente (codigoSis, nombre, apellido, ci, codFacultad, contrasena, celular, telefono, correo) values ('201304123','analuisa','lopez','10293874','9','contrasenia','12345678', '87654321','correito@correo.com')");
 
-$consulta= "insert into `usuario` (`ci`, `nombre`, `telefono`, `correo`) values ('444444','andre','12435','andre@gmail.com')";
-$consulta = "insert into `ADMINISTRADOR`(`CODIGOADMINISTRADOR`, `NOMBREADMIN`, `CONTRASENAADMIN`) values ('66221','pedro','54321')";
-
-$respuesta = "";
-try {
-    $respuesta = $conexionPDO->exec($consulta);
-    echo "se logro agregar con exito a la base de datos";
-} catch (PDOException $e) {
-    echo($e->getMessage());
-}
-
+mysqli_close($con);
 /*
 $conexion = mysqli_connect($servidor,$usuario,$contrasena,$BD);
 
