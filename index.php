@@ -1,3 +1,28 @@
+
+<?php
+    include_once ("php/conectar.php");
+    
+    session_start();
+    if(isset($_SESSION['cuenta'])){
+        header('location: reservas-admin.php');
+    }else{
+
+    }
+
+    if(isset($_POST['username']) && isset($_POST['password'])){
+        $username=$_POST['username'];
+        $password=$_POST['paswoord'];
+        $con=conectar();
+        $dbquery=$con->query("select codigoSis, contrasena from 'Docente' where codigoSis= $username and contrasena= $password");
+        mysqli_close($con);
+        if($dbquery=null){
+            echo "usuario o contraseña son incorrectos" ;
+        }else{
+            $_SESSION['cuenta']= verificado;
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,20 +69,20 @@
         </nav>
     </header>
 
-    <main class="contenido-main-inicio-sesion">
+    <main class="contenido-main-inicio-sesion" method="POST">
         <div class="inicio-sesion">
             <h1 class="titulo-inicio-sesion">¡BIENVENIDO!</h1>
             <div class="seccion-input-sesion">
                 <label>CodigoSIS</label>
-                <input type="text" >
+                <input type="text" name="username">
             </div>
 
             <div class="seccion-input-sesion">
                 <label>Constaseña</label>
-                <input type="password" >
+                <input type="password"  name="password">
             </div>
-
-            <button class="btn-iniciar-sesion">INICIAR SESION</button>
+            <input class="btn-iniciar-sesion" type="submit" value= "INICIAR SESION">
+            <!--<button class="btn-iniciar-sesion">INICIAR SESION</button>-->
 
         </div>
         <div class="info">

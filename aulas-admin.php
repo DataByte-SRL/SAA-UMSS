@@ -1,3 +1,11 @@
+
+<?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
+
+    if(!isset($_SESSION['cuenta'])){
+        header('location:index.php');
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

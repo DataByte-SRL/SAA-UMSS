@@ -10,7 +10,7 @@ function conectar(){
         die("conexion fallida". $conexion-> connect_error);
         return $conexion;
     }else{
-        echo "conexion exitosa";
+        //echo "conexion exitosa";
         return $conexion;
     }
 }
