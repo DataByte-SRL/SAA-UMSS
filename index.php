@@ -4,34 +4,28 @@
     
     session_start();
     //session_unset();
+    //session_destroy();
     if(isset($_SESSION['cuenta'])){
         header('location: reservas-admin.php');
     }else{
-        $username="201820759";
-        $password="HOU54QWT8SB";
-        $con=conectar();
-        $dbquery=$con->query("select codigoSis, contrasena from 'Docente' where codigoSis= $username and contrasena= $password");
-        mysqli_close($con);
-        if($dbquery=null){
-            echo "usuario o contraseña son incorrectos" ;
-        }else{
-            $_SESSION['cuenta']= "verificado";
-            header('location:index.php');
+        if(isset($_POST['codigosis']) && isset($_POST['contrasena'])){
+            $username=$_POST['codigosis'];
+            $password=$_POST['contrasena'];
+            $con=conectar();
+            $dbquery= mysqli_query($con,"select codigoSis, contrasena from Docente where codigoSis='$username' and contrasena='$password';");
+            $resultado= mysqli_fetch_array($dbquery);
+            mysqli_close($con);
+            if($resultado['codigoSis']==$username && $resultado['contrasena']==$password){
+                
+                $_SESSION['cuenta']= "verificado";
+                header('location:index.php');
+            }else{
+                echo "usuario o contraseña son incorrectos" ;
+            }
+          
         }
-    }
-
-    /*if(isset($_POST['username']) && isset($_POST['password'])){
-        $username=$_POST['username'];
-        $password=$_POST['paswoord'];
-        $con=conectar();
-        $dbquery=$con->query("select codigoSis, contrasena from 'Docente' where codigoSis= $username and contrasena= $password");
-        mysqli_close($con);
-        if($dbquery=null){
-            echo "usuario o contraseña son incorrectos" ;
-        }else{
-            $_SESSION['cuenta']= "verificado";
-        }
-    }*/
+        
+    }  
 
 ?>
 
@@ -84,18 +78,19 @@
     <main class="contenido-main-inicio-sesion" method="POST">
         <div class="inicio-sesion">
             <h1 class="titulo-inicio-sesion">¡BIENVENIDO!</h1>
-            <div class="seccion-input-sesion">
-                <label>CodigoSIS</label>
-                <input type="text" name="username">
-            </div>
+            <form class="form-inicio-sesion" action="index.php" method="post">
+                <div class="seccion-input-sesion">
+                    <label>CodigoSIS</label>
+                    <input type="text" name="codigosis" >
+                </div>
 
-            <div class="seccion-input-sesion">
-                <label>Constaseña</label>
-                <input type="password"  name="password">
-            </div>
-            <input class="btn-iniciar-sesion" type="submit" value= "INICIAR SESION">
-            <!--<button class="btn-iniciar-sesion">INICIAR SESION</button>-->
+                <div class="seccion-input-sesion">
+                    <label>Constaseña</label>
+                    <input type="password" name="contrasena">
+                </div>
 
+                <button class="btn-iniciar-sesion" >INICIAR SESION</button>
+            </form>
         </div>
         <div class="info">
             <img  src="img/imagen-sesion.svg" height="550">
