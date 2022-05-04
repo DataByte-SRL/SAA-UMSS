@@ -3,13 +3,24 @@
     include_once ("php/conectar.php");
     
     session_start();
+    //session_unset();
     if(isset($_SESSION['cuenta'])){
         header('location: reservas-admin.php');
     }else{
-
+        $username="201820759";
+        $password="HOU54QWT8SB";
+        $con=conectar();
+        $dbquery=$con->query("select codigoSis, contrasena from 'Docente' where codigoSis= $username and contrasena= $password");
+        mysqli_close($con);
+        if($dbquery=null){
+            echo "usuario o contraseña son incorrectos" ;
+        }else{
+            $_SESSION['cuenta']= "verificado";
+            header('location:index.php');
+        }
     }
 
-    if(isset($_POST['username']) && isset($_POST['password'])){
+    /*if(isset($_POST['username']) && isset($_POST['password'])){
         $username=$_POST['username'];
         $password=$_POST['paswoord'];
         $con=conectar();
@@ -18,9 +29,10 @@
         if($dbquery=null){
             echo "usuario o contraseña son incorrectos" ;
         }else{
-            $_SESSION['cuenta']= verificado;
+            $_SESSION['cuenta']= "verificado";
         }
-    }
+    }*/
+
 ?>
 
 <!DOCTYPE html>
