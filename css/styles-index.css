@@ -137,6 +137,12 @@ footer p{
     color: #1B4B94;
     margin-bottom: 80px;
 }
+.form-inicio-sesion{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .seccion-input-sesion{
     display: flex;
