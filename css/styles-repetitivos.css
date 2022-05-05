@@ -347,6 +347,7 @@
 
 .buscador-encabezado-a{
     display: flex;
+    flex-wrap: wrap;
 
 }
 

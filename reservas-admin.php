@@ -1,3 +1,11 @@
+<?php
+
+$nombre = "Joao Andre";
+$apellido = "Carpio Rocha"
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,11 +45,27 @@
                                 <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
                             </li>
                             <li class="nav-item   text-center">
-                                <a class="nav-link active" href="reservas-admin.php">Reservas</a>
+                                <a class="nav-link " href="reservas-admin.php">Reservas</a>
                             </li>
-                            <li class="nav-item  text-center">
-                                <a class="nav-link " href="index.php">Iniciar Sesion</a>
-                            </li>
+                            <?php 
+                            
+                                echo ("<li class='nav-item  text-center nav-item-usuario'>
+                                          <div class= 'info-usuario-menu '>
+                                              <p class='nav-link  nombre-usuario-menu ' >$nombre $apellido</p>
+                                              <div class='imagen-usuario'>
+                                                  <p class= 'texto-imagen-usuario'>$nombre[0]$apellido[0]</p>
+                                              </div>
+                                          </div>
+                                          <div class='opciones-usuario oculto'>
+                                            <div class='item-opciones-usuario item-opciones-usuario1'>
+                                                <a href='#'>Configuracion de Cuenta</a>
+                                            </div>
+                                            <div class='item-opciones-usuario'>
+                                                <a href='#'>Cerrar Sesion</a>
+                                            </div>
+                                          </div>
+                                      </li>");
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -95,6 +119,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-reservas-admin.js"></script>
+    <script src="js/script-index.js"></script>
  
     
 </body>
