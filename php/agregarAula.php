@@ -1,5 +1,26 @@
 <?php 
-  require __DIR__ . 'conectar.php';
+  include_once ("conectar.php");
+
+  if(isset ($_GET ['cerrar_session'])){
+    session_unset();
+    session_destroy();
+  }
+  if($_POST){
+      if(isset($_SESSION['cuenta'])){
+        $codFacultad = $_POST['codFacultad'];
+            $codAula = $_POST['codAula'];
+            $detalles = $_POST['detalles'];
+            $capacidad= $_POST['capacidad'];
+            $proyector= $_POST['proyector'];
+
+            $con=conectar();
+            $dbquery= mysqli_query($con,"insert into `Aula`(`codFacultad`, `codAula`, `detalles`, `capacidad`, `proyector`) VALUES ('$codFacultad','$codAula','$detalles','$capacidad','$proyector')");
+            mysqli_close($con);
+      }else{
+        header('location:index.php');
+      }
+  }
+
 
 /*if($_POST){
   
@@ -14,11 +35,7 @@
     $conexionPDO = new PDO("mysql:host=$servidor;dbname=$BD",$usuario,$contrasena);
     $conexionPDO->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    $codFacultad = $_POST['codFacultad'];
-    $codAula = $_POST['codAula'];
-    $detalles = $_POST['detalles'];
-    $capacidad= $_POST['capacidad'];
-    $proyector= $_POST['proyector'];
+    
     
     $consulta = "insert into `Aula`(`codFacultad`, `codAula`, `detalles`, `capacidad`, `proyector`) VALUES ('$codFacultad','$codAula','$detalles','$capacidad','$proyector')";
     
@@ -30,7 +47,7 @@
       echo($e->getMessage());
   }
 
-}*/
+}
 function agregarAula($condFacultad, $codAula, $detalles, $capacidad, $proyector){
   conectar();
   $consulta = "insert into `Aula`(`codFacultad`, `codAula`, `detalles`, `capacidad`, `proyector`) VALUES ('$codFacultad','$codAula','$detalles','$capacidad','$proyector')";
@@ -40,7 +57,7 @@ function agregarAula($condFacultad, $codAula, $detalles, $capacidad, $proyector)
     echo "error al crear aula";
   }
   mysqli_close($conexion);
-}
+}*/
 
 
 ?>

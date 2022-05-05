@@ -3,25 +3,28 @@
     include_once ("php/conectar.php");
     
     session_start();
-    //session_unset();
-    //session_destroy();
+    if(isset ($_GET ['cerrar_session'])){
+        session_unset();
+        session_destroy();
+    }
+    
     if(isset($_SESSION['cuenta'])){
         header('location: reservas-admin.php');
     }else{
         if(isset($_POST['codigosis']) && isset($_POST['contrasena'])){
             $username=$_POST['codigosis'];
-            $password=$_POST['contrasena'];
+            $password=$_POST['contrasena']; 
             $con=conectar();
             $dbquery= mysqli_query($con,"select codigoSis, contrasena from Docente where codigoSis='$username' and contrasena='$password';");
             $resultado= mysqli_fetch_array($dbquery);
             mysqli_close($con);
-            if($resultado['codigoSis']==$username && $resultado['contrasena']==$password){
+            /*if($resultado['codigoSis']==$username && $resultado['contrasena']==$password){
                 
                 $_SESSION['cuenta']= "verificado";
                 header('location:index.php');
             }else{
                 echo "usuario o contraseña son incorrectos" ;
-            }
+            }*/
           
         }
         
@@ -87,13 +90,27 @@
                 <div class="seccion-input-sesion">
                     <label>Constaseña</label>
                     <input type="password" name="contrasena">
+                    <?php
+                    if($_POST){
+                        if($resultado['codigoSis']==$username && $resultado['contrasena']==$password && $username!= null && $password!= null){
+                            echo "llegue aqui";
+                            $_SESSION['cuenta']= "verificado";
+                            header('location:index.php');
+                        }else{
+                            echo "<label> <b> <font color=\"red\"> Usuario o contraseña son incorrectos <b> </label> <br>";
+                        }
+                    }
+                ?>
                 </div>
-
+                
                 <button class="btn-iniciar-sesion" >INICIAR SESION</button>
+                
+                
+                
             </form>
         </div>
         <div class="info">
-            <img  src="img/imagen-sesion.svg" height="550">
+            <img  src="img/imagen-sesion.svg" height="550" >
         </div>
 
     </main>
