@@ -1,0 +1,201 @@
+
+body{
+    font-family: 'Arimo', sans-serif;
+    box-sizing: border-box;
+}
+
+.contenido-main{
+    width: 88%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+
+/*                          estilos encabezado                 */
+
+
+.encabezado-pagina-reservas{
+    display: flex;
+    flex-direction: row;
+    margin: 50px auto 20px 0px;
+    padding-bottom: 5px;
+    font-size: 15px;
+    border-bottom: 1px solid #D4D4D4;
+    width: 500px;
+    
+}
+
+.opcion-encabezado-pagina-reserva{
+    font-size: 1.2em;
+    margin: 4px 0px 4px 0px;
+    padding: 0px 12px 0px 12px;
+    color: #5E5E5E;
+    cursor: pointer;
+}
+.opcion-encabezado-pagina-reserva:hover{
+    color: #1071E5;
+}
+.opcion-encabezado-pagina-reserva.ultimo{
+    border-left: 1px solid #D4D4D4;
+}
+.opcion-encabezdo-selecionado{
+    color: #1071E5;
+}
+
+
+/*--------------- estilos para el formulario de reserva ----------------*/
+
+.formulario-reserva{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 50px 25px 50px;
+    max-width: 1000px;
+    margin: 20px auto 30px auto;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #D4D4D4;
+}
+.titulo-formulario-reserva{
+    color: #2D2929;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px auto 20px auto;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #D4D4D4;
+    padding-bottom: 10px;
+}
+
+.seccion-datos-reserva{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.seccion-input{
+    margin: 10px auto 10px 0px;
+    display: flex;
+    flex-direction: row;
+}
+.label-input{
+    color: #5E5E5E;
+    font-size: 15px;
+    margin: 5px 10px auto 0px;
+}
+
+.input-asunto{
+    width: 500px;
+    outline: none;
+    border-radius: 7px;
+    border: 1px solid #827D7D;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 15px;
+}
+
+.input-asunto:hover{
+    border: 1px solid #1071E5;
+}
+.input-asunto:focus{
+    border: 1px solid #1071E5;
+}
+
+.dato-cantidad-estudiantes{
+    width: 100px;
+    border-radius: 2px;
+    border: 1px solid #ACACAC;
+    margin-top: 3px;
+    padding: 2px 7px 1px 7px;
+    height: 27px;
+    font-size: 15px;
+    border-radius: 7px;
+    color: #ACACAC;
+
+}
+
+.input-fecha{
+    border-radius: 7px;
+    border:  1px solid #827D7D;
+    outline: none;
+    padding-left: 7px;
+    padding-right: 7px;
+    height: 27px;
+    font-size: 15px;
+    margin-top: 2px;
+    cursor: text;
+}
+.input-fecha:hover{
+    border:  1px solid #1071E5;
+}
+.input-fecha:focus{
+    border:  1px solid #1071E5;
+}
+.seccion-aulas-reserva{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-top: 1px solid #D4D4D4;
+    border-bottom: 1px solid #D4D4D4;
+    padding-left: 50px;
+
+}
+
+.seccion-comentario-reserva{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+
+.input-comentario{
+    width: 500px;
+    height: 100px;
+    border-radius: 7px;
+    border: 1px solid #D4D4D4;
+    padding: 7px;
+    outline: none;    
+    resize: none;
+    margin-top: 3px;
+}
+.input-comentario:hover{
+    border:  1px solid #1071E5;
+}
+.input-comentario:focus{
+    border:  1px solid #1071E5;
+}
+
+.input-comentario::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+    border-radius: 15px;
+}
+
+.input-comentario::-webkit-scrollbar-thumb{
+    background: #c5c5c5;
+    width: 5px;
+    height: 5px;
+    border-radius: 15px;
+}
+
+.btn-reservar-aula{
+    font-size: 15px;
+    color: white;
+    background-color:#1071E5;
+    border: none;
+    border-radius: 7px;
+    width: 180px;
+    height: 30px;
+    text-align: center;
+    margin: 20px auto 10px 40px;
+}
+.btn-reservar-aula:hover{
+    background-color:#4b97f3;
+}
+
+
+/*-------------------------------------------------*/

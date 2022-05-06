@@ -8,7 +8,7 @@ body{
 }
 
 main{
-   padding-top: 90px ;
+   padding-top: 97px ;
    min-height: 100vh;
 }
 
@@ -293,11 +293,11 @@ footer p{
 }
 
 .imagen-usuario-hover{
-    background-color: #473af7;
+    background-color: #1071E5;
 
 }
 .nombre-usuario-hover{
-    color: #473af7!important;
+    color: #1071E5!important;
 }
 
 

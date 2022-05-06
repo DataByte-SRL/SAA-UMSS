@@ -45,7 +45,7 @@ $apellido = "Carpio Rocha"
                                 <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
                             </li>
                             <li class="nav-item   text-center">
-                                <a class="nav-link " href="reservas-admin.php">Reservas</a>
+                                <a class="nav-link active " href="reservas-admin.php">Reservas</a>
                             </li>
                             <?php 
                             
