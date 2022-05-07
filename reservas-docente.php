@@ -1,7 +1,16 @@
 <?php
 
+date_default_timezone_set("America/Santiago");
+$time = time();
+$day =date("d",$time + (1 * 24 * 60 * 60));
+$year =date("Y",$time);
+$month = date("m",$time);
+$month2 = date("m",$time+ (30 * 24 * 60 * 60));
+
 $nombre = "Joao Andre";
 $apellido = "Carpio Rocha"
+
+
 
 ?>
 
@@ -40,7 +49,7 @@ $apellido = "Carpio Rocha"
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             
                             <li class="nav-item   text-center">
-                                <a class="nav-link active " href="reservas-admin.php">Reservas</a>
+                                <a class="nav-link active " href="reservas-docente.php">Reservas</a>
                             </li>
                             <?php 
                             
@@ -80,7 +89,7 @@ $apellido = "Carpio Rocha"
            
             <div class="seccion-datos-reserva">
                 <div class="seccion-input">
-                    <label class="label-input" for="">Asunto:</label>
+                    <label class="label-input" for="asunto">Asunto:</label>
                     <input type="text"  spellcheck="false"  class="input-asunto" name="asunto" >
 
                 </div>
@@ -91,13 +100,22 @@ $apellido = "Carpio Rocha"
 
                     </div>
 
+                     <button class="btn-agregar btn-agregar-materia">Agregar</button>
+
                 </div>
 
                 <div class="seccion-input">
                     <label class="label-input">Solicitantes:</label>
                     <div class="selecciones-seccion-input input-solicitantes">
+                        <div class="item-seccion-input">
+                            <p class="info-input">Joao Andre Carpoi Rocha</p>
+                            <button class="btn-item-input">x</button>
+
+                        </div>
+                      
 
                     </div>
+                    <button class="btn-agregar btn-agregar-solicitante">Agregar</button>
 
                 </div>
 
@@ -106,11 +124,12 @@ $apellido = "Carpio Rocha"
                     <div class="selecciones-seccion-input input-grupos">
 
                     </div>
+                    <button class="btn-agregar btn-agregar-grupo">Agregar</button>
                 </div>
 
                 <div class="seccion-input">
                     <label class="label-input" for="fecha">Fecha:</label>
-                    <input type="date"  class="input-fecha" name="fecha">
+                    <input type="date"  class="input-fecha" name="fecha" <?php echo ("value='$year-$month-$day' min='$year-$month-$day' max='$year-$month2-$day'")?>>
                 </div>
 
                 <div class="seccion-input">
@@ -118,6 +137,8 @@ $apellido = "Carpio Rocha"
                     <div class="selecciones-seccion-input input-periodos">
 
                     </div>
+
+                    <button class="btn-agregar btn-agregar-grupo">Agregar</button>
                 </div>
 
                 <div class="seccion-input">
@@ -193,6 +214,7 @@ $apellido = "Carpio Rocha"
     </footer>
 
 
+    <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-reservas-docente.js"></script>
     <script src="js/script-index.js"></script>

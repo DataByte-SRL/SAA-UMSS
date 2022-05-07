@@ -27,6 +27,7 @@
     align-items: center;
     justify-content: center;
     visibility: hidden;
+    z-index: 20;
 }
 
 .formulario-activo{
