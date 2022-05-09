@@ -1,5 +1,7 @@
 <?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
     session_start();
+    $nombre = $_SESSION['nombre'];
+    $apellido = $_SESSION['apellido'];
     if(!isset($_SESSION['cuenta'])){
         header('location:index.php');
     }else{
@@ -46,9 +48,25 @@
                         <li class="nav-item   text-center">
                             <a class="nav-link" href="reservas-admin.php">Reservas</a>
                         </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link " href="index.php">Iniciar Sesion</a>
-                        </li>
+                        <?php 
+
+                        echo ("<li class='nav-item  text-center nav-item-usuario'>
+                                <div class= 'info-usuario-menu '>
+                                    <p class='nav-link  nombre-usuario-menu ' >$nombre $apellido</p>
+                                    <div class='imagen-usuario'>
+                                        <p class= 'texto-imagen-usuario'>$nombre[0]$apellido[0]</p>
+                                    </div>
+                                </div>
+                                <div class='opciones-usuario oculto'>
+                                    <div class='item-opciones-usuario item-opciones-usuario1'>
+                                        <a href='#'>Configuracion de Cuenta</a>
+                                    </div>
+                                    <div class='item-opciones-usuario'>
+                                        <a href='#'>Cerrar Sesion</a>
+                                    </div>
+                                </div>
+                            </li>");
+                        ?>
                     </ul>
                 </div>
             </div>

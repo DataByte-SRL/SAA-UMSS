@@ -14,17 +14,35 @@
         if(isset($_POST['codigosis']) && isset($_POST['contrasena'])){
             $username=$_POST['codigosis'];
             $password=$_POST['contrasena']; 
+            $usuariodb;
             $con=conectar();
             $dbquery= mysqli_query($con,"select codigoSis, contrasena from Docente where codigoSis='$username' and contrasena='$password';");
             $resultado= mysqli_fetch_array($dbquery);
             mysqli_close($con);
-            /*if($resultado['codigoSis']==$username && $resultado['contrasena']==$password){
+            if($resultado['codigoSis']==$username && $resultado['contrasena']==$password && $username!= null && $password!= null){
+                $con=conectar();
+                $dbqueryUser=mysqli_query($con, "select nombre, apellido from Docente where codigoSis='$username' and contrasena='$password';");
+                $usuariodb= mysqli_fetch_array($dbqueryUser);
+                mysqli_close($con);
+                $_SESSION['nombre']= $usuariodb['nombre'];
+                $_SESSION['apellido']=$usuariodb['apellido'];
                 
-                $_SESSION['cuenta']= "verificado";
-                header('location:index.php');
             }else{
-                echo "usuario o contraseña son incorrectos" ;
-            }*/
+                $con=conectar();
+                $dbquery= mysqli_query($con,"select codigoSis, contrasena from Administrador where codigoSis='$username' and contrasena='$password';");
+                $resultado= mysqli_fetch_array($dbquery);
+                mysqli_close($con);
+
+               if($resultado['codigoSis']==$username && $resultado['contrasena']==$password && $username!= null && $password!= null){
+                    $con=conectar();
+                    $dbqueryUser=mysqli_query($con, "select nombre, apellido from Administrador where codigoSis='$username' and contrasena='$password';");
+                    $usuariodb= mysqli_fetch_array($dbqueryUser);
+                    mysqli_close($con);
+                    $_SESSION['nombre']= $usuariodb['nombre'];
+                    $_SESSION['apellido']=$usuariodb['apellido'];
+               }
+               
+            }
           
         }
         
@@ -57,23 +75,7 @@
                 <a class="navbar-brand me-auto" href="index.php">SAA-UMSS</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item ">
-                            <a class="nav-link  text-center" aria-current="page" href="aulas-admin.php">Aulas</a>
-                        </li>
-                        <li class="nav-item text-center ">
-                            <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
-                        </li>
-                        <li class="nav-item   text-center">
-                            <a class="nav-link" href="reservas-admin.php">Reservas</a>
-                        </li>
-                        <li class="nav-item  text-center">
-                            <a class="nav-link active" href="index.php">Iniciar Sesion</a>
-                        </li>
-                    </ul>
-                </div>
+                </button>               
             </div>
         </nav>
     </header>
@@ -93,7 +95,7 @@
                     <?php
                     if($_POST){
                         if($resultado['codigoSis']==$username && $resultado['contrasena']==$password && $username!= null && $password!= null){
-                            echo "llegue aqui";
+                            //echo "llegue aqui";
                             $_SESSION['cuenta']= "verificado";
                             header('location:index.php');
                         }else{
