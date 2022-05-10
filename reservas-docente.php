@@ -1,16 +1,22 @@
-<?php
+<?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
+    
+    $nombre = " ";
+    $apellido = " ";
+    session_start();
 
-date_default_timezone_set("America/Santiago");
-$time = time();
-$day =date("d",$time + (1 * 24 * 60 * 60));
-$year =date("Y",$time);
-$month = date("m",$time);
-$month2 = date("m",$time+ (30 * 24 * 60 * 60));
+    if(!isset($_SESSION['cuenta'])){
+        header('location:index.php');
+    }else{
+        $nombre = $_SESSION['nombre'];
+        $apellido = $_SESSION['apellido'];
+    }
 
-$nombre = "Joao Andre";
-$apellido = "Carpio Rocha"
-
-
+    date_default_timezone_set("America/Santiago");
+    $time = time();
+    $day =date("d",$time + (1 * 24 * 60 * 60));
+    $year =date("Y",$time);
+    $month = date("m",$time);
+    $month2 = date("m",$time+ (30 * 24 * 60 * 60));
 
 ?>
 
@@ -65,7 +71,7 @@ $apellido = "Carpio Rocha"
                                                 <a href='#'>Configuracion de Cuenta</a>
                                             </div>
                                             <div class='item-opciones-usuario'>
-                                                <a href='#'>Cerrar Sesion</a>
+                                                <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
                                             </div>
                                           </div>
                                       </li>");

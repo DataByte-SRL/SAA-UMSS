@@ -147,13 +147,14 @@ footer p{
 .titulo-inicio-sesion{
     font-size: 3.3em;
     color: #1B4B94;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
 }
 .form-inicio-sesion{
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .seccion-input-sesion{
@@ -167,7 +168,7 @@ footer p{
     margin-bottom: 10px;
 }
 .seccion-input-sesion input{
-    font-size: 1em;
+    font-size: 1.3em;
     padding: 5px 10px;
     text-decoration: none;
     border: none;
@@ -180,6 +181,15 @@ footer p{
 .seccion-input-sesion:hover input{
     border-bottom: 1px solid #473af7;
 
+}
+
+.mensaje-error-sesion{
+    font-size: 1.2em;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 15px;
+    color: red;
+    text-align: center;
 }
 .btn-iniciar-sesion{
     color: white;

@@ -1,7 +1,15 @@
-<?php
-
-$nombre = "Joao Andre";
-$apellido = "Carpio Rocha"
+<?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
+    
+    $nombre = " ";
+    $apellido = " ";
+    session_start();
+    
+    if(!isset($_SESSION['cuenta'])){
+        header('location:index.php');
+    }else{
+        $nombre = $_SESSION['nombre'];
+        $apellido = $_SESSION['apellido'];
+    }
 
 ?>
 <!DOCTYPE html>
@@ -58,7 +66,7 @@ $apellido = "Carpio Rocha"
                                             <a href='#'>Configuracion de Cuenta</a>
                                         </div>
                                         <div class='item-opciones-usuario'>
-                                            <a href='#'>Cerrar Sesion</a>
+                                            <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
                                         </div>
                                       </div>
                                   </li>");
