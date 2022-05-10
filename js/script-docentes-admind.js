@@ -529,7 +529,6 @@ function borrarDatosForm(nombreForm){
 function cerrarFormulario(){
     overlay_form.classList.remove("formulario-activo");
     form.classList.remove("formulario-activo"); 
-
 }
 
 function abrirFormulario(){

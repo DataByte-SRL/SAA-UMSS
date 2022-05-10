@@ -628,3 +628,10 @@
     visibility: hidden;
 
 }
+
+
+.scroll-y-hidden{
+    display: flex;
+    flex-direction: column;
+    overflow-y:hidden;
+}

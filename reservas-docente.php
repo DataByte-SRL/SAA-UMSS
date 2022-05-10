@@ -107,15 +107,9 @@ $apellido = "Carpio Rocha"
                 <div class="seccion-input">
                     <label class="label-input">Solicitantes:</label>
                     <div class="selecciones-seccion-input input-solicitantes">
-                        <div class="item-seccion-input">
-                            <p class="info-input">Joao Andre Carpoi Rocha</p>
-                            <button class="btn-item-input">x</button>
-
-                        </div>
-                      
-
+                        
                     </div>
-                    <button class="btn-agregar btn-agregar-solicitante">Agregar</button>
+                    <button class="btn-agregar btn-agregar-solicitante btn-agregar-deshabilitado">Agregar</button>
 
                 </div>
 
@@ -124,7 +118,7 @@ $apellido = "Carpio Rocha"
                     <div class="selecciones-seccion-input input-grupos">
 
                     </div>
-                    <button class="btn-agregar btn-agregar-grupo">Agregar</button>
+                    <button class="btn-agregar btn-agregar-grupo btn-agregar-deshabilitado">Agregar</button>
                 </div>
 
                 <div class="seccion-input">
@@ -138,7 +132,7 @@ $apellido = "Carpio Rocha"
 
                     </div>
 
-                    <button class="btn-agregar btn-agregar-grupo">Agregar</button>
+                    <button class="btn-agregar btn-agregar-periodo">Agregar</button>
                 </div>
 
                 <div class="seccion-input">
@@ -175,7 +169,7 @@ $apellido = "Carpio Rocha"
             <div class="seccion-comentario-reserva">
             <div class="seccion-input">
                     <label class="label-input">Comentario:</label>
-                    <textarea class= "input-comentario" name="comentario"></textarea>
+                    <textarea class= "input-comentario" name="comentario" spellcheck="false"></textarea>
                 </div>
 
             </div>
@@ -183,6 +177,8 @@ $apellido = "Carpio Rocha"
             <button class="btn-reservar-aula">Reservar Ambientes</button>
 
         </div>
+
+
 
 
      
@@ -213,11 +209,202 @@ $apellido = "Carpio Rocha"
 
     </footer>
 
+    <div class="overlay-pagina-reserva ">
+
+        <div class="popup-pagina-reserva">
+            <div class="popup popup-materia oculto">
+                <h1 class="titulo-popaup-reserva">Agregar Materia</h1>
+                <div class="contenedor-tabla-loader">
+                    <div class="contenedor-tabla">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="encabezado-tabla-reserva">
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-accion">Accion</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Codigo</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-nombre">Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody class="contenido-tabla-reserva contenido-tabla-reserva-materia">
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div class="seccion-loader-reserva  oculto">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-cerrar-popup">Cerrar</button>
+            </div> 
+
+            <div class="popup popup-solicitantes oculto">
+                <h1 class="titulo-popaup-reserva">Agregar Solicitante</h1>
+                <div class="seccion-buscador-popup">
+                    <input type="text"  class="input-buscar-solicitante" placeholder = "Buscar CodigoSIS">
+                    <button class="btn-buscar-solicitante">Buscar</button>
+
+                </div>
+                <div class="contenedor-tabla-loader">
+                    <div class="contenedor-tabla">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="encabezado-tabla-reserva">
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-accion">Accion</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">CodigoSIS</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-nombre">Nombre</th>
+                                </tr>
+                            </thead>
+                            <tbody class="contenido-tabla-reserva contenido-tabla-reserva-solicitantes">
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div class="seccion-loader-reserva  oculto">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-cerrar-popup">Cerrar</button>
+            
+
+            </div> 
+
+            <div class="popup popup-grupos oculto">
+                <h1 class="titulo-popaup-reserva">Agregar Grupos</h1>
+                <div class="contenedor-tabla-loader">
+                    <div class="contenedor-tabla">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="encabezado-tabla-reserva">
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-accion">Accion</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Grupo</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-nombre">Docente</th>
+                                </tr>
+                            </thead>
+                            <tbody class="contenido-tabla-reserva contenido-tabla-reserva-grupos">
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div class="seccion-loader-reserva  oculto">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-cerrar-popup">Cerrar</button>
+            </div> 
+            
+            <div class="popup popup-periodos oculto">
+                <h1 class="titulo-popaup-reserva">Agregar Periodo</h1>
+                <div class="contenedor-tabla-loader">
+                    <div class="contenedor-tabla">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="encabezado-tabla-reserva">
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-accion">Accion</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Periodo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="contenido-tabla-reserva contenido-tabla-reserva-periodos">
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">6:45 - 8:15</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">8:15 - 9:45</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">9:45 - 11:15</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">11:15 - 12:45</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">12:45 - 14:15</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">14:15 - 15:45</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">15:45 - 17:15</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">17:15 - 18:45</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">18:45 - 20:15</td>
+                                </tr>
+                                <tr class="fila-tabla-reserva">
+                                    <td class="casilla-columna casilla-columna-btn">
+                                        <button class="btn-agregar-item-tabla">Agregar</button>
+                                    </td>
+                                    <td class="casilla-columna casilla-codigo ">20:15 - 21:45</td>
+                                </tr>
+                                
+
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div class="seccion-loader-reserva  oculto">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-cerrar-popup">Cerrar</button>
+            </div> 
+        </div>
+
+    </div>
+
 
     <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-reservas-docente.js"></script>
     <script src="js/script-index.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  
     
 </body>
