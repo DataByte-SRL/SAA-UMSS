@@ -10,6 +10,7 @@
         $nombre = $_SESSION['nombre'];
         $apellido = $_SESSION['apellido'];
     }
+    
 
 ?>
 
@@ -32,7 +33,7 @@
     <!-- <link rel='stylesheet' href='css/styles-index.css'> -->
     <link rel='stylesheet' href='css/styles-index.css'>
     <link rel='stylesheet' href='css/styles-repetitivos.css'>
-    <link rel='stylesheet' href='css/styles-reservas-admin.css'>
+    <link rel='stylesheet' href='css/styles-reservas-docente.css'>
     
 </head>
 <body>
@@ -46,14 +47,9 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item ">
-                                <a class="nav-link  text-center" aria-current="page" href="aulas-admin.php">Aulas</a>
-                            </li>
-                            <li class="nav-item text-center ">
-                                <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
-                            </li>
+                            
                             <li class="nav-item   text-center">
-                                <a class="nav-link active " href="reservas-admin.php">Reservas</a>
+                                <a class="nav-link active " href="reservas-docente.php">Reservas</a>
                             </li>
                             <?php 
                             
@@ -66,7 +62,7 @@
                                           </div>
                                           <div class='opciones-usuario oculto'>
                                             <div class='item-opciones-usuario item-opciones-usuario1'>
-                                                <a href='perfil-admin.php'>Configuracion de Cuenta</a>
+                                                <a href='perfil-docente.php'>Configuracion de Cuenta</a>
                                             </div>
                                             <div class='item-opciones-usuario'>
                                                 <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
@@ -83,51 +79,86 @@
     </header>
 
     <main class="contenido-main">
-        <h1 class="titulo-encabezado-a">Administracion de Rerservas</h1>
-
-        <div class="herramientas-encabezado-a">
-            <div class="buscador-encabezado-a">
-            </div>
-
-            <div class="filtro-encabezado-a">
-            </div>
-
-        </div>
-
-        <div class="seccion-tabla">
-
-        </div>
-
+        <div class="encabezado-pagina-reservas">
+            <p class="opcion-encabezado-pagina-reserva ">Formulario de Reserva</p>
+            <p class="opcion-encabezado-pagina-reserva opcion-encabezdo-selecionado ultimo ">Lista de Reservas</p>
+            
+        </div class= "seccion-tabla">
+        <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Ambiente Reservado</th>
+                        <th>Materia</th>
+                        <th>Grupo</th>
+                        <th>Fecha</th>
+                        <th>Periodo</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-lista-aulas">
+                   
+                </tbody>
+               
+            </table>
+            
+            <ul class="list-group list-group-horizontal-sm">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            <li class="list-group-item">A fourth item</li>
+            </ul>
+            <ul class="list-group list-group-horizontal-md">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            <li class="list-group-item">A fourth item</li>
+            </ul>
+            <ul class="list-group list-group-horizontal-lg">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            </ul>
+            <ul class="list-group list-group-horizontal-xl">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            </ul>
+            <ul class="list-group list-group-horizontal-xxl">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            </ul>  
     </main>
 
 
     
-    <footer>
-        <p class="fila-1">DERECHOS RESERVADOS © 2022 · UNIVERSIDAD MAYOR DE SAN SIMÓN</p>
-        <p class="fila-2">Siguenos en:</p>
-        <div class="fila-3 enlaces">
-            <a href="https://www.instagram.com/umssboloficial/" class="instagram" target = “_blank ” >
-                <img src="img/logo-instagram.svg" height="22">
-            </a>
-            <a href="https://twitter.com/UmssBolOficial" class="twitter" target = “_blank ” >
-                <img src="img/logo-twiter.svg" height="22">
-            </a>
-            <a href="https://www.facebook.com/UmssBolOficial/" class="facebook" target = “_blank ” >
-                <img src="img/logo-facebook.svg" height="22">
-            </a>
-            <a href="https://t.me/GrupoUmssBolOficial" class="telegram" target = “_blank ” > 
-                <img src="img/logo-telegram.svg" height="22">
-            </a>
-            
-        </div>
-        <p class="fila-4">Diseñado por<span class="empresa-disenadora"> DataByte S.R.L</span></p>
+<footer>
+    <p class="fila-1">DERECHOS RESERVADOS © 2022 · UNIVERSIDAD MAYOR DE SAN SIMÓN</p>
+    <p class="fila-2">Siguenos en:</p>
+    <div class="fila-3 enlaces">
+        <a href="https://www.instagram.com/umssboloficial/" class="instagram" target = “_blank ” >
+            <img src="img/logo-instagram.svg" height="22">
+        </a>
+        <a href="https://twitter.com/UmssBolOficial" class="twitter" target = “_blank ” >
+            <img src="img/logo-twiter.svg" height="22">
+        </a>
+        <a href="https://www.facebook.com/UmssBolOficial/" class="facebook" target = “_blank ” >
+            <img src="img/logo-facebook.svg" height="22">
+        </a>
+        <a href="https://t.me/GrupoUmssBolOficial" class="telegram" target = “_blank ” > 
+            <img src="img/logo-telegram.svg" height="22">
+        </a>
+        
+    </div>
+    <p class="fila-4">Diseñado por<span class="empresa-disenadora"> DataByte S.R.L</span></p>
 
-    </footer>
+</footer>
 
-
+<script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="js/script-reservas-admin.js"></script>
+    <script src="js/script-reservas-docente.js"></script>
     <script src="js/script-index.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  
     
 </body>

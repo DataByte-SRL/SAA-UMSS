@@ -4,8 +4,13 @@
    $errorIniciarSesion = 0 ;          // cuando el usuaio haya puesto una contraseña o codigosis equivodo cambiara a 1
    session_start();
 
-   if (isset($_SESSION['cuenta'])) {
-        header('location: reservas-admin.php');
+   if (isset($_SESSION['cuenta'] )) {
+       if($_SESSION['cuenta'] == "admin"){
+            header('location: reservas-admin.php');
+       }elseif($_SESSION['cuenta'] == "docente"){
+        header('location: reservas-docente.php');
+                }
+        
    }
 
    if (isset($_POST['codigosis']) && isset($_POST['contrasena'])) {
@@ -21,7 +26,7 @@
             $dbqueryUser=mysqli_query($con, "select nombre, apellido from Docente where codigoSis='$username' and contrasena='$password';");
             $usuariodb= mysqli_fetch_array($dbqueryUser);
             mysqli_close($con);
-            $_SESSION['cuenta']= "verificado";
+            $_SESSION['cuenta']= "docente";
             $_SESSION['nombre']= $usuariodb['nombre'];
             $_SESSION['apellido']=$usuariodb['apellido'];
             // tambien agregar el codigoSIS y que tipo de usuario es  docente o administrdor
@@ -36,7 +41,7 @@
                     $dbqueryUser=mysqli_query($con, "select nombre, apellido from Administrador where codigoSis='$username' and contrasena='$password';");
                     $usuariodb= mysqli_fetch_array($dbqueryUser);
                     mysqli_close($con);
-                    $_SESSION['cuenta']= "verificado";
+                    $_SESSION['cuenta']= "admin";
                     $_SESSION['nombre']= $usuariodb['nombre'];
                     $_SESSION['apellido']=$usuariodb['apellido'];
                     // tambien agregar el codigoSIS y que tipo de usuario es  docente o administrdor
