@@ -149,6 +149,55 @@ footer p{
     color: #1B4B94;
     margin-bottom: 60px;
 }
+
+
+
+.mensaje-error-sesion{
+    border: 1px solid #E0DCDC;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 70px;
+    margin: 0px auto 0px auto;
+    overflow: hidden;
+}
+.mensaje-error-sesion-oculto{
+    display: none;
+}
+.mensaje-error-sesion-visible{
+    margin-bottom: 30px;
+}
+
+.contenedor-simbolo-error-sesion{
+    height: 100%;
+    width: 15%;
+    background-color: #E34843;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+.simbolo-error-sesion{
+    width: 27px;
+    height: 27px;
+    margin-top: 10px;
+    background-image: url(../img/simbolo-error-sesion.svg) ;
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+}
+.contenedor-mesaje-error-sesion{
+    padding: 7px 6px 3px 6px;
+    width: 85%;
+}
+.mesaje-error-sesion{
+    width: 100%;
+    color: #BDBCBC;
+    font-size: 14px;
+    text-align: start;
+}
+
 .form-inicio-sesion{
     width: 100%;
     display: flex;
@@ -186,8 +235,6 @@ footer p{
 .mensaje-error-sesion{
     font-size: 1.2em;
     width: 100%;
-    margin: auto;
-    margin-bottom: 15px;
     color: red;
     text-align: center;
 }
@@ -325,6 +372,19 @@ footer p{
 
 /* --------------------------------------------------------*/
 
+
+@media(min-width: 1500px){
+    .contenedor-simbolo-error-sesion{
+        width: 11%;
+       
+    }
+    .contenedor-mesaje-error-sesion{
+        width: 89%;
+    }
+
+    
+    
+}
 
 @media(max-width: 991px){
 

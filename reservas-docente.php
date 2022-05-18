@@ -7,6 +7,9 @@
     if(!isset($_SESSION['cuenta'])){
         header('location:index.php');
     }else{
+        if ($_SESSION['cuenta'] != "docente") {
+            header('location:index.php');
+        }
         $nombre = $_SESSION['nombre'];
         $apellido = $_SESSION['apellido'];
     }

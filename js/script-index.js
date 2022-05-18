@@ -1,6 +1,6 @@
 
 
-
+funcionBtnIniciarSesion();
 funcionalidadUsuariMenu();
 
 
@@ -53,6 +53,36 @@ function funcionalidadUsuariMenu(){
 
 }
 
+
+
+
+
+function funcionBtnIniciarSesion(){
+    try {
+        document.querySelector(".btn-iniciar-sesion").addEventListener("click",e=>{
+            e.preventDefault();
+            e.target.textContent ="INICIANDO ....";
+            var datos = {
+                codigosis:$(".input-codigoSis").val(),
+                contrasena:$(".input-contrasena").val()
+            }
+            $.post("./php/iniciar-sesion.php",datos,function(respuesta){
+                if (respuesta != "0") {
+                    location.reload();
+                }else{
+                    document.querySelector(".mensaje-error-sesion").classList.remove("mensaje-error-sesion-oculto");
+                    document.querySelector(".titulo-inicio-sesion").classList.add("mensaje-error-sesion-visible");
+                    e.target.textContent ="INICIAR SESION";
+                    console.log(respuesta);
+
+                }
+                
+            });
+        });
+    } catch (error) {
+        
+    }
+}
 
 
 
