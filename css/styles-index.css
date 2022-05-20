@@ -157,7 +157,7 @@ footer p{
     border-radius: 7px;
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 100%;
     height: 70px;
     margin: 0px auto 0px auto;
     overflow: hidden;
@@ -232,12 +232,7 @@ footer p{
 
 }
 
-.mensaje-error-sesion{
-    font-size: 1.2em;
-    width: 100%;
-    color: red;
-    text-align: center;
-}
+
 .btn-iniciar-sesion{
     color: white;
     text-align: center;

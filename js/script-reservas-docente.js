@@ -577,9 +577,20 @@ function abrirPopUp(nombrePopup){
 
 
 
+ponerHoverBtnInfoUrgencia();
 
+function ponerHoverBtnInfoUrgencia(){
+    var aux = document.querySelector(".info-checkbox");
 
+    aux.addEventListener("mouseenter",(e)=>{
+        document.querySelector(".mesaje-info-checkbox").classList.remove("mesaje-info-checkbox-oculto");
+    });
+    
+    aux.addEventListener("mouseout",(e)=>{
+        document.querySelector(".mesaje-info-checkbox").classList.add("mesaje-info-checkbox-oculto");
+    });
 
+}
 
 
 
