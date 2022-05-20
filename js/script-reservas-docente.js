@@ -5,13 +5,27 @@ var periodos = [];
 var ambientes =[];
 
 
-var usuario= {codigoSis:"201900393" , nombre:"Joao Andre Carpio Rocha"};
+var usuario= {codigoSis:"" , nombre:""};
 
 
-//ponerHoverEnInputsFormulario();
-funcionBotonAgregar();
-funcionBotonesCerrarPopUp();
-agregarDatosSolicitantes(usuario.codigoSis,usuario.nombre)
+inicializar();
+
+
+
+
+function inicializar(){
+    $.post("./php/datosUsuario.php","",function(respuesta){
+        var res = JSON.parse(respuesta);
+        usuario.codigoSis = res.codigoSis;
+        usuario.nombre = res.nombre + " " + res.apellido ;
+        //ponerHoverEnInputsFormulario();
+        funcionBotonAgregar();
+        funcionBotonesCerrarPopUp();
+        agregarDatosSolicitantes(usuario.codigoSis,usuario.nombre);
+        
+    });
+    
+}
 
 
 
@@ -563,9 +577,20 @@ function abrirPopUp(nombrePopup){
 
 
 
+ponerHoverBtnInfoUrgencia();
 
+function ponerHoverBtnInfoUrgencia(){
+    var aux = document.querySelector(".info-checkbox");
 
+    aux.addEventListener("mouseenter",(e)=>{
+        document.querySelector(".mesaje-info-checkbox").classList.remove("mesaje-info-checkbox-oculto");
+    });
+    
+    aux.addEventListener("mouseout",(e)=>{
+        document.querySelector(".mesaje-info-checkbox").classList.add("mesaje-info-checkbox-oculto");
+    });
 
+}
 
 
 

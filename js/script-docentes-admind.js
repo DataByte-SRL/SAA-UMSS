@@ -253,7 +253,7 @@ function establecerPaginacion(){
 
 }
 
-
+var btnIniciados = 0;
 function ponerFuncionBotonesPaginacion(){
 
     var numerosPaginacion = document.querySelectorAll(".page-item-numero");
@@ -268,12 +268,17 @@ function ponerFuncionBotonesPaginacion(){
         n++;
     });
 
-    btnAtras.addEventListener("click",()=>{
-        cargarDatosPaginaTablaDocente(paginaActual-1);
-    });
-    btnAdelante.addEventListener("click",()=>{
-        cargarDatosPaginaTablaDocente(paginaActual+1);
-    });
+    if (btnIniciados == 0) {
+        btnAtras.addEventListener("click",()=>{
+            console.log(paginaActual);
+            cargarDatosPaginaTablaDocente(paginaActual-1);
+        });
+        btnAdelante.addEventListener("click",()=>{
+            console.log(paginaActual);
+            cargarDatosPaginaTablaDocente(paginaActual+1);
+        });
+        btnIniciados = 1;
+    }
 
 }
 

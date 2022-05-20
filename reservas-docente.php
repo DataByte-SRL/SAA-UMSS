@@ -7,6 +7,9 @@
     if(!isset($_SESSION['cuenta'])){
         header('location:index.php');
     }else{
+        if ($_SESSION['cuenta'] != "docente") {
+            header('location:index.php');
+        }
         $nombre = $_SESSION['nombre'];
         $apellido = $_SESSION['apellido'];
     }
@@ -68,7 +71,7 @@
                                           </div>
                                           <div class='opciones-usuario oculto'>
                                             <div class='item-opciones-usuario item-opciones-usuario1'>
-                                                <a href='#'>Configuracion de Cuenta</a>
+                                                <a href='perfil-docente.php'>Configuracion de Cuenta</a>
                                             </div>
                                             <div class='item-opciones-usuario'>
                                                 <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
@@ -125,6 +128,17 @@
 
                     </div>
                     <button class="btn-agregar btn-agregar-grupo btn-agregar-deshabilitado">Agregar</button>
+                </div>
+
+                <div class="seccion-reserva-emergencia">
+                    <div class = "contenedor-checkbox-emergencia">
+                        <input class="checkbox-ergencia" type="checkbox" name="checkbox-ergencia-reserva" id="checkbox-ergencia-id">
+                        <label class="label-checkbox-ergencia" for="checkbox-ergencia-id">Habilitar reserva de emergencia</label>
+                        <div class="info-checkbox">
+                            <div class="mesaje-info-checkbox mesaje-info-checkbox-oculto">Se le permitira reservar para el dia de hoy </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="seccion-input">
