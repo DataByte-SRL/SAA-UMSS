@@ -201,7 +201,7 @@ function establecerPaginacion(){
 
 }
 
-
+var btnIniciados = 0;
 function ponerFuncionBotonesPaginacion(){
 
     var numerosPaginacion = document.querySelectorAll(".page-item-numero");
@@ -216,12 +216,17 @@ function ponerFuncionBotonesPaginacion(){
         n++;
     });
 
-    btnAtras.addEventListener("click",()=>{
-        cargarDatosPaginaTablaAula(paginaActual-1);
-    });
-    btnAdelante.addEventListener("click",()=>{
-        cargarDatosPaginaTablaAula(paginaActual+1);
-    });
+    if (btnIniciados == 0) {
+        btnAtras.addEventListener("click",()=>{
+            console.log(paginaActual);
+            cargarDatosPaginaTablaAula(paginaActual-1);
+        });
+        btnAdelante.addEventListener("click",()=>{
+            console.log(paginaActual);
+            cargarDatosPaginaTablaAula(paginaActual+1);
+        });
+        btnIniciados = 1;
+    }
 
 }
 

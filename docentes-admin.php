@@ -7,6 +7,9 @@
     if(!isset($_SESSION['cuenta'])){
         header('location:index.php');
     }else{
+        if ($_SESSION['cuenta'] != "administrador") {
+            header('location:index.php');
+        }
         $nombre = $_SESSION['nombre'];
         $apellido = $_SESSION['apellido'];
     }
@@ -63,7 +66,7 @@
                                       </div>
                                       <div class='opciones-usuario oculto'>
                                         <div class='item-opciones-usuario item-opciones-usuario1'>
-                                            <a href='#'>Configuracion de Cuenta</a>
+                                            <a href='perfil-admin.php'>Configuracion de Cuenta</a>
                                         </div>
                                         <div class='item-opciones-usuario'>
                                             <a href='php/cerrarSesion.php'>Cerrar Sesion</a>

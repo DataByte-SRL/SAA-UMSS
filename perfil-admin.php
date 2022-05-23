@@ -11,7 +11,12 @@
     }
 ?>
 
-
+<?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
+    
+    $nombre = " ";
+    $apellido = " ";
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,3 +133,4 @@
 
     
 </body>
+<html>
