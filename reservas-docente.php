@@ -146,7 +146,7 @@
                     <input type="date"  class="input-fecha" name="fecha" <?php echo ("value='$year-$month-$day' min='$year-$month-$day' max='$year-$month2-$day'")?>>
                 </div>
 
-                <div class="seccion-input">
+                <div class="seccion-input ">
                     <label class="label-input">Periodos:</label>
                     <div class="selecciones-seccion-input input-periodos">
 
@@ -155,16 +155,21 @@
                     <button class="btn-agregar btn-agregar-periodo">Agregar</button>
                 </div>
 
-                <div class="seccion-input">
+                <div class="seccion-input seccion-input-cantidad-estudiantes">
                     <label class="label-input">Cant. Estudiantes:</label>
                     <p class="dato-cantidad-estudiantes">0</p>
                 </div>
 
-
+                <button class="btn-cambiar-paso  btn-siguiente-paso" >siguiente >>></button>
 
             </div>
 
-            <div class="seccion-aulas-reserva">
+            <div class="seccion-aulas-reserva oculto">
+                 <div class="seccion-input seccion-input-cantidad-estudiantes">
+                    <label class="label-input">Cant. Estudiantes:</label>
+                    <p class="dato-cantidad-estudiantes dato-cantidad-estudiantes2">0</p>
+                </div>
+
                 <div class="seccion-input">
                     <label class="label-input">Surgerencias:</label>
                     <div class="selecciones-seccion-input input-sugerencias">
@@ -177,24 +182,27 @@
                     <div class="selecciones-seccion-input input-ambientes">
 
                     </div>
+                    <button class="btn-agregar btn-agregar-ambiente ">Agregar</button>
 
                 </div>
                 <div class="seccion-input">
                     <label class="label-input">Capacidad Total:</label>
-                    <p class="dato-cantidad-estudiantes">0</p>
+                    <p class="dato-capacidad-total">0</p>
                 </div>
 
-            </div>
-
-            <div class="seccion-comentario-reserva">
-            <div class="seccion-input">
-                    <label class="label-input">Comentario:</label>
-                    <textarea class= "input-comentario" name="comentario" spellcheck="false"></textarea>
+                <div class="seccion-comentario-reserva">
+                    <div class="seccion-input">
+                            <label class="label-input">Comentario:</label>
+                            <textarea class= "input-comentario" name="comentario" spellcheck="false" placeholder="(Campo Opcional)"></textarea>
+                    </div>
                 </div>
 
+                <div class="btns-seccion-aulta-reservas">
+                    <button class="btn-cambiar-paso  btn-anterior-paso" > <<< Anterior</button>
+                     <button class="btn-reservar-aula">Reservar Ambientes</button>
+                </div>
             </div>
-
-            <button class="btn-reservar-aula">Reservar Ambientes</button>
+                
 
         </div>
 
@@ -233,7 +241,7 @@
 
         <div class="popup-pagina-reserva">
             <div class="popup popup-materia oculto">
-                <h1 class="titulo-popaup-reserva">Agregar Materia</h1>
+                <h1 class="titulo-popaup-reserva">Materias</h1>
                 <div class="contenedor-tabla-loader">
                     <div class="contenedor-tabla">
                         <table class="table table-striped">
@@ -262,7 +270,7 @@
             </div> 
 
             <div class="popup popup-solicitantes oculto">
-                <h1 class="titulo-popaup-reserva">Agregar Solicitante</h1>
+                <h1 class="titulo-popaup-reserva">Docentes</h1>
                 <div class="seccion-buscador-popup">
                     <input type="text"  class="input-buscar-solicitante" placeholder = "Buscar CodigoSIS">
                     <button class="btn-buscar-solicitante">Buscar</button>
@@ -298,7 +306,7 @@
             </div> 
 
             <div class="popup popup-grupos oculto">
-                <h1 class="titulo-popaup-reserva">Agregar Grupos</h1>
+                <h1 class="titulo-popaup-reserva"> Grupos</h1>
                 <div class="contenedor-tabla-loader">
                     <div class="contenedor-tabla">
                         <table class="table table-striped">
@@ -327,7 +335,7 @@
             </div> 
             
             <div class="popup popup-periodos oculto">
-                <h1 class="titulo-popaup-reserva">Agregar Periodo</h1>
+                <h1 class="titulo-popaup-reserva">Periodos</h1>
                 <div class="contenedor-tabla-loader">
                     <div class="contenedor-tabla">
                         <table class="table table-striped">
@@ -415,6 +423,36 @@
 
                 <button class="btn-cerrar-popup">Cerrar</button>
             </div> 
+
+            <div class="popup popup-ambientes oculto">
+                <h1 class="titulo-popaup-reserva"> Ambientes</h1>
+                <div class="contenedor-tabla-loader">
+                    <div class="contenedor-tabla">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr class="encabezado-tabla-reserva">
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-accion">Accion</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Codigo Aula</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-nombre">Capacidad</th>
+                                </tr>
+                            </thead>
+                            <tbody class="contenido-tabla-reserva contenido-tabla-reserva-ambientes">
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div class="seccion-loader-reserva  oculto">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-cerrar-popup">Cerrar</button>
+            </div> 
+
         </div>
 
     </div>

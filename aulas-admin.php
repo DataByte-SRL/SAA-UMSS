@@ -89,7 +89,7 @@
 
         <div class="herramientas-encabezado-a">
             <div class="buscador-encabezado-a">
-                <input type="text" class="encabezado-input-buscar" placeholder="Buscar codigo de aula">
+                <input type="text" class="encabezado-input-buscar" placeholder="Buscar Coincidencias">
                 <select  class="opcion-busqueda">
                     <option  value="codAula" selected>Codigo Aula</option>
                     <option  value="detalles">Detalles</option>

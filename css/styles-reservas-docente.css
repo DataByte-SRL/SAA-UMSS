@@ -137,6 +137,10 @@ body{
     display: flex;
     flex-direction: row;
 }
+
+.seccion-input-cantidad-estudiantes{
+    height: 35px;
+}
 .label-input{
     color: #5E5E5E;
     font-size: 15px;
@@ -188,6 +192,19 @@ body{
     color: #1071E5;
 }
 
+.btn-item-input-sugerencia{
+    background-color: #08C912;
+    font-size: 20px;
+    color: #FFFFFF;
+
+}
+.btn-item-input-sugerencia:hover{
+    background-color: #09d413;
+    color: #FFFFFF;
+
+}
+
+
 .info-input{
     margin: auto;
     white-space: nowrap;
@@ -212,7 +229,7 @@ body{
 .input-asunto:focus{
     border: 1px solid #1071E5;
 }
-
+.dato-capacidad-total,
 .dato-cantidad-estudiantes{
     width: 100px;
     border-radius: 2px;
@@ -258,14 +275,20 @@ body{
 .selecciones-seccion-input-seleccionado{
     border:  1px solid #1071E5;
 }
+.selecciones-seccion-input.input-ambientes{
+    width: 560px;
+}
+.selecciones-seccion-input.input-sugerencias{
+    width: 560px;
 
+}
 .seccion-aulas-reserva{
     display: flex;
     flex-direction: column;
     width: 100%;
-    border-top: 1px solid #D4D4D4;
-    border-bottom: 1px solid #D4D4D4;
-    padding-left: 50px;
+    /*border-top: 1px solid #D4D4D4;*/
+    /*border-bottom: 1px solid #D4D4D4;*/
+    /*padding-left: 50px;*/
     padding-top: 10px;
 
 }
@@ -278,8 +301,11 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-left: 40px;
-    margin-top: 20px;
+    /*margin-left: 40px;*/
+    margin-top: 0px;
+    border-top: 1px solid #D4D4D4;
+    padding-top: 15px;
+
 }
 
 .input-comentario{
@@ -297,6 +323,11 @@ body{
 }
 .input-comentario:focus{
     border:  1px solid #1071E5;
+}
+
+.input-comentario:focus::placeholder{
+    color: transparent;
+
 }
 
 .input-comentario::-webkit-scrollbar{
@@ -319,7 +350,7 @@ body{
     width: 180px;
     height: 30px;
     text-align: center;
-    margin: 20px auto 10px 40px;
+    margin: 20px 0px 10px 40px;
 }
 .btn-reservar-aula:hover{
     background-color:#4b97f3;
@@ -344,6 +375,40 @@ body{
 
 }
 
+
+.btn-cambiar-paso{
+    width: 110px;
+    font-size: 17px;
+    color: #888888;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px dashed #888888;
+    white-space: nowrap;
+}
+.btn-siguiente-paso{
+    margin: 10px 0px 0px auto;
+
+}
+.btn-anterior-paso{
+    margin: 10px auto 0px 0px;
+}
+
+.btn-cambiar-paso:hover{
+    border-bottom: 1px dashed #4b97f3;
+    color: #4b97f3;
+}
+
+
+.btns-seccion-aulta-reservas{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    height: 50px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+}
 
 /*-------------------------------------------------*/
 

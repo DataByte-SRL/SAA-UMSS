@@ -87,7 +87,7 @@
 
         <div class="herramientas-encabezado-a">
             <div class="buscador-encabezado-a">
-                <input type="text" class="encabezado-input-buscar" placeholder="Buscar nombre">
+                <input type="text" class="encabezado-input-buscar" placeholder="Buscar Coincidencias">
                 <select  class="opcion-busqueda">
                     <option  value="codigoSis" selected>CodigoSIS</option>
                     <option  value="nombre">Nombre</option>

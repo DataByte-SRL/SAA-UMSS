@@ -2,7 +2,9 @@ var materia = [];
 var solicitantes = [];
 var grupos = [];
 var periodos = [];
+var sugerencias =[];
 var ambientes =[];
+var fecha = "";
 
 
 var usuario= {codigoSis:"" , nombre:""};
@@ -22,6 +24,7 @@ function inicializar(){
         funcionBotonAgregar();
         funcionBotonesCerrarPopUp();
         agregarDatosSolicitantes(usuario.codigoSis,usuario.nombre);
+        funcionBonesCambiarPasoFormulario()
         
     });
     
@@ -30,6 +33,19 @@ function inicializar(){
 
 
 /* -------------------------Agregando funcionalidad a los botones--------------------------------- */
+
+function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo botones de anterios y siguiente paso
+    document.querySelector(".btn-siguiente-paso").addEventListener("click",(e)=>{
+        document.querySelector(".seccion-aulas-reserva").classList.remove("oculto");
+        document.querySelector(".seccion-datos-reserva").classList.add("oculto")
+    }); 
+
+    document.querySelector(".btn-anterior-paso").addEventListener("click",(e)=>{
+        document.querySelector(".seccion-aulas-reserva").classList.add("oculto");
+        document.querySelector(".seccion-datos-reserva").classList.remove("oculto")
+    }); 
+    
+}
 function  funcionBotonesCerrarPopUp(){
     var btns = document.querySelectorAll(".btn-cerrar-popup");
     btns.forEach(element => {
@@ -54,6 +70,8 @@ function funcionBotonAgregar(){ // los botones de estan a la derecha de los inpu
     var btnBuscarSolicitante = document.querySelector(".btn-buscar-solicitante");
     var btnBuscarGrupo = document.querySelector(".btn-agregar-grupo");
     var btnAgregarPerido = document.querySelector(".btn-agregar-periodo");
+    var btnAgregarAmbiente = document.querySelector(".btn-agregar-ambiente");
+
     btnAgregarMateria.addEventListener("click",(e)=>{
         if (materia.length > 0) {
             Swal.fire({
@@ -107,6 +125,14 @@ function funcionBotonAgregar(){ // los botones de estan a la derecha de los inpu
     });
 
     ponerFuncionalidadBotonesPeriodo();
+
+    btnAgregarAmbiente.addEventListener("click", (e)=>{
+        abrirPopUp("popup-ambientes");
+        ponerDatosPopUpAmbientes();
+    });
+
+
+    ponerDatosSeccionSugerencias();
 
 }
 
@@ -324,6 +350,85 @@ function controlarEstadoBotonesPeriodo(){
     }
 }
 
+function ponerDatosSeccionSugerencias(){
+    var dato = {periodos, fecha};
+
+    $.post("./php/optenerSugerencias.php",dato,function(respuesta){
+        try {
+            var lista = JSON.parse(respuesta);
+            lista.forEach(element => {
+                agregarDatosSugerenciaAmbientes(element.codigoAmbiente,element.capacidad);
+            });
+            
+        } catch (error) {
+            console.log(error)
+            console.log("error al optener los datos");
+            
+        }
+    });
+
+}
+
+
+function ponerDatosPopUpAmbientes(){
+    var dato = {periodos, fecha};
+
+    $(".contenido-tabla-reserva-ambientes").html("");
+    document.querySelector(".popup-ambientes .contenedor-tabla-loader .seccion-loader-reserva").classList.remove("oculto");
+    $.post("./php/optenerAmbientes.php",dato,function(respuesta){
+        try {
+            var lista = JSON.parse(respuesta);
+            var template ="";
+            var indiceRepetidos = [];
+            var n = 0;
+            lista.forEach(element => {
+                 ambientes.forEach(element2 => {
+                     if (element2.codigoAmbiente == element.codigoAmbiente) {
+                         indiceRepetidos.push(n);
+                     }
+                 });
+
+                template+=`<tr class="fila-tabla-reserva">
+                                <td class="casilla-columna casilla-columna-btn">
+                                    <button class="btn-agregar-item-tabla">Agregar</button>
+                                </td>
+                                <td class="casilla-columna casilla-codigo ">${element.codigoAmbiente}</td>
+                                <td class="casilla-columna casilla-nombre ">${element.capacidad}</td>
+                            </tr>`;
+                n++;
+            });
+
+            document.querySelector(".popup-ambientes .contenedor-tabla-loader .seccion-loader-reserva").classList.add("oculto");
+            $(".contenido-tabla-reserva-ambientes").html(template);
+
+            var botones = document.querySelectorAll(".contenido-tabla-reserva-ambientes .fila-tabla-reserva .casilla-columna-btn .btn-agregar-item-tabla");
+            for (let index = 0; index < botones.length; index++) {
+
+                if (indiceRepetidos.indexOf(index) != -1) {
+                    botones[index].classList.add("btn-agregar-deshabilitado");
+                    botones[index].addEventListener("click",(e)=>{
+                        Swal.fire({
+                            icon: 'error',
+                            text: 'Este Ambiente ya fue agregado'
+                        });
+                    });
+                    
+                }else{
+                     botones[index].addEventListener("click",(e)=>{
+                       agregarDatosAmbientes(lista[index].codigoAmbiente,lista[index].capacidad );
+                     });
+                }
+            }
+            
+        } catch (error) {
+            console.log(error)
+            console.log("error al optener los datos");
+            
+        }
+    });
+
+}
+
 
 
 /* ------------------------------------------------------------------------------------------ */
@@ -363,6 +468,7 @@ function agregarDatosMateria(boton,codigoM,nombreM){
                         agregarDatosSolicitantes(usuario.codigoSis,usuario.nombre);
                         $(".input-materia").html("");
                         document.querySelector(".dato-cantidad-estudiantes").textContent=0;
+                        document.querySelector(".dato-cantidad-estudiantes2").textContent=0;
                         document.querySelector(".btn-agregar-solicitante").classList.add("btn-agregar-deshabilitado");
                         document.querySelector(".btn-agregar-grupo").classList.add("btn-agregar-deshabilitado");
                         document.querySelector(".btn-agregar-materia").classList.remove("btn-agregar-deshabilitado");
@@ -457,10 +563,10 @@ function agregarDatosGrupos(codigoG,cantidadG){
         });
     }
 
-     var infoCantidadEst = document.querySelector(".dato-cantidad-estudiantes");
-     infoCantidadEst.textContent= Number(infoCantidadEst.textContent)+Number(cantidadG);
-
-
+    var infoCantidadEst = document.querySelector(".dato-cantidad-estudiantes").textContent;
+    document.querySelector(".dato-cantidad-estudiantes").textContent= Number(infoCantidadEst)+Number(cantidadG);
+    document.querySelector(".dato-cantidad-estudiantes2").textContent= Number(infoCantidadEst)+Number(cantidadG);
+    
     cerrarPopUp();
 }
 
@@ -475,6 +581,7 @@ function eliminarGrupo(indice){
      }
      grupos = [];
      document.querySelector(".dato-cantidad-estudiantes").textContent= "0";
+     document.querySelector(".dato-cantidad-estudiantes2").textContent= "0";
      nuevaLista.forEach(element => {
         agregarDatosGrupos(element.codigoGrupo,element.cantidad);
      });
@@ -521,6 +628,91 @@ function eliminarPeriodo(indice){
         agregarDatosPeriodo(element.codigoPeriodo,element.nombre);
      });
 }
+
+function agregarDatosSugerenciaAmbientes(codigoA,capacidadA){
+    sugerencias.push({codigoAmbiente:""+codigoA,capacidad:Number(capacidadA)});
+    var template ="";
+
+    sugerencias.forEach(element => {
+        template += `<div class="item-seccion-input">
+                        <p class="info-input">${element.codigoAmbiente} - Capacidad ${element.capacidad}</p>
+                        <button class="btn-item-input btn-item-input-sugerencia">+</button>
+                    </div>`;
+    });
+
+    $(".input-sugerencias").html(template);
+
+    var datosinput = document.querySelectorAll('.input-sugerencias .item-seccion-input .btn-item-input');
+
+    for (let index = 0; index < datosinput.length; index++) {
+        var element = datosinput[index];
+        element.addEventListener("click",(e)=>{
+            var repetido = 0;
+            ambientes.forEach(element => {
+                if (element.codigoAmbiente == sugerencias[index].codigoAmbiente) {
+                    repetido = 1;
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'ya se agrego ese ambiente'
+                    });
+                }
+            });
+            if (repetido == 0) {
+                agregarDatosAmbientes(sugerencias[index].codigoAmbiente,sugerencias[index].capacidad);
+            }
+           
+        });
+    }
+}
+
+
+
+
+function agregarDatosAmbientes(codigoA,capacidadA){
+    ambientes.push({codigoAmbiente:""+codigoA,capacidad:Number(capacidadA)});
+    var template ="";
+
+    ambientes.forEach(element => {
+        template += `<div class="item-seccion-input">
+                        <p class="info-input">${element.codigoAmbiente} - Capacidad ${element.capacidad}</p>
+                        <button class="btn-item-input">x</button>
+                    </div>`;
+    });
+
+    $(".input-ambientes").html(template);
+
+    var datosinput = document.querySelectorAll('.input-ambientes .item-seccion-input .btn-item-input');
+
+    for (let index = 0; index < datosinput.length; index++) {
+        var element = datosinput[index];
+        element.addEventListener("click",(e)=>{
+            eliminarAmbiente(index);
+        });
+    }
+
+     var infoCapacidadTotal = document.querySelector(".dato-capacidad-total");
+     infoCapacidadTotal.textContent= Number(infoCapacidadTotal.textContent)+Number(capacidadA);
+
+    cerrarPopUp();
+}
+
+function eliminarAmbiente(indice){
+    $(".input-ambientes").html("");
+     var nuevaLista = [];
+     for (let index = 0; index < ambientes.length; index++) {
+         if (index != indice) {
+            nuevaLista.push(ambientes[index]);
+         }
+     }
+     ambientes = [];
+     document.querySelector(".dato-capacidad-total").textContent= "0";
+     nuevaLista.forEach(element => {
+        agregarDatosAmbientes(element.codigoAmbiente,element.capacidad);
+     });
+
+}
+
+
 
 
 /*---------------------------------------------------------- */
