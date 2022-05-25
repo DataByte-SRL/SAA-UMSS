@@ -65,7 +65,7 @@
                                           </div>
                                           <div class='opciones-usuario oculto'>
                                             <div class='item-opciones-usuario item-opciones-usuario1'>
-                                                <a href='#'>Configuracion de Cuenta</a>
+                                                <a href='php/configuracionUsuario.php'>Configuracion de Cuenta</a>
                                             </div>
                                             <div class='item-opciones-usuario'>
                                                 <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
