@@ -6,6 +6,10 @@ var sugerencias =[];
 var ambientes =[];
 var fecha = "";
 
+var fechaActual = null;
+var fechaMinima = null;
+var fechaMaxima = null;
+var fechaEmergencia = null;
 
 var usuario= {codigoSis:"" , nombre:""};
 
@@ -24,7 +28,10 @@ function inicializar(){
         funcionBotonAgregar();
         funcionBotonesCerrarPopUp();
         agregarDatosSolicitantes(usuario.codigoSis,usuario.nombre);
-        funcionBonesCambiarPasoFormulario()
+        funcionBonesCambiarPasoFormulario();
+        checkboxEmergencia();
+        ponerHoverBtnInfoUrgencia();
+        funcionalidadInputFecha();
         
     });
     
@@ -36,16 +43,30 @@ function inicializar(){
 
 function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo botones de anterios y siguiente paso
     document.querySelector(".btn-siguiente-paso").addEventListener("click",(e)=>{
-        document.querySelector(".seccion-aulas-reserva").classList.remove("oculto");
-        document.querySelector(".seccion-datos-reserva").classList.add("oculto")
+
+        if (verificarCamposFormulario(1) == 1) {
+            document.querySelector(".seccion-aulas-reserva").classList.remove("oculto");
+            document.querySelector(".seccion-datos-reserva").classList.add("oculto")
+        }
+        
     }); 
 
     document.querySelector(".btn-anterior-paso").addEventListener("click",(e)=>{
         document.querySelector(".seccion-aulas-reserva").classList.add("oculto");
         document.querySelector(".seccion-datos-reserva").classList.remove("oculto")
+        
     }); 
+
+    document.querySelector(".btn-reservar-aula").addEventListener('click',e=>{
+        if (verificarCamposFormulario(0) == 1) {
+            
+
+        }
+    });
     
 }
+
+
 function  funcionBotonesCerrarPopUp(){
     var btns = document.querySelectorAll(".btn-cerrar-popup");
     btns.forEach(element => {
@@ -137,13 +158,25 @@ function funcionBotonAgregar(){ // los botones de estan a la derecha de los inpu
 }
 
 
+function checkboxEmergencia(){
+    document.querySelector(".checkbox-ergencia").addEventListener("click" , e =>{
+        if (e.target.checked) {
+            document.querySelector(".seccion-input-motivo").classList.remove("oculto");
+            
+        }else{
+            document.querySelector(".seccion-input-motivo").classList.add("oculto");
+
+        }
+    })
+}
+
 /*------------------------------------------ */
 /* -------------------- poner datos a un popup y  funcionalida del boton agregar-------------------------- */
 function ponerDatosPopUpMateria(){
     $(".contenido-tabla-reserva-materia").html("");
     document.querySelector(".seccion-loader-reserva").classList.remove("oculto");
       
-    $.post("./php/optenerMateriasDocente.php",usuario,function(respuesta){
+    $.post("./php/obtenerMateriasDocente.php",usuario,function(respuesta){
         try {
             var lista = JSON.parse(respuesta);
             var template ="";
@@ -180,7 +213,7 @@ function ponerDatosPopUpSolicitantes(codigoSisSolicitante){
 
     $(".contenido-tabla-reserva-solicitantes").html("");
     document.querySelector(".popup-solicitantes .contenedor-tabla-loader .seccion-loader-reserva").classList.remove("oculto");
-    $.post("./php/optenerSolicitantes.php",dato,function(respuesta){
+    $.post("./php/obtenerSolicitantes.php",dato,function(respuesta){
         try {
             var lista = JSON.parse(respuesta);
             var template ="";
@@ -235,11 +268,10 @@ function ponerDatosPopUpSolicitantes(codigoSisSolicitante){
 
 function ponerDatosPopUpGrupos(){
     var dato = {solicitantes, materia};
-    console.log(dato);
-
+  
     $(".contenido-tabla-reserva-grupos").html("");
     document.querySelector(".popup-grupos .contenedor-tabla-loader .seccion-loader-reserva").classList.remove("oculto");
-    $.post("./php/optenerGrupos.php",dato,function(respuesta){
+    $.post("./php/obtenerGrupos.php",dato,function(respuesta){
         try {
             var lista = JSON.parse(respuesta);
             var template ="";
@@ -353,7 +385,7 @@ function controlarEstadoBotonesPeriodo(){
 function ponerDatosSeccionSugerencias(){
     var dato = {periodos, fecha};
 
-    $.post("./php/optenerSugerencias.php",dato,function(respuesta){
+    $.post("./php/obtenerSugerencias.php",dato,function(respuesta){
         try {
             var lista = JSON.parse(respuesta);
             lista.forEach(element => {
@@ -375,7 +407,7 @@ function ponerDatosPopUpAmbientes(){
 
     $(".contenido-tabla-reserva-ambientes").html("");
     document.querySelector(".popup-ambientes .contenedor-tabla-loader .seccion-loader-reserva").classList.remove("oculto");
-    $.post("./php/optenerAmbientes.php",dato,function(respuesta){
+    $.post("./php/obtenerAmbientes.php",dato,function(respuesta){
         try {
             var lista = JSON.parse(respuesta);
             var template ="";
@@ -751,25 +783,154 @@ function abrirPopUp(nombrePopup){
 
 
 
+/*-------------------------- verificar campos del formulario ------------- */
+function verificarCamposFormulario(parte){  // 1 em caso de verificar la primera parte 2 en caso de verificar la segunda parte , 0 si se verificara todo
+    var exito = 1 ;
+
+    if (parte == 1 || parte == 0) {
+        var inputAsunto = document.querySelector(".input-asunto").value;
+        var checkEmergencia = document.querySelector(".checkbox-ergencia");
+        var textAreaEmergencia = document.querySelector(".input-motivo-emergencia").value;
+
+        if (inputAsunto.length == 0 || inputAsunto.length > 150) {
+            document.querySelector(".mensaje-error-asunto").classList.remove("oculto");
+            exito = 0;
+        }else{
+            document.querySelector(".mensaje-error-asunto").classList.add("oculto");
+        }
+
+        if (materia.length == 0) {
+            document.querySelector(".mensaje-error-materia").classList.remove("oculto");
+            exito = 0;
+        }else{
+            document.querySelector(".mensaje-error-materia").classList.add("oculto");
+        }
+
+        if (grupos.length == 0) {
+            document.querySelector(".mensaje-error-grupos").classList.remove("oculto");
+            exito = 0;
+        }else{
+            document.querySelector(".mensaje-error-grupos").classList.add("oculto");
+        }
+
+        if (checkEmergencia.checked) {
+            if (textAreaEmergencia.length == 0 || textAreaEmergencia.length > 200 ) {
+                document.querySelector(".mensaje-error-motivo").classList.remove("oculto");
+                exito = 0;
+            }else{
+                document.querySelector(".mensaje-error-motivo").classList.add("oculto");
+            }
+        }
+
+        if (periodos.length == 0) {
+            document.querySelector(".mensaje-error-periodos").classList.remove("oculto");
+            exito = 0;
+        }else{
+            document.querySelector(".mensaje-error-periodos").classList.add("oculto");
+        }
+
+        
+    }
+
+    var capacidadTotal = 0;
+    var cantidadEstudiantes = 0 ;
+    ambientes.forEach(element => {
+        capacidadTotal = capacidadTotal + element.capacidad;
+    });
+
+    grupos.forEach(element => {
+        cantidadEstudiantes = cantidadEstudiantes + element.cantidad;
+    });
+
+     
+
+    if (parte == 2 || parte == 0) {
+        console.log(capacidadTotal)
+        console.log(cantidadEstudiantes)
+        if (ambientes.length == 0 || ambientes.length > 2 || capacidadTotal < cantidadEstudiantes ) {
+            document.querySelector(".mensaje-error-ambientes").classList.remove("oculto");
+            exito = 0;
+        }else{
+            document.querySelector(".mensaje-error-ambientes").classList.add("oculto");
+        }
+        
+    }
+
+    return exito;
+
+}
+
+
+
+/*--------------------------------------------------------------------------- */
 
 
 
 
+function funcionalidadInputFecha(){
+    var inputFecha = document.querySelector(".input-fecha");
+    inputFecha.setAttribute("onkeydown","return false");
+    var respaldo = inputFecha.value;
+
+    inputFecha.addEventListener("click",e=>{
+         respaldo = inputFecha.value;
+         /*
+         var datoInput = e.target.value;
+         datoInput = datoInput.split("-");
+         var aux = new Date( datoInput[0], datoInput[1] - 1, datoInput[2]);
+         console.log(aux.getTime());
+         console.log(aux);*/
+    });
+
+    $('.input-fecha').change(function(){
+        if (ambientes.length > 0) {
+            Swal.fire({
+                text: 'Si cambia de fecha se borraran los ambientes que ha seleccionado',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                  ambientes=[];
+                  $('.input-ambientes').html('');
+              }else{
+                  inputFecha.value=respaldo;
+              }
+            })
+        }
+    });
+
+    $.post('./php/obtenerFechas.php','',function(respuesta){
+        var res = JSON.parse(respuesta);
+        inputFecha.setAttribute("value",res.fechaMinimaReserva);
+        inputFecha.setAttribute("min",res.fechaMinimaReserva);
+        inputFecha.setAttribute("max",res.fechaMaximaReserva);
+
+        var timeStamp = Number(res.timeStamp);
+
+        fechaActual = new Date(timeStamp*1000);
+
+        fechaMinima = new Date(((timeStamp)+(Number(res.minimo)*24*60*60))*1000);
+        fechaMinima.setHours(0);fechaMinima.setMinutes(0);fechaMinima.setSeconds(0);
+
+        fechaEmergencia =new Date(timeStamp*1000);
+        fechaEmergencia.setHours(0);fechaEmergencia.setMinutes(0);fechaEmergencia.setSeconds(0);
+
+        fechaMaxima = new Date(((timeStamp)+(Number(res.maximo)*24*60*60))*1000);
+        fechaMaxima.setHours(0);fechaMaxima.setMinutes(0);fechaMaxima.setSeconds(0);
+/*
+        console.log("Fecha Actual =" +fechaActual + "=====> "+ fechaActual.getTime());
+        console.log("Fecha Minima =" +fechaMinima + "=====> "+ fechaMinima.getTime());
+        console.log("Fecha Maxima =" +fechaMaxima + "=====> "+ fechaMaxima.getTime());
+        console.log("Fecha Emergencia =" +fechaEmergencia + "=====> "+ fechaEmergencia.getTime());*/
+    });
+
+}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-ponerHoverBtnInfoUrgencia();
 
 function ponerHoverBtnInfoUrgencia(){
     var aux = document.querySelector(".info-checkbox");

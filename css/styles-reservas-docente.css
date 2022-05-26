@@ -79,15 +79,15 @@ body{
 
 .seccion-reserva-emergencia{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 10px auto 10px 0px;
-    height: 25px;
+    min-height: 25px;
 }
 
 .contenedor-checkbox-emergencia{
     display: flex;
     flex-direction: row;
-    margin: 0px auto 0px 0px;
+    margin: 5px auto 10px 0px;
     align-items: center;
 }
 .checkbox-ergencia{
@@ -132,11 +132,19 @@ body{
     display: none;
 
 }
+
+
+.contenedor-input{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
 .seccion-input{
     margin: 10px auto 10px 0px;
     display: flex;
     flex-direction: row;
 }
+
 
 .seccion-input-cantidad-estudiantes{
     height: 35px;
@@ -147,6 +155,7 @@ body{
     margin: 5px 10px auto 0px;
     min-width: 90px;
 }
+
 
 .selecciones-seccion-input {
     display: flex;
@@ -243,6 +252,7 @@ body{
 
 }
 
+
 .input-fecha{
     border-radius: 7px;
     border:  1px solid #827D7D;
@@ -250,10 +260,36 @@ body{
     padding-left: 7px;
     padding-right: 7px;
     height: 30px;
+    width: 120px;
     font-size: 15px;
     margin-top: 5px;
-    cursor: text;
+    cursor: pointer;
 }
+
+.input-fecha:hover{
+    background-color: #1071E5;
+    color: white;
+}
+
+.input-fecha::-webkit-calendar-picker-indicator {
+    display: block;
+    background-color: transparent;
+    bottom: 0;
+    cursor: pointer;
+    height: 28px;
+    width: 120px;
+    left: 0px;
+    top: 5px;
+    position: absolute;
+    background-image: url(../img/calendario.svg);
+    background-size: 21px;
+    background-position-x: 90px;
+    background-position-y: 3px;
+    background-repeat: no-repeat;
+    margin: 0px;
+}
+
+
 .input-fecha:hover{
     border:  1px solid #1071E5;
 }
@@ -261,8 +297,61 @@ body{
     border:  1px solid #1071E5;
 }
 
+.motivo-archivo{
+    display: flex;
+    flex-direction: column;
+}
 
 
+.input-motivo-emergencia{
+    border:  1px solid #827D7D;
+    border-radius: 7px;
+    width: 500px;
+    height: 70px;
+    margin-top: 5px;
+    resize: none;
+    outline: none;
+    padding: 7px;
+    font-size: 15px;
+}
+.input-motivo-emergencia:hover{
+    border:  1px solid #1071E5;
+}
+
+.input-motivo-emergencia:focus{
+    border:  1px solid #1071E5;
+}
+.input-motivo-emergencia:focus::placeholder{
+    color: transparent;
+    
+}
+.input-motivo-emergencia:hover{
+    border:  1px solid #1071E5;
+}
+
+.archivo-emergencia{
+    margin: 10px auto 0px 0px;
+    border: 1px solid #827D7D;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+    cursor: pointer;
+    height: 30px;
+}
+
+.archivo-emergencia::-webkit-file-upload-button{
+    color: #212529;
+    background-color: #E9ECEF;
+    border: none;
+    border-right: 1px solid #827D7D;
+    margin: 0px 10px 0px 0px;
+    cursor: pointer;
+    height: 100%;
+}
+
+.archivo-emergencia::-webkit-file-upload-button:hover{
+    background-color: #caccce;
+}
 
 .selecciones-seccion-input{
     border:  1px solid #827D7D;
@@ -410,6 +499,20 @@ body{
 
 }
 
+.mensaje-error{
+    position: absolute;
+    bottom: -20px;
+    left: 7px;
+    margin: 5px auto 0px 0px;
+    color: tomato;
+    white-space: nowrap;
+
+}
+
+.mensaje-error-motivo{
+    position: inherit;
+
+}
 /*-------------------------------------------------*/
 
 

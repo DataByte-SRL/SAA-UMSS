@@ -14,12 +14,6 @@
         $apellido = $_SESSION['apellido'];
     }
 
-    date_default_timezone_set("America/Santiago");
-    $time = time();
-    $day =date("d",$time + (1 * 24 * 60 * 60));
-    $year =date("Y",$time);
-    $month = date("m",$time);
-    $month2 = date("m",$time+ (30 * 24 * 60 * 60));
 
 ?>
 
@@ -99,15 +93,23 @@
             <div class="seccion-datos-reserva">
                 <div class="seccion-input">
                     <label class="label-input" for="asunto">Asunto:</label>
-                    <input type="text"  spellcheck="false"  class="input-asunto" name="asunto" >
+                    <div class="contenedor-input">
+                        <input type="text"  spellcheck="false"  class="input-asunto" name="asunto" maxlength="150" >
+                        <p class="oculto mensaje-error mensaje-error-asunto">Debe llenar este campo, maximo 150 caracteres</p>
+                    </div>
+                    
 
                 </div>
 
                 <div class="seccion-input">
                     <label class="label-input">Materia:</label>
-                    <div class="selecciones-seccion-input input-materia">
-
+                    <div class="contenedor-input">
+                        <div class="selecciones-seccion-input input-materia">
+    
+                        </div>
+                        <p class="oculto mensaje-error mensaje-error-materia">Debe agregar una materia</p>
                     </div>
+                    
 
                      <button class="btn-agregar btn-agregar-materia">Agregar</button>
 
@@ -115,18 +117,25 @@
 
                 <div class="seccion-input">
                     <label class="label-input">Solicitantes:</label>
-                    <div class="selecciones-seccion-input input-solicitantes">
+                    <div class="contenedor-input">
+                        <div class="selecciones-seccion-input input-solicitantes">
                         
+                        </div>
                     </div>
+                    
                     <button class="btn-agregar btn-agregar-solicitante btn-agregar-deshabilitado">Agregar</button>
 
                 </div>
 
                 <div class="seccion-input">
                     <label class="label-input">Grupos:</label>
-                    <div class="selecciones-seccion-input input-grupos">
+                    <div class="contenedor-input">
+                        <div class="selecciones-seccion-input input-grupos">
 
+                        </div>
+                        <p class="oculto mensaje-error mensaje-error-grupos">Debe elegir almenos 1 grupo</p>
                     </div>
+                    
                     <button class="btn-agregar btn-agregar-grupo btn-agregar-deshabilitado">Agregar</button>
                 </div>
 
@@ -138,19 +147,39 @@
                             <div class="mesaje-info-checkbox mesaje-info-checkbox-oculto">Se le permitira reservar para el dia de hoy </div>
                         </div>
                     </div>
+                    <div class="seccion-input seccion-input-motivo oculto">
+                        <label class="label-input">Motivo:</label>
+                        
+                        <div class = "motivo-archivo">
+                            <textarea class="input-motivo-emergencia" placeholder="Indique el motivo de la emergencia " maxlength = 200></textarea>
+                            <p class="oculto mensaje-error mensaje-error-motivo">Debe llenar este campo , maximo 200 caracteres</p>
+                            <input type="file"  class="archivo-emergencia">
+                        </div>
+                        
+                        
+                    </div>
+
 
                 </div>
 
                 <div class="seccion-input">
                     <label class="label-input" for="fecha">Fecha:</label>
-                    <input type="date"  class="input-fecha" name="fecha" <?php echo ("value='$year-$month-$day' min='$year-$month-$day' max='$year-$month2-$day'")?>>
+                    <div class="contenedor-input">
+                        <input type="date"  class="input-fecha"  name="fecha" >
+                        <p class="oculto mensaje-error mensaje-error-fecha">Debe elegir una feha entre el 00/00/0000 y 00/00/0000</p>
+                    </div>
+                    
                 </div>
 
                 <div class="seccion-input ">
                     <label class="label-input">Periodos:</label>
-                    <div class="selecciones-seccion-input input-periodos">
+                    <div class="contenedor-input">
+                        <div class="selecciones-seccion-input input-periodos">
 
+                        </div>
+                        <p class="oculto mensaje-error mensaje-error-periodos">Debe elegir minimo 1 periodo</p>
                     </div>
+                    
 
                     <button class="btn-agregar btn-agregar-periodo">Agregar</button>
                 </div>
@@ -179,9 +208,13 @@
                 </div>
                 <div class="seccion-input">
                     <label class="label-input">Elegir Ambiente:</label>
-                    <div class="selecciones-seccion-input input-ambientes">
+                    <div class="contenedor-input">
+                        <div class="selecciones-seccion-input input-ambientes">
 
+                        </div>
+                        <p class="oculto mensaje-error mensaje-error-ambientes">Debe elegir un ambiente y la capacidad total debe ser igual o mayor la cantidad de estudiantes</p>
                     </div>
+                    
                     <button class="btn-agregar btn-agregar-ambiente ">Agregar</button>
 
                 </div>
@@ -193,7 +226,10 @@
                 <div class="seccion-comentario-reserva">
                     <div class="seccion-input">
                             <label class="label-input">Comentario:</label>
-                            <textarea class= "input-comentario" name="comentario" spellcheck="false" placeholder="(Campo Opcional)"></textarea>
+                            <div class="contenedor-input">
+                                <textarea class= "input-comentario" name="comentario" spellcheck="false" placeholder="(Campo Opcional)"></textarea>
+                            </div>
+                            
                     </div>
                 </div>
 
