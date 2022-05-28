@@ -329,6 +329,17 @@ body{
     border:  1px solid #1071E5;
 }
 
+.input-motivo-emergencia::-webkit-scrollbar{
+    width: 13px;
+    border-radius: 15px;
+}
+
+.input-motivo-emergencia::-webkit-scrollbar-thumb{
+    background: #c5c5c5;
+    border-radius: 5px;
+    border: 3px solid white;
+}
+
 .archivo-emergencia{
     margin: 10px auto 0px 0px;
     border: 1px solid #827D7D;
@@ -418,6 +429,9 @@ body{
     color: transparent;
 
 }
+
+
+
 
 .input-comentario::-webkit-scrollbar{
     width: 13px;

@@ -11,6 +11,8 @@ var fechaMinima = null;
 var fechaMaxima = null;
 var fechaEmergencia = null;
 
+var listaAmbientesDisponibles = [];
+
 var usuario= {codigoSis:"" , nombre:""};
 
 
@@ -43,11 +45,44 @@ function inicializar(){
 
 function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo botones de anterios y siguiente paso
     document.querySelector(".btn-siguiente-paso").addEventListener("click",(e)=>{
+        $.post('./php/obtenerFechas.php','',function(respuesta){
+            var res = JSON.parse(respuesta);
+            var inputFecha = document.querySelector(".input-fecha");
+            inputFecha.setAttribute("value",res.fechaMinimaReserva);
+            inputFecha.setAttribute("max",res.fechaMaximaReserva);
+    
+            var timeStamp = Number(res.timeStamp);
+    
+            fechaActual = new Date(timeStamp*1000);
+    
+            fechaMinima = new Date(((timeStamp)+(Number(res.minimo)*24*60*60))*1000);
+            fechaMinima.setHours(0);fechaMinima.setMinutes(0);fechaMinima.setSeconds(0);
+    
+            fechaEmergencia =new Date(timeStamp*1000);
+            fechaEmergencia.setHours(0);fechaEmergencia.setMinutes(0);fechaEmergencia.setSeconds(0);
+    
+            fechaMaxima = new Date(((timeStamp)+(Number(res.maximo)*24*60*60))*1000);
+            fechaMaxima.setHours(0);fechaMaxima.setMinutes(0);fechaMaxima.setSeconds(0)
 
-        if (verificarCamposFormulario(1) == 1) {
-            document.querySelector(".seccion-aulas-reserva").classList.remove("oculto");
-            document.querySelector(".seccion-datos-reserva").classList.add("oculto")
-        }
+            if (document.querySelector(".checkbox-ergencia").checked) {
+                auxDay = fechaEmergencia.getDate();
+                if (Number(auxDay) < 10) {
+                    auxDay = "0"+auxDay;
+                }
+                auxMonth = fechaEmergencia.getMonth() + 1;
+                if (Number(auxMonth  < 10)) {
+                    auxMonth = "0"+auxMonth;
+                }
+                inputFecha.setAttribute("min",fechaEmergencia.getFullYear()+"-"+auxMonth+"-"+auxDay);
+            }else{
+                inputFecha.setAttribute("min",res.fechaMinimaReserva);
+            }
+
+            if (verificarCamposFormulario(1) == 1) {
+                document.querySelector(".seccion-aulas-reserva").classList.remove("oculto");
+                document.querySelector(".seccion-datos-reserva").classList.add("oculto")
+            }
+        });
         
     }); 
 
@@ -58,10 +93,67 @@ function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo boton
     }); 
 
     document.querySelector(".btn-reservar-aula").addEventListener('click',e=>{
-        if (verificarCamposFormulario(0) == 1) {
+        var dato = {periodos, fecha};
+        $.post("./php/obtenerAmbientes.php",dato,function(respuesta){
+            try {
+                listaAmbientesDisponibles = JSON.parse(respuesta);
+                $.post('./php/obtenerFechas.php','',function(respuesta){
+                    var res = JSON.parse(respuesta);
+                    var inputFecha = document.querySelector(".input-fecha");
+                    inputFecha.setAttribute("value",res.fechaMinimaReserva);
+                    inputFecha.setAttribute("max",res.fechaMaximaReserva);
             
+                    var timeStamp = Number(res.timeStamp);
+            
+                    fechaActual = new Date(timeStamp*1000);
+            
+                    fechaMinima = new Date(((timeStamp)+(Number(res.minimo)*24*60*60))*1000);
+                    fechaMinima.setHours(0);fechaMinima.setMinutes(0);fechaMinima.setSeconds(0);
+            
+                    fechaEmergencia =new Date(timeStamp*1000);
+                    fechaEmergencia.setHours(0);fechaEmergencia.setMinutes(0);fechaEmergencia.setSeconds(0);
+            
+                    fechaMaxima = new Date(((timeStamp)+(Number(res.maximo)*24*60*60))*1000);
+                    fechaMaxima.setHours(0);fechaMaxima.setMinutes(0);fechaMaxima.setSeconds(0)
+        
+                    if (document.querySelector(".checkbox-ergencia").checked) {
+                        auxDay = fechaEmergencia.getDate();
+                        if (Number(auxDay) < 10) {
+                            auxDay = "0"+auxDay;
+                        }
+                        auxMonth = fechaEmergencia.getMonth() + 1;
+                        if (Number(auxMonth  < 10)) {
+                            auxMonth = "0"+auxMonth;
+                        }
+                        inputFecha.setAttribute("min",fechaEmergencia.getFullYear()+"-"+auxMonth+"-"+auxDay);
+                    }else{
+                        inputFecha.setAttribute("min",res.fechaMinimaReserva);
+                    }
+        
+                    if (verificarCamposFormulario(0) == 1) {
+                        Swal.fire({
+                            icon:'success',
+                            text:"La reserva fue exitosa"
+                        });
+                        
+                       
+                    // ahcer reserva de los ambientes
+        
+                    }else{
+                        Swal.fire({
+                            icon:'error',
+                            text:"Por favor revise los campos del formuario"
+                        });
 
-        }
+                    }
+                });
+            } catch (error) {
+                console.log(error)
+                console.log("error al optener los datos");
+                
+            }
+        });
+
     });
     
 }
@@ -113,18 +205,18 @@ function funcionBotonAgregar(){ // los botones de estan a la derecha de los inpu
                 });
                 
             }else{
-                document.querySelector(".input-buscar-solicitante").value="";
+                //document.querySelector(".input-buscar-solicitante").value="";
                 ponerDatosPopUpSolicitantes("");
                 abrirPopUp("popup-solicitantes");
             }
     });
-
+/*
     btnBuscarSolicitante.addEventListener("click",(e)=>{
         var dato = ""+document.querySelector(".input-buscar-solicitante").value;
         dato=dato.trim();
         ponerDatosPopUpSolicitantes(dato);
         
-    });
+    });*/
 
     btnBuscarGrupo.addEventListener("click",(e)=>{
 
@@ -141,15 +233,19 @@ function funcionBotonAgregar(){ // los botones de estan a la derecha de los inpu
     });
 
     btnAgregarPerido.addEventListener("click" , (e)=>{
+        controlarEstadoBotonesPeriodo();
             abrirPopUp("popup-periodos");
+            
             
     });
 
     ponerFuncionalidadBotonesPeriodo();
 
     btnAgregarAmbiente.addEventListener("click", (e)=>{
-        abrirPopUp("popup-ambientes");
-        ponerDatosPopUpAmbientes();
+        
+            abrirPopUp("popup-ambientes");
+            ponerDatosPopUpAmbientes();
+        
     });
 
 
@@ -160,12 +256,34 @@ function funcionBotonAgregar(){ // los botones de estan a la derecha de los inpu
 
 function checkboxEmergencia(){
     document.querySelector(".checkbox-ergencia").addEventListener("click" , e =>{
+        
         if (e.target.checked) {
+            var inputFecha = document.querySelector(".input-fecha");
             document.querySelector(".seccion-input-motivo").classList.remove("oculto");
+            auxDay = fechaEmergencia.getDate();
+            if (Number(auxDay) < 10) {
+                auxDay = "0"+auxDay;
+            }
+            auxMonth = fechaEmergencia.getMonth() + 1;
+            if (Number(auxMonth  < 10)) {
+                auxMonth = "0"+auxMonth;
+            }
+            inputFecha.setAttribute("min",fechaEmergencia.getFullYear()+"-"+auxMonth+"-"+auxDay);
             
         }else{
-            document.querySelector(".seccion-input-motivo").classList.add("oculto");
+            var inputFecha = document.querySelector(".input-fecha");
+            auxDay = fechaMinima.getDate();
+            if (Number(auxDay) < 10) {
+                auxDay = "0"+auxDay;
+            }
+            auxMonth = fechaMinima.getMonth() + 1;
+            if (Number(auxMonth  < 10)) {
+                auxMonth = "0"+auxMonth;
+            }
 
+            inputFecha.setAttribute("min",fechaEmergencia.getFullYear()+"-"+auxMonth+"-"+auxDay);
+            document.querySelector(".seccion-input-motivo").classList.add("oculto");
+            document.querySelector(".mensaje-error-motivo").classList.add("oculto");
         }
     })
 }
@@ -329,7 +447,10 @@ function ponerDatosPopUpGrupos(){
 
 function ponerFuncionalidadBotonesPeriodo(){
     var botones = document.querySelectorAll(".contenido-tabla-reserva-periodos .fila-tabla-reserva .casilla-columna-btn .btn-agregar-item-tabla");
-    var nombrePeriodos =["6:45 - 8:15","8:15 - 9:45","9:45 - 11:15","11:15 - 12:45","12:45 - 14:15","14:15 - 15:45","15:45 - 17:15","17:15 - 18:45","18:45 - 20:15","20:15 - 21:45"]; 
+    var nombrePeriodos =["6:45 - 8:15","8:15 - 9:45","9:45 - 11:15","11:15 - 12:45","12:45 - 14:15","14:15 - 15:45","15:45 - 17:15","17:15 - 18:45","18:45 - 20:15","20:15 - 21:45"];
+
+    
+
     for (let index = 0; index < botones.length; index++) {
         botones[index].addEventListener("click",(e)=>{
         
@@ -348,13 +469,45 @@ function ponerFuncionalidadBotonesPeriodo(){
                         text:"Ya no puede agregar este periodo"
                     });
                 }else{
-                    agregarDatosPeriodo(index,nombrePeriodos[index]);
-    
+                    if ( document.querySelector(".checkbox-ergencia").checked){
+                        if (fechaEmergencia.getTime() == fecha) {
+                            if (verificarPeriodoValido(index) == 0) {
+                                Swal.fire({
+                                    icon:"error",
+                                    text:"Ya no puede reservar este periodo para hoy"
+                                });
+                            }else{
+                                agregarDatosPeriodo(index,nombrePeriodos[index]);
+                            }
+                        }else{
+                            agregarDatosPeriodo(index,nombrePeriodos[index]);
+                        }
+
+                    }else{
+                        agregarDatosPeriodo(index,nombrePeriodos[index]);
+                        
+                    }
                 }
                 
             }else{
-                agregarDatosPeriodo(index,nombrePeriodos[index]);
+                if ( document.querySelector(".checkbox-ergencia").checked){
+                    if (fechaEmergencia.getTime() == fecha) {
+                        if (verificarPeriodoValido(index) == 0) {
+                            Swal.fire({
+                                icon:"error",
+                                text:"Ya no puede reservar este periodo para hoy"
+                            });
+                        }else{
+                            agregarDatosPeriodo(index,nombrePeriodos[index]);
+                        }
+                    }else{
+                        agregarDatosPeriodo(index,nombrePeriodos[index]);
+                    }
 
+                }else{
+                    agregarDatosPeriodo(index,nombrePeriodos[index]);
+                    
+                }
             }
            
         });
@@ -363,20 +516,57 @@ function ponerFuncionalidadBotonesPeriodo(){
 
 }
 
+function verificarPeriodoValido(codigoPeriodo){  // cuando la reserva sea el mismo dia nos dira si el periodo aun se puede reservar 
+    var exito = 1;
+    var timeStampPerido = (Number(fechaEmergencia.getTime())) + (6*60*60*1000)+ (45*60*1000);  
+    timeStampPerido = timeStampPerido +(1.5*60*60*1000*codigoPeriodo); 
+    if (timeStampPerido < fechaActual.getTime()){
+        exito = 0;
+    }
+    return exito;
+}
+
 function controlarEstadoBotonesPeriodo(){
     var botones = document.querySelectorAll(".contenido-tabla-reserva-periodos .fila-tabla-reserva .casilla-columna-btn .btn-agregar-item-tabla");
     
     for (let index = 0; index < botones.length; index++) {
         const element = botones[index];
         if (periodos.length == 0) {
-            element.classList.remove("btn-agregar-deshabilitado");
+            if ( document.querySelector(".checkbox-ergencia").checked){
+                if (fechaEmergencia.getTime() == fecha) {
+                    if (verificarPeriodoValido(index) == 0) {
+                        element.classList.add("btn-agregar-deshabilitado");
+                    }else{
+                        element.classList.remove("btn-agregar-deshabilitado");
+                    }
+                }else{
+                    element.classList.remove("btn-agregar-deshabilitado");
+                }
+
+            }else{
+                element.classList.remove("btn-agregar-deshabilitado");
+            }
         }else{
             if (periodos.length == 2) {
                 element.classList.add("btn-agregar-deshabilitado");
             }else if (index <= Number(periodos[0].codigoPeriodo)  || index > Number(periodos[0].codigoPeriodo) + 1 ) {
                 element.classList.add("btn-agregar-deshabilitado");
             }else{
-                element.classList.remove("btn-agregar-deshabilitado");
+                if ( document.querySelector(".checkbox-ergencia").checked){
+                    if (fechaEmergencia.getTime() == fecha) {
+                        if (verificarPeriodoValido(index) == 0) {
+                            element.classList.add("btn-agregar-deshabilitado");
+                        }else{
+                            element.classList.remove("btn-agregar-deshabilitado");
+                        }
+                    }else{
+                        element.classList.remove("btn-agregar-deshabilitado");
+                    }
+
+                }else{
+                    element.classList.remove("btn-agregar-deshabilitado");
+                    
+                }
             }
         }
     }
@@ -446,9 +636,21 @@ function ponerDatosPopUpAmbientes(){
                     });
                     
                 }else{
-                     botones[index].addEventListener("click",(e)=>{
-                       agregarDatosAmbientes(lista[index].codigoAmbiente,lista[index].capacidad );
-                     });
+                    
+                    botones[index].addEventListener("click",(e)=>{
+                        if (ambientes.length >= 2) {
+                            Swal.fire({
+                                icon: 'error',
+                                text: 'Solo  puede elegir 2 ambientes como maximo'
+                            });
+                        }else{
+                            agregarDatosAmbientes(lista[index].codigoAmbiente,lista[index].capacidad );
+                        }
+                        
+                    });
+
+                    
+                     
                 }
             }
             
@@ -679,18 +881,25 @@ function agregarDatosSugerenciaAmbientes(codigoA,capacidadA){
     for (let index = 0; index < datosinput.length; index++) {
         var element = datosinput[index];
         element.addEventListener("click",(e)=>{
-            var repetido = 0;
-            ambientes.forEach(element => {
-                if (element.codigoAmbiente == sugerencias[index].codigoAmbiente) {
-                    repetido = 1;
-                    Swal.fire({
-                        icon: 'error',
-                        text: 'ya se agrego ese ambiente'
-                    });
+            if (ambientes.length >= 2) {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Solo  puede elegir 2 ambientes como maximo'
+                });
+            }else{
+                var repetido = 0;
+                ambientes.forEach(element => {
+                    if (element.codigoAmbiente == sugerencias[index].codigoAmbiente) {
+                        repetido = 1;
+                        Swal.fire({
+                            icon: 'error',
+                            text: 'ya se agrego ese ambiente'
+                        });
+                    }
+                });
+                if (repetido == 0) {
+                    agregarDatosAmbientes(sugerencias[index].codigoAmbiente,sugerencias[index].capacidad);
                 }
-            });
-            if (repetido == 0) {
-                agregarDatosAmbientes(sugerencias[index].codigoAmbiente,sugerencias[index].capacidad);
             }
            
         });
@@ -787,32 +996,33 @@ function abrirPopUp(nombrePopup){
 function verificarCamposFormulario(parte){  // 1 em caso de verificar la primera parte 2 en caso de verificar la segunda parte , 0 si se verificara todo
     var exito = 1 ;
 
+    
     if (parte == 1 || parte == 0) {
         var inputAsunto = document.querySelector(".input-asunto").value;
         var checkEmergencia = document.querySelector(".checkbox-ergencia");
         var textAreaEmergencia = document.querySelector(".input-motivo-emergencia").value;
-
+    
         if (inputAsunto.length == 0 || inputAsunto.length > 150) {
             document.querySelector(".mensaje-error-asunto").classList.remove("oculto");
             exito = 0;
         }else{
             document.querySelector(".mensaje-error-asunto").classList.add("oculto");
         }
-
+    
         if (materia.length == 0) {
             document.querySelector(".mensaje-error-materia").classList.remove("oculto");
             exito = 0;
         }else{
             document.querySelector(".mensaje-error-materia").classList.add("oculto");
         }
-
+    
         if (grupos.length == 0) {
             document.querySelector(".mensaje-error-grupos").classList.remove("oculto");
             exito = 0;
         }else{
             document.querySelector(".mensaje-error-grupos").classList.add("oculto");
         }
-
+    
         if (checkEmergencia.checked) {
             if (textAreaEmergencia.length == 0 || textAreaEmergencia.length > 200 ) {
                 document.querySelector(".mensaje-error-motivo").classList.remove("oculto");
@@ -821,41 +1031,106 @@ function verificarCamposFormulario(parte){  // 1 em caso de verificar la primera
                 document.querySelector(".mensaje-error-motivo").classList.add("oculto");
             }
         }
+    
+        if (!checkEmergencia.checked) {
+            document.querySelector(".mensaje-error-fecha").classList.add("oculto");
+
+            if (Number(new Date(Number(fecha)).getDay()) == 0 ) { // si devuelve sero significa que es domingo
+                document.querySelector(".mensaje-error-fecha").textContent = "No se puede reservar para un domingo a menos que sea una emergencia";
+                document.querySelector(".mensaje-error-fecha").classList.remove("oculto");
+                exito = 0;
+            }
+
+            if (Number(fecha) < fechaMinima.getTime() || Number(fecha)  >  fechaMaxima.getTime()) {
+                document.querySelector(".mensaje-error-fecha").textContent = `Debe elgir una fecha entre ${fechaMinima.toLocaleDateString()}  y  ${fechaMaxima.toLocaleDateString()} `;
+                document.querySelector(".mensaje-error-fecha").classList.remove("oculto");
+                exito = 0;
+            }
+        }else{
+            document.querySelector(".mensaje-error-fecha").classList.add("oculto");
+            if (Number(fecha) < fechaEmergencia.getTime() || Number(fecha)  >  fechaMaxima.getTime()) {
+                document.querySelector(".mensaje-error-fecha").textContent = `Debe elgir una fecha entre ${fechaEmergencia.toLocaleDateString()}  y  ${fechaMaxima.toLocaleDateString()} `;
+                document.querySelector(".mensaje-error-fecha").classList.remove("oculto");
+                exito = 0;
+            }
+        }
 
         if (periodos.length == 0) {
+            document.querySelector(".mensaje-error-periodos").textContent = "Debe elegir minimo 1 periodo";
             document.querySelector(".mensaje-error-periodos").classList.remove("oculto");
             exito = 0;
         }else{
-            document.querySelector(".mensaje-error-periodos").classList.add("oculto");
+            if (fecha == fechaEmergencia.getTime()){
+                var periodoValido = 1;
+                periodos.forEach(element => {
+                    if (verificarPeriodoValido(element.codigoPeriodo) == 0) {
+                        periodoValido = 0;
+                    }
+                });
+                if (periodoValido == 0) {
+                    document.querySelector(".mensaje-error-periodos").textContent = "Estos periodos no estan disponibles para hoy";
+                    document.querySelector(".mensaje-error-periodos").classList.remove("oculto");
+                    exito = 0;
+                }else{
+                    document.querySelector(".mensaje-error-periodos").classList.add("oculto");
+                }
+                
+            }else{
+                document.querySelector(".mensaje-error-periodos").classList.add("oculto");
+            }
         }
-
+    
         
     }
-
+    
     var capacidadTotal = 0;
     var cantidadEstudiantes = 0 ;
     ambientes.forEach(element => {
         capacidadTotal = capacidadTotal + element.capacidad;
     });
-
+    
     grupos.forEach(element => {
         cantidadEstudiantes = cantidadEstudiantes + element.cantidad;
     });
-
-     
-
+    
+    
     if (parte == 2 || parte == 0) {
-        console.log(capacidadTotal)
-        console.log(cantidadEstudiantes)
-        if (ambientes.length == 0 || ambientes.length > 2 || capacidadTotal < cantidadEstudiantes ) {
+        document.querySelector(".mensaje-error-ambientes").classList.add("oculto");
+
+        if (capacidadTotal < cantidadEstudiantes ) {
+            document.querySelector(".mensaje-error-ambientes").textContent= "La capacidad total debe ser igual o mayor la cantidad de estudiantes";
             document.querySelector(".mensaje-error-ambientes").classList.remove("oculto");
             exito = 0;
-        }else{
-            document.querySelector(".mensaje-error-ambientes").classList.add("oculto");
+        }
+        var valido = 1;
+        var mError = "";
+        ambientes.forEach(element => {
+            var econtrado= 0;
+            for (let index = 0; index < listaAmbientesDisponibles.length  &&  econtrado == 0; index++) {
+                const element2 = listaAmbientesDisponibles[index];
+                if (element.codigoAmbiente == element2.codigoAmbiente) {
+                    econtrado = 1;
+                }                
+            }
+            if (econtrado == 0) {
+                mError = mError + element.codigoAmbiente +" "
+                exito = 0;
+                valido = 0;
+            }
+        });
+
+        if (valido == 0) {
+            document.querySelector(".mensaje-error-ambientes").textContent= "Los ambientes [ "+ mError + "] ya no estan disponibles";
+            document.querySelector(".mensaje-error-ambientes").classList.remove("oculto");
+        }
+
+        if (ambientes.length == 0 || ambientes.length > 2  ) {
+            document.querySelector(".mensaje-error-ambientes").textContent= "Debe elegir 1 ambiente y maximo 2";
+            document.querySelector(".mensaje-error-ambientes").classList.remove("oculto");
+            exito = 0;
         }
         
     }
-
     return exito;
 
 }
@@ -874,16 +1149,14 @@ function funcionalidadInputFecha(){
 
     inputFecha.addEventListener("click",e=>{
          respaldo = inputFecha.value;
-         /*
-         var datoInput = e.target.value;
-         datoInput = datoInput.split("-");
-         var aux = new Date( datoInput[0], datoInput[1] - 1, datoInput[2]);
-         console.log(aux.getTime());
-         console.log(aux);*/
     });
 
     $('.input-fecha').change(function(){
-        if (ambientes.length > 0) {
+        var datoInput = inputFecha.value
+        datoInput = datoInput.split("-");
+        var aux = new Date( datoInput[0], datoInput[1] - 1, datoInput[2]);
+       
+        /*if (ambientes.length > 0) {
             Swal.fire({
                 text: 'Si cambia de fecha se borraran los ambientes que ha seleccionado',
                 icon: 'warning',
@@ -893,13 +1166,19 @@ function funcionalidadInputFecha(){
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
               if (result.isConfirmed) {
-                  ambientes=[];
-                  $('.input-ambientes').html('');
+                ambientes=[];
+                $('.input-ambientes').html('');
+                fecha = aux.getTime();
               }else{
-                  inputFecha.value=respaldo;
+                inputFecha.value=respaldo;
               }
             })
-        }
+        }else{
+            fecha = aux.getTime();
+        }*/
+
+        fecha = aux.getTime();
+
     });
 
     $.post('./php/obtenerFechas.php','',function(respuesta){
@@ -920,11 +1199,8 @@ function funcionalidadInputFecha(){
 
         fechaMaxima = new Date(((timeStamp)+(Number(res.maximo)*24*60*60))*1000);
         fechaMaxima.setHours(0);fechaMaxima.setMinutes(0);fechaMaxima.setSeconds(0);
-/*
-        console.log("Fecha Actual =" +fechaActual + "=====> "+ fechaActual.getTime());
-        console.log("Fecha Minima =" +fechaMinima + "=====> "+ fechaMinima.getTime());
-        console.log("Fecha Maxima =" +fechaMaxima + "=====> "+ fechaMaxima.getTime());
-        console.log("Fecha Emergencia =" +fechaEmergencia + "=====> "+ fechaEmergencia.getTime());*/
+
+        fecha = fechaMinima.getTime();
     });
 
 }

@@ -144,7 +144,7 @@
                         <input class="checkbox-ergencia" type="checkbox" name="checkbox-ergencia-reserva" id="checkbox-ergencia-id">
                         <label class="label-checkbox-ergencia" for="checkbox-ergencia-id">Habilitar reserva de emergencia</label>
                         <div class="info-checkbox">
-                            <div class="mesaje-info-checkbox mesaje-info-checkbox-oculto">Se le permitira reservar para el dia de hoy </div>
+                            <div class="mesaje-info-checkbox mesaje-info-checkbox-oculto">Se le permitira reservar antes de la fecha minima </div>
                         </div>
                     </div>
                     <div class="seccion-input seccion-input-motivo oculto">
@@ -227,7 +227,7 @@
                     <div class="seccion-input">
                             <label class="label-input">Comentario:</label>
                             <div class="contenedor-input">
-                                <textarea class= "input-comentario" name="comentario" spellcheck="false" placeholder="(Campo Opcional)"></textarea>
+                                <textarea class= "input-comentario" name="comentario" spellcheck="false" maxlength = 200 placeholder="(Campo Opcional)"></textarea>
                             </div>
                             
                     </div>
@@ -307,11 +307,13 @@
 
             <div class="popup popup-solicitantes oculto">
                 <h1 class="titulo-popaup-reserva">Docentes</h1>
+                <!--
                 <div class="seccion-buscador-popup">
                     <input type="text"  class="input-buscar-solicitante" placeholder = "Buscar CodigoSIS">
                     <button class="btn-buscar-solicitante">Buscar</button>
 
-                </div>
+                </div> 
+                -->
                 <div class="contenedor-tabla-loader">
                     <div class="contenedor-tabla">
                         <table class="table table-striped">
