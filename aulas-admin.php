@@ -261,8 +261,16 @@
                         <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
-                <div class="seccion-input-form-a  input-nombre">
+                <div class="seccion-input-form-a  input-codAula">
                     <label>Codigo Aula:</label>
+                    <input name="codaula" id="codaula"  spellcheck="false" type="number" placeholder="(Campo Obligatorio))" maxlength="20">
+                    <div class="mensaje-error-form-a seccion-advertencia-codAula ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
+                    </div>
+                </div>
+                <div class="seccion-input-form-a  input-nombre">
+                    <label>Nombre Aula:</label>
                     <input name="nombre" id="nombre"  spellcheck="false" type="text" placeholder="(Campo Obligatorio))" maxlength="20">
                     <div class="mensaje-error-form-a seccion-advertencia-nombre ">
                         <div class="img-advertencia  oculto"></div>

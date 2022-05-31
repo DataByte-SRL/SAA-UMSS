@@ -2,6 +2,8 @@
 
 
 <?php
+include_once ('conectar.php');
+$con=conectar();
 
 // la varible post tendra esta estructura {solicitantes, materia}
 

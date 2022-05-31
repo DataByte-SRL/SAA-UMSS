@@ -1,14 +1,3 @@
-<?php
-     $nombre = " ";
-     $apellido = " ";
-     session_start();
-     if(!isset($_SESSION['cuenta'])){
-        header('location:index.php');
-    }else{
-        $nombre = $_SESSION['nombre'];
-        $apellido = $_SESSION['apellido'];
-    }
-?>
 
 <?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
     

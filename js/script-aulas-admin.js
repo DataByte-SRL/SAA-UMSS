@@ -54,6 +54,7 @@ function obtenerDatosFormulario(){
      var datosForm ={
       codFacultad : $('#facultad').val(),
       codAula : $('#nombre').val(),
+      nombAula : $('#nombre').val(),
       capacidad : $('#capacidad').val(),
       detalles : $('#detalles').val(),
       proyector : $('input[name="proyector"]:checked').val()
@@ -75,8 +76,17 @@ function ValidarDatosFormulario(datos){
     }
 
     /* Validando codAula */
-    var expresion= /^\s*[a-zA-Z0-9\-\s]{1,20}\s*$/;
+    var expresion= /^\s*[0-9]{1,20}\s*$/;
     if(expresion.test(datos['codAula'].trim())) {
+        borrarMensajeErrorInput( 'seccion-advertencia-codAula');
+    }else{
+        darMesajeErrorInput("seccion-advertencia-codAula","Solo se acepta entre 1-20 caracteres numericos");
+        res = 0;
+    }
+
+    /* Validando nombreAula */
+    var expresion= /^\s*[a-zA-Z0-9\-\s]{1,20}\s*$/;
+    if(expresion.test(datos['nombre'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-nombre');
     }else{
         darMesajeErrorInput("seccion-advertencia-nombre","Solo se acepta entre 1-20 caracteres alfanumericos y el simbolo - ");

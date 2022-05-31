@@ -2,7 +2,7 @@
    session_start();
 
    if (isset($_SESSION['cuenta'])) {
-       if($_SESSION['cuenta'] == "admin"){
+       if($_SESSION['cuenta'] == "administrador"){
             header('location: reservas-admin.php');
        }elseif($_SESSION['cuenta'] == "docente"){
         header('location: reservas-docente.php');

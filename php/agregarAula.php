@@ -1,24 +1,17 @@
 <?php 
-
+include_once ("conectar.php");
 
 if($_POST){
-  $servidor = "mysql-andre.alwaysdata.net";
-  $usuario="andre";
-  $contrasena="cualquiera";
-  $BD="andre_base_datos";
   
-
+$con=conectar();
   try {
-    $conexionPDO = new PDO("mysql:host=$servidor;dbname=$BD",$usuario,$contrasena);
-    $conexionPDO->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-
     $codFacultad = $_POST['codFacultad'];
     $codAula = $_POST['codAula'];
+    $codNombre = $_POST['nombre'];
     $detalles = $_POST['detalles'];
-    $capacidad= $_POST['capacidad'];
-    $proyector= $_POST['proyector'];
-    
-    $consulta = "insert into `Aula`(`codFacultad`, `codAula`, `detalles`, `capacidad`, `proyector`) VALUES ('$codFacultad','$codAula','$detalles','$capacidad','$proyector')";
+    $capacidad = $_POST['capacidad'];
+    $proyector = $_POST['proyector'];
+    $dbquery= mysqli_query($con,"INSERT INTO `AULA`(`CODAULA`, `NOMBREAULA`, `CODFACULTAD`, `CAPACIDAD`, `DETALLE`, `PROYECTOR`) VALUES( $codAula ,$codNombre,$codFacultad,$capacidad,$detalles,$proyector)");
     
     $respuesta = "";
       $respuesta = $conexionPDO->exec($consulta);
