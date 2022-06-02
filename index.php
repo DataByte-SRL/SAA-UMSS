@@ -24,6 +24,7 @@
             $usuariodb= mysqli_fetch_array($dbqueryUser);
             mysqli_close($con);
             $_SESSION['cuenta']= "docente";
+            $_SESSION['codigoSis']= $username;
             $_SESSION['nombre']= $usuariodb['nombre'];
             $_SESSION['apellido']=$usuariodb['apellido'];
             // tambien agregar el codigoSIS y que tipo de usuario es  docente o administrdor
@@ -39,6 +40,7 @@
                     $usuariodb= mysqli_fetch_array($dbqueryUser);
                     mysqli_close($con);
                     $_SESSION['cuenta']= "admin";
+                    $_SESSION['codigoSis']= $username;
                     $_SESSION['nombre']= $usuariodb['nombre'];
                     $_SESSION['apellido']=$usuariodb['apellido'];
                     // tambien agregar el codigoSIS y que tipo de usuario es  docente o administrdor
