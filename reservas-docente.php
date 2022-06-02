@@ -68,7 +68,7 @@
                                           </div>
                                           <div class='opciones-usuario oculto'>
                                             <div class='item-opciones-usuario item-opciones-usuario1'>
-                                                <a href='php/configuracionUsuario.php'>Configuracion de Cuenta</a>
+                                                <a href='/perfil-docente.php''>Configuracion de Cuenta</a>
                                             </div>
                                             <div class='item-opciones-usuario'>
                                                 <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
@@ -102,7 +102,7 @@
 
                 <div class="seccion-input">
                     <label class="label-input">Materia:</label>
-                    <div class="selecciones-seccion-input input-materia">
+                    <div class="selecciones-seccion-input input-materiw3a">
 
                     </div>
 
