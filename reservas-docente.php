@@ -144,7 +144,7 @@
                         <input class="checkbox-ergencia" type="checkbox" name="checkbox-ergencia-reserva" id="checkbox-ergencia-id">
                         <label class="label-checkbox-ergencia" for="checkbox-ergencia-id">Habilitar reserva de emergencia</label>
                         <div class="info-checkbox">
-                            <div class="mesaje-info-checkbox mesaje-info-checkbox-oculto">Se le permitira reservar antes de la fecha minima </div>
+                            <div class="mesaje-info-checkbox mesaje-info-checkbox-oculto">Se le permitira reservar antes de la fecha minima y los dias domingo </div>
                         </div>
                     </div>
                     <div class="seccion-input seccion-input-motivo oculto">

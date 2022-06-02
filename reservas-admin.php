@@ -86,21 +86,58 @@
     </header>
 
     <main class="contenido-main">
-        <h1 class="titulo-encabezado-a">Administracion de Rerservas</h1>
-
-        <div class="herramientas-encabezado-a">
-            <div class="buscador-encabezado-a">
-            </div>
-
-            <div class="filtro-encabezado-a">
-            </div>
-
+        <div class="encabezado-pagina-reservas">
+            <p class="opcion-encabezado-pagina-reserva opcion-encabezdo-selecionado opcion-lista-reservas">Lista de Reservas</p>
+            <p class="opcion-encabezado-pagina-reserva ultimo  opcion-configuracion-reservas">Configuracion de Reservas</p>
         </div>
 
-        <div class="seccion-tabla">
+        <div class="formulario-configuracion oculto">
+            <div class="seccion-input-configuracion">
+                <label class="label-input"  for="">Habilitar Reservas:</label>
 
-        </div>
+                <div class="opcion-radio-button">
+                    <input class="input-radio" type="radio" name="radio-btn-habilitar-reserva" id="radio-btn-si" value="si">
+                    <label class="label-radio-btn" for="radio-btn-si">Si</label>
+                </div>
 
+                <div class="opcion-radio-button">
+                     <input class="input-radio" type="radio" name="radio-btn-habilitar-reserva" id="radio-btn-no" value="no">
+                     <label class="label-radio-btn" for="radio-btn-no">No</label>
+                </div>
+
+            </div>
+            
+            <div class="seccion-input-configuracion">
+                <label class="label-input" for="input-minimo-dias">Minimo Dias:</label>
+                <div class="contenedor-input-mensaje-error">
+                    <input class="input-configuracion" type="text" name="" id="input-minimo-dias">
+                    <p class="mensaje-error mensaje-error-minimo-dias oculto">Menasaje de error</p>
+                </div>
+                
+
+            </div>
+            <div class="seccion-input-configuracion">
+                <label class="label-input" for="input-maximo-dias">Maximo Dias:</label>
+                <div class="contenedor-input-mensaje-error">
+                    <input class="input-configuracion"type="text" name="" id="input-maximo-dias">
+                    <p class="mensaje-error mensaje-error-maximo-dias oculto">Menasaje de error</p>
+                </div>
+                
+
+            </div>
+            <div class="seccion-input-configuracion">
+                <label class="label-input" for="input-motico">Motivo:</label>
+                <div class="contenedor-input-mensaje-error">
+                    <textarea class="input-configuracion"name="" id="input-motivo" placeholder="En caso de modificar indique el motivo" ></textarea>
+                    <p class="mensaje-error mensaje-error-motivo oculto">Menasaje de error</p>
+                </div>
+                
+
+            </div>
+
+            <button class="btn-guardar-cambios">Guardar Cambios</button>
+
+        </div> 
     </main>
 
 
@@ -127,10 +164,11 @@
 
     </footer>
 
-
+    <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-reservas-admin.js"></script>
     <script src="js/script-index.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  
     
 </body>

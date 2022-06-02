@@ -1,10 +1,26 @@
 <?php
+
+
+include_once ("conectar.php");
+
 date_default_timezone_set("America/Santiago");
 $fechaActual = time();
 
 
-$minimo = 2; // consegir este dato de la base de datos
-$maximo = 30;  // consegir este dato de la base de datos
+$minimo = 1; 
+$maximo = 1; 
+$habilitado = "no"; 
+
+$con=conectar2();
+$dbquery= mysqli_query($con,"select * FROM `CONFIGURACIONRESERVAS` WHERE CODIGOCONF = (SELECT MAX(CODIGOCONF) FROM `CONFIGURACIONRESERVAS`) ");
+$resultado= mysqli_fetch_array($dbquery);
+
+ if ($resultado != null) {
+    $minimo = $resultado['MINIMO'];
+    $maximo = $resultado['MAXIMO']; 
+    $habilitado = $resultado['HABILITAR'];
+ }
+
 $fechaMinimaReserva = date($fechaActual + ($minimo * 24 * 60 * 60));
 $fechaMaximaReserva = date($fechaActual + ($maximo * 24 * 60 * 60));
 /*
@@ -21,7 +37,7 @@ $respuesta = array('timeStamp' =>$fechaActual,
                     'fechaMaximaReserva' =>date("Y-m-d",$fechaMaximaReserva), 
                     'minimo'=> $minimo,
                     'maximo'=> $maximo ,
-                    'habilitado' => 'si');
+                    'habilitado' => $habilitado);
 
 echo json_encode($respuesta);
 
