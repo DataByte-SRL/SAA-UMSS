@@ -208,13 +208,15 @@ function ponerDatosPopUpSolicitantes(codigoSisSolicitante){
 
 
 function ponerDatosPopUpGrupos(){
-    var dato = {solicitantes, materia};
-    console.log(dato);
+    var codMat=materia['0'].codigo;
+    var dato = {solicitantes, codMat};
+    
 
     $(".contenido-tabla-reserva-grupos").html("");
     document.querySelector(".popup-grupos .contenedor-tabla-loader .seccion-loader-reserva").classList.remove("oculto");
     $.post("./php/optenerGrupos.php",dato,function(respuesta){
         try {
+            
             var lista = JSON.parse(respuesta);
             var template ="";
             var indiceRepetidos = [];
@@ -227,11 +229,12 @@ function ponerDatosPopUpGrupos(){
                  });
 
                 template+=`<tr class="fila-tabla-reserva">
-                                <td class="casilla-columna casilla-columna-btn">
+                                <td class="casilla-columna casilla-columna-btn">    
                                     <button class="btn-agregar-item-tabla">Agregar</button>
                                 </td>
                                 <td class="casilla-columna casilla-codigo ">${element.codigoGrupo}</td>
                                 <td class="casilla-columna casilla-nombre ">${element.docente}</td>
+                                
                             </tr>`;
                 n++;
             });
@@ -258,7 +261,7 @@ function ponerDatosPopUpGrupos(){
                      });
                 }
             }
-            
+          
         } catch (error) {
             console.log(error)
             console.log("error al optener los datos");
