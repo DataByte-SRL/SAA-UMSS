@@ -352,6 +352,7 @@
                                 <tr class="encabezado-tabla-reserva">
                                     <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-accion">Accion</th>
                                     <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Grupo</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Estudiantes</th>
                                     <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-nombre">Docente</th>
                                 </tr>
                             </thead>

@@ -206,7 +206,7 @@ function funcionBotonAgregar(){ // los botones de estan a la derecha de los inpu
                 
             }else{
                 //document.querySelector(".input-buscar-solicitante").value="";
-                ponerDatosPopUpSolicitantes("");
+                ponerDatosPopUpSolicitantes(usuario.codigoSis);
                 abrirPopUp("popup-solicitantes");
             }
     });
@@ -316,7 +316,6 @@ function ponerDatosPopUpMateria(){
                     agregarDatosMateria(e,lista[index].codigo ,lista[index].nombre);
                 });
             }
-            
         } catch (error) {
             console.log(error)
             console.log("error al optener los datos");
@@ -328,7 +327,7 @@ function ponerDatosPopUpMateria(){
 function ponerDatosPopUpSolicitantes(codigoSisSolicitante){
 
     var dato = {codigoSolicitante:""+codigoSisSolicitante, codMateria : ""+materia[0].codigo};
-
+    
     $(".contenido-tabla-reserva-solicitantes").html("");
     document.querySelector(".popup-solicitantes .contenedor-tabla-loader .seccion-loader-reserva").classList.remove("oculto");
     $.post("./php/obtenerSolicitantes.php",dato,function(respuesta){
@@ -374,7 +373,6 @@ function ponerDatosPopUpSolicitantes(codigoSisSolicitante){
                      });
                 }
             }
-            
         } catch (error) {
             console.log(error)
             console.log("error al optener los datos");
@@ -385,7 +383,7 @@ function ponerDatosPopUpSolicitantes(codigoSisSolicitante){
 
 
 function ponerDatosPopUpGrupos(){
-    var dato = {solicitantes, materia};
+    var dato = {solicitantes, materia: materia[0].codigo};
   
     $(".contenido-tabla-reserva-grupos").html("");
     document.querySelector(".popup-grupos .contenedor-tabla-loader .seccion-loader-reserva").classList.remove("oculto");
@@ -407,6 +405,7 @@ function ponerDatosPopUpGrupos(){
                                     <button class="btn-agregar-item-tabla">Agregar</button>
                                 </td>
                                 <td class="casilla-columna casilla-codigo ">${element.codigoGrupo}</td>
+                                <td class="casilla-columna casilla-codigo ">${element.cantidad}</td>
                                 <td class="casilla-columna casilla-nombre ">${element.docente}</td>
                             </tr>`;
                 n++;

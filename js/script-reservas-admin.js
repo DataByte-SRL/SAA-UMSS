@@ -7,6 +7,7 @@ funcionBtnGuardaConfiguracion();
 function cargarSeccionCofiguracion(){
 
     $.post("./php/configuracionReservas.php","",function (respuesta) {
+        console.log(respuesta)
         res = JSON.parse(respuesta);
         console.log(res)
         if (res["habilitado"] == "si") {
@@ -106,6 +107,7 @@ function funcionBtnGuardaConfiguracion() {
             console.log(datos);
 
             $.post("./php/modificarCofiguracionReservas.php",datos,function (respuesta) {
+                console.log(respuesta);
                 if (respuesta == "1") {
                     document.querySelector("#input-motivo").value = "";
                     Swal.fire({

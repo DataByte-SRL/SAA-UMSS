@@ -216,7 +216,7 @@ function cargarDatosPaginaTablaDocente(numPagina){
                           <td>${element.telefono}</td>
                           <td>${element.correo}</td>
                           <td>${element.celular}</td>
-                          <td>${element.contrasena}</td>
+                          <td>${element.contrasenia}</td>
                         
                     </tr>`;
     }

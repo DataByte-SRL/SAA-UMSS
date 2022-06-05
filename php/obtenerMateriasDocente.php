@@ -1,27 +1,19 @@
 <?php
 
 include_once("conectar.php");
-    $con=conectar2();
+    $con=conectar();
     session_start();
-// la varible post tendra esta estructura  {codigoSis:"" , nombre:""} 
 
-if ($_POST) {    
-    $codigo=$_SESSION['codigoSis'];
-    $dbquery=mysqli_query ($con,"SELECT MATERIA.NOMBREMATERIA,DICTA.CODMATERIA FROM DICTA, MATERIA, DOCENTE WHERE DICTA.CODMATERIA=MATERIA.CODMATERIA AND DOCENTE.CODSISDOC=DICTA.CODSISDOC AND DOCENTE.CODSISDOC='$codigo'");
+if ($_POST) { 
+    $con = conectar();
+
+    $codSis = $_POST['codigoSis'];
     
-    $miArray= array( );
-    while($resultado= mysqli_fetch_array($dbquery)){
-    $miArray[] = array("codigo"=>$resultado['CODMATERIA'], "nombre"=>$resultado['NOMBREMATERIA']);
-   
-   };
-   echo(json_encode($miArray));    
+    $respuesta =  mysqli_query($con ,"SELECT M.codMateria as codigo , M.nombre  FROM Grupo G ,Materia M WHERE  G.codMateria=M.codMateria AND  G.codDocente = 201900333 GROUP BY M.codMateria ");
+    $res = mysqli_fetch_all( $respuesta, $resulttype = MYSQLI_ASSOC);
+
+
+   echo(json_encode($res));    
 }
 
-/*
-// la varible post tendra esta estructura  {codigoSis:"" , nombre:""} 
-if ($_POST) {    
-    echo ('[{"codigo":"228555","nombre":"Elementos de programacion"},{"codigo":"1231231","nombre":"Caliddad de software"}]');
-}
-
-*/
 ?>

@@ -124,7 +124,7 @@ if (!(maxFilasPagina == 25 ||maxFilasPagina == 50 ||maxFilasPagina == 70 ||maxFi
     maxFilasPagina = 50;
     establecerPaginacion();
     ponerFuncionBotonesPaginacion();
-    cargarDatosPaginaTablaDocente(1);
+    cargarDatosPaginaTablaAula(1);
 }
 
 datosTablaOriginal = [];
@@ -135,7 +135,7 @@ function obtenerListaBaseDatos(){
     $('#tbody-lista-aulas').html("");
     var loader = document.querySelector(".seccion-loader");
     loader.classList.remove("oculto");
-    $.post("./php/consultaListaAulas.php","datos",function(respuesta){
+    $.post("./php/consultaListaAmbientes.php","datos",function(respuesta){
         var lista = JSON.parse(respuesta);
         datosTablaOriginal = lista;
         datosTabla = lista;
@@ -161,10 +161,12 @@ function cargarDatosPaginaTablaAula(numPagina){
         template += ` <tr>
                            <td>${index+1}</td>
                            <td class="codigosis-tabla">${element.nombreFacultad}</td>
-                           <td>${element.codAula}</td>
+                           <td>${element.codAmbiente}</td>
+                           <td>${element.tipoAmbiente}</td>
                            <td>${element.detalles}</td>
                            <td>${element.capacidad}</td>
                            <td>${element.proyector}</td>
+                           
                          
                      </tr>`;
     }
@@ -279,8 +281,8 @@ function verificarYAplicarFiltrosAulas(){
 
     if (ordenar == "codigo-aula") {
         datosTabla.sort((a,b)=>{
-            var codAulaA = a.codAula.toLowerCase();
-            var codAulaB = b.codAula.toLowerCase();
+            var codAulaA = a.codAmbiente.toLowerCase();
+            var codAulaB = b.codAmbiente.toLowerCase();
             
             if (codAulaA < codAulaB) {
                 return -1;

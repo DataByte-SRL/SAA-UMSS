@@ -157,7 +157,8 @@
                     <tr>
                         <th>N°</th>
                         <th>Facultad</th>
-                        <th>Codigo Aula</th>
+                        <th>Codigo Ambiente</th>
+                        <th>Tipo Ambiente</th>
                         <th>Destalles</th>
                         <th>Capacidad</th>
                         <th>Proyector</th>
