@@ -13,7 +13,7 @@ var fechaEmergencia = null;
 
 var listaAmbientesDisponibles = [];
 
-var usuario= {codigoSis:"" , nombre:""};
+var usuario= {codigoSis:"" , nombre:"",codFacultad:""};
 
 
 inicializar();
@@ -26,6 +26,7 @@ function inicializar(){
         var res = JSON.parse(respuesta);
         usuario.codigoSis = res.codigoSis;
         usuario.nombre = res.nombre + " " + res.apellido ;
+        usuario.codFacultad = res.codFacultad ;
         //ponerHoverEnInputsFormulario();
         funcionBotonAgregar();
         funcionBotonesCerrarPopUp();
@@ -93,7 +94,18 @@ function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo boton
     }); 
 
     document.querySelector(".btn-reservar-aula").addEventListener('click',e=>{
-        var dato = {periodos, fecha};
+
+        e.target.textContent = "Reservando ...";
+        e.target.disabled = true;
+        console.log(e.target)
+        
+
+        var horaInicio = (periodos[0].nombre)[1];
+        var horaFin =  (periodos[periodos.length-1].nombre)[2];
+        var fechaReserva = fecha / 1000;
+        var codFacultad = usuario.codFacultad;
+
+        var dato = {fechaReserva ,codFacultad ,horaInicio,horaFin };
         $.post("./php/obtenerAmbientes.php",dato,function(respuesta){
             try {
                 listaAmbientesDisponibles = JSON.parse(respuesta);
@@ -131,26 +143,58 @@ function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo boton
                     }
         
                     if (verificarCamposFormulario(0) == 1) {
-                        Swal.fire({
-                            icon:'success',
-                            text:"La reserva fue exitosa"
+            
+
+                        var asunto = document.querySelector('.input-asunto').value;
+                        var codMateria = materia[0].codigo;
+                        var codFacultad = usuario.codFacultad;
+                        var horaInicio = (periodos[0].nombre)[1];
+                        var fechaReserva = fecha / 1000;
+                        var horaFin =  (periodos[periodos.length-1].nombre)[2];
+                        var comentario = document.querySelector('.input-comentario').value;
+                        var motivoEmergencia = "";
+                        var emergencia = "no";
+                        if (document.querySelector(".checkbox-ergencia").checked) {
+                            emergencia = "si"
+                            motivoEmergencia = document.querySelector(".input-motivo-emergencia").value;
+                        }
+
+                
+                        var dato = {asunto,codMateria,codFacultad,horaInicio,horaFin,fechaReserva,comentario,motivoEmergencia,emergencia,ambientes,grupos,solicitantes};
+                        console.log(dato);
+
+                        $.post("./php/reservarAmbientes.php",dato,function(respuesta) {
+                            if (respuesta ==  '1') {
+                                Swal.fire({
+                                    icon:'success',
+                                    text:"La reserva fue exitosa"
+                                });
+                                
+                            }else{
+                                Swal.fire({
+                                    icon:'error',
+                                    text:"No se pudo hacer la reserva, intentelo denuevo"
+                                });
+                            }
+                            e.target.disabled = false;
+                            e.target.textContent = "Reservar Ambientes";
                         });
-                        
-                       
-                    // ahcer reserva de los ambientes
-        
-                    }else{
+                    }else{ 
+
                         Swal.fire({
                             icon:'error',
                             text:"Por favor revise los campos del formuario"
                         });
-
+                        e.target.disabled = false;
+                        e.target.textContent = "Reservar Ambientes";
                     }
                 });
+                
             } catch (error) {
                 console.log(error)
                 console.log("error al optener los datos");
-                
+                e.target.disabled = false;
+                e.target.textContent = "Reservar Ambientes";
             }
         });
 
@@ -446,7 +490,19 @@ function ponerDatosPopUpGrupos(){
 
 function ponerFuncionalidadBotonesPeriodo(){
     var botones = document.querySelectorAll(".contenido-tabla-reserva-periodos .fila-tabla-reserva .casilla-columna-btn .btn-agregar-item-tabla");
-    var nombrePeriodos =["6:45 - 8:15","8:15 - 9:45","9:45 - 11:15","11:15 - 12:45","12:45 - 14:15","14:15 - 15:45","15:45 - 17:15","17:15 - 18:45","18:45 - 20:15","20:15 - 21:45"];
+    var nombrePeriodos =[['6:45 - 8:15','6:45:00','8:15:00'],
+                        ["8:15 - 9:45",'8:15:00','9:45:00'],
+                        ["9:45 - 11:15",'9:45:00','11:15:00'],
+                        ["11:15 - 12:45",'11:15:00','12:45:00'],
+                        ["12:45 - 14:15",'12:45:00','14:15:00'],
+                        ["14:15 - 15:45",'14:15:00','15:45:00'],
+                        ["15:45 - 17:15",'15:45:00','17:15:00'],
+                        ["17:15 - 18:45",'17:15:00','18:45:00'],
+                        ["18:45 - 20:15",'18:45:00','20:15:00'],
+                        ["20:15 - 21:45",'20:15:00','21:45:00']];
+
+
+    //var nombrePeriodos =["6:45 - 8:15","8:15 - 9:45","9:45 - 11:15","11:15 - 12:45","12:45 - 14:15","14:15 - 15:45","15:45 - 17:15","17:15 - 18:45","18:45 - 20:15","20:15 - 21:45"];
 
     
 
@@ -591,14 +647,22 @@ function ponerDatosSeccionSugerencias(){
 }
 
 
+
 function ponerDatosPopUpAmbientes(){
-    var dato = {periodos, fecha};
+     var horaInicio = (periodos[0].nombre)[1];
+     var horaFin =  (periodos[periodos.length-1].nombre)[2];
+     var fechaReserva = fecha / 1000;
+     var codFacultad = usuario.codFacultad;
+
+    var dato = {fechaReserva ,codFacultad ,horaInicio,horaFin };
 
     $(".contenido-tabla-reserva-ambientes").html("");
     document.querySelector(".popup-ambientes .contenedor-tabla-loader .seccion-loader-reserva").classList.remove("oculto");
     $.post("./php/obtenerAmbientes.php",dato,function(respuesta){
         try {
+            
             var lista = JSON.parse(respuesta);
+            console.log(lista);
             var template ="";
             var indiceRepetidos = [];
             var n = 0;
@@ -822,11 +886,13 @@ function eliminarGrupo(indice){
 }
 
 function agregarDatosPeriodo(codigoP,nombreP){
-    periodos.push({codigoPeriodo:""+codigoP,nombre:""+nombreP});
+
+    periodos.push({codigoPeriodo:""+codigoP,nombre: nombreP});
     var template ="";
     periodos.forEach(element => {
+        console.log(element)
         template += `<div class="item-seccion-input">
-                        <p class="info-input">${element.nombre}</p>
+                        <p class="info-input">${element.nombre[0]}</p>
                         <button class="btn-item-input">x</button>
                     </div>`;
     });

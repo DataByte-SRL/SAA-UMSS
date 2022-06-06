@@ -7,13 +7,14 @@
             $username = $_POST['codigosis'];
             $password =$_POST['contrasena'];
             $con=conectar();
-            $dbquery= mysqli_query($con,"select nombre, apellido, codigoSis, contrasenia from Docente where codigoSis='$username' and contrasenia='$password';");
+            $dbquery= mysqli_query($con,"select nombre, apellido, codigoSis, codFacultad,contrasenia from Docente where codigoSis='$username' and contrasenia='$password';");
             $resultado= mysqli_fetch_array($dbquery);
             if($resultado != null){
                 $_SESSION['cuenta']= "docente";
                 $_SESSION['nombre']= $resultado['nombre'];
                 $_SESSION['apellido']=$resultado['apellido'];
                 $_SESSION['codigoSis']=$resultado['codigoSis'];
+                $_SESSION['codFacultad']=$resultado['codFacultad'];
                 mysqli_close($con);
                 echo "iniciado";
             }else{
