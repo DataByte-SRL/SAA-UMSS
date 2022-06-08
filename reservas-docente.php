@@ -89,8 +89,21 @@
         </div>
         <div class="formulario-reserva">
             <h1 class="titulo-formulario-reserva">Formulario Para Reserva De Ambientes</h1>
+
+            <div class = "contenedor-mensaje-formulario oculto">
+                <p>No es posible realizar reservas por el momento</p>
+
+            </div>
+
+            <div class="seccion-loader-formulario-reserva ">
+                <div class="contenedor-loader">
+                    <div class="loader ">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
            
-            <div class="seccion-datos-reserva">
+            <div class="seccion-datos-reserva oculto">
                 <div class="seccion-input">
                     <label class="label-input" for="asunto">Asunto:</label>
                     <div class="contenedor-input">

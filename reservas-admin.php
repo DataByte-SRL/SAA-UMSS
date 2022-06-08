@@ -89,55 +89,98 @@
         <div class="encabezado-pagina-reservas">
             <p class="opcion-encabezado-pagina-reserva opcion-encabezdo-selecionado opcion-lista-reservas">Lista de Reservas</p>
             <p class="opcion-encabezado-pagina-reserva ultimo  opcion-configuracion-reservas">Configuracion de Reservas</p>
+            <p class="opcion-encabezado-pagina-reserva ultimo  opcion-historial-configuracions">Historial de configuraciones</p>
         </div>
 
         <div class="formulario-configuracion oculto">
-            <div class="seccion-input-configuracion">
-                <label class="label-input"  for="">Habilitar Reservas:</label>
-
-                <div class="opcion-radio-button">
-                    <input class="input-radio" type="radio" name="radio-btn-habilitar-reserva" id="radio-btn-si" value="si">
-                    <label class="label-radio-btn" for="radio-btn-si">Si</label>
-                </div>
-
-                <div class="opcion-radio-button">
-                     <input class="input-radio" type="radio" name="radio-btn-habilitar-reserva" id="radio-btn-no" value="no">
-                     <label class="label-radio-btn" for="radio-btn-no">No</label>
-                </div>
-
-            </div>
             
-            <div class="seccion-input-configuracion">
-                <label class="label-input" for="input-minimo-dias">Minimo Dias:</label>
-                <div class="contenedor-input-mensaje-error">
-                    <input class="input-configuracion" type="text" name="" id="input-minimo-dias">
-                    <p class="mensaje-error mensaje-error-minimo-dias oculto">Menasaje de error</p>
+           
+                <div class="contenedor-formulario oculto">
+                    <div class="seccion-input-configuracion">
+                        <label class="label-input"  for="">Habilitar Reservas:</label>
+
+                        <div class="opcion-radio-button">
+                            <input class="input-radio" type="radio" name="radio-btn-habilitar-reserva" id="radio-btn-si" value="si">
+                            <label class="label-radio-btn" for="radio-btn-si">Si</label>
+                        </div>
+
+                        <div class="opcion-radio-button">
+                            <input class="input-radio" type="radio" name="radio-btn-habilitar-reserva" id="radio-btn-no" value="no">
+                            <label class="label-radio-btn" for="radio-btn-no">No</label>
+                        </div>
+
+                    </div>
+                    
+                    <div class="seccion-input-configuracion">
+                        <label class="label-input" for="input-minimo-dias">Minimo Dias:</label>
+                        <div class="contenedor-input-mensaje-error">
+                            <input class="input-configuracion" type="text" name="" id="input-minimo-dias">
+                            <p class="mensaje-error mensaje-error-minimo-dias oculto">Menasaje de error</p>
+                        </div>
+                        
+
+                    </div>
+                    <div class="seccion-input-configuracion">
+                        <label class="label-input" for="input-maximo-dias">Maximo Dias:</label>
+                        <div class="contenedor-input-mensaje-error">
+                            <input class="input-configuracion"type="text" name="" id="input-maximo-dias">
+                            <p class="mensaje-error mensaje-error-maximo-dias oculto">Menasaje de error</p>
+                        </div>
+                        
+                    </div>
+                    <div class="seccion-input-configuracion">
+                        <label class="label-input" for="input-motico">Motivo:</label>
+                        <div class="contenedor-input-mensaje-error">
+                            <textarea class="input-configuracion"name="" id="input-motivo" placeholder="En caso de modificar indique el motivo" ></textarea>
+                            <p class="mensaje-error mensaje-error-motivo oculto">Menasaje de error</p>
+                        </div>
+                    </div>
+
+                    <button class="btn-guardar-cambios">Guardar Cambios</button>
                 </div>
-                
 
-            </div>
-            <div class="seccion-input-configuracion">
-                <label class="label-input" for="input-maximo-dias">Maximo Dias:</label>
-                <div class="contenedor-input-mensaje-error">
-                    <input class="input-configuracion"type="text" name="" id="input-maximo-dias">
-                    <p class="mensaje-error mensaje-error-maximo-dias oculto">Menasaje de error</p>
+                <div class="seccion-loader-configuracion ">
+                    <div class="contenedor-loader">
+                        <div class="loader ">
+                            <span></span><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
                 </div>
-                
-
-            </div>
-            <div class="seccion-input-configuracion">
-                <label class="label-input" for="input-motico">Motivo:</label>
-                <div class="contenedor-input-mensaje-error">
-                    <textarea class="input-configuracion"name="" id="input-motivo" placeholder="En caso de modificar indique el motivo" ></textarea>
-                    <p class="mensaje-error mensaje-error-motivo oculto">Menasaje de error</p>
-                </div>
-                
-
-            </div>
-
-            <button class="btn-guardar-cambios">Guardar Cambios</button>
+            
 
         </div> 
+
+         <div class="seccion-historial-configuraciones oculto">
+                <div class="contenedor-tabla-historial">
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr>
+                                <th class="celda-tabla-historial">N</th>
+                                <th class="celda-tabla-historial">CodigoSis Admin</th>
+                                <th class="celda-tabla-historial">Nombre Admin</th>
+                                <th class="celda-tabla-historial">Fecha Configuracion</th>
+                                <th class="celda-tabla-historial">Habilitado</th>
+                                <th class="celda-tabla-historial">Minimo</th>
+                                <th class="celda-tabla-historial">Maximo</th>
+                                <th class="celda-tabla-historial">Motivo</th>
+                            </tr>
+                        </thead>
+                        <tbody class ="tbody-tabla-historial">
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="seccion-loader-historial ">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                </div>
+
+         </div>
+
     </main>
 
 

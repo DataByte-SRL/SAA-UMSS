@@ -26,7 +26,7 @@ body{
     padding-bottom: 5px;
     font-size: 15px;
     border-bottom: 1px solid #D4D4D4;
-    width: 500px;
+    width: 700px;
     
 }
 
@@ -56,7 +56,9 @@ body{
 .formulario-configuracion{
     display: flex;
     flex-direction: column;
-    margin-left: 50px;
+    width: 100%;
+    height: 70vh;
+    padding-left: 50px;
     margin-top: 20px;
 }
 
@@ -167,13 +169,41 @@ body{
 }
 
 
+.seccion-loader-configuracion{
+    height: 100%;
+    width: 100%;
+}
+.seccion-loader-historial{
+    height: 60vh;
+}
+
+
+
+
 /*----------------------------------------------------------------------------------*/
 
 
 
 
 
+/* ----------------------------------------- Estilo del historial -----------------------*/
+.contenedor-tabla-historial{
+    width: 97%;
+    margin: 10px auto 10px auto;
+    font-size: 14px;
+}
+.celda-tabla-historial{
+    max-width: 195px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
 
+.celda-tabla-historial-motivo{
+    text-align: start;
+}
+
+/*--------------------------------------------------------------------------------------*/
 
 
 

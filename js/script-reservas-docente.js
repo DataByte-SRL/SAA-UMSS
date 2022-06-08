@@ -1,3 +1,5 @@
+var reservasHabilitads = 'no';
+
 var materia = [];
 var solicitantes = [];
 var grupos = [];
@@ -22,19 +24,29 @@ inicializar();
 
 
 function inicializar(){
-    $.post("./php/datosUsuario.php","",function(respuesta){
-        var res = JSON.parse(respuesta);
-        usuario.codigoSis = res.codigoSis;
-        usuario.nombre = res.nombre + " " + res.apellido ;
-        usuario.codFacultad = res.codFacultad ;
-        //ponerHoverEnInputsFormulario();
-        funcionBotonAgregar();
-        funcionBotonesCerrarPopUp();
-        agregarDatosSolicitantes(usuario.codigoSis,usuario.nombre);
-        funcionBonesCambiarPasoFormulario();
-        checkboxEmergencia();
-        ponerHoverBtnInfoUrgencia();
-        funcionalidadInputFecha();
+    $.post('./php/obtenerFechas.php','',function(respuestaFechas){
+        var  aux = funcionalidadInputFecha(respuestaFechas);
+        if (aux == 1) {
+            $.post("./php/datosUsuario.php","",function(respuesta){
+                var res = JSON.parse(respuesta);
+                usuario.codigoSis = res.codigoSis;
+                usuario.nombre = res.nombre + " " + res.apellido ;
+                usuario.codFacultad = res.codFacultad ;
+                //ponerHoverEnInputsFormulario();
+                funcionBotonAgregar();
+                funcionBotonesCerrarPopUp();
+                agregarDatosSolicitantes(usuario.codigoSis,usuario.nombre);
+                funcionBonesCambiarPasoFormulario();
+                checkboxEmergencia();
+                ponerHoverBtnInfoUrgencia();
+                document.querySelector(".seccion-loader-formulario-reserva").classList.add("oculto");
+                document.querySelector(".seccion-datos-reserva").classList.remove("oculto");
+                
+            });
+        }else{
+            document.querySelector(".seccion-loader-formulario-reserva").classList.add("oculto");
+            document.querySelector(".contenedor-mensaje-formulario").classList.remove("oculto")
+        }
         
     });
     
@@ -1207,7 +1219,7 @@ function verificarCamposFormulario(parte){  // 1 em caso de verificar la primera
 
 
 
-function funcionalidadInputFecha(){
+function funcionalidadInputFecha(respuesta){
     var inputFecha = document.querySelector(".input-fecha");
     inputFecha.setAttribute("onkeydown","return false");
     var respaldo = inputFecha.value;
@@ -1220,53 +1232,36 @@ function funcionalidadInputFecha(){
         var datoInput = inputFecha.value
         datoInput = datoInput.split("-");
         var aux = new Date( datoInput[0], datoInput[1] - 1, datoInput[2]);
-       
-        /*if (ambientes.length > 0) {
-            Swal.fire({
-                text: 'Si cambia de fecha se borraran los ambientes que ha seleccionado',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                ambientes=[];
-                $('.input-ambientes').html('');
-                fecha = aux.getTime();
-              }else{
-                inputFecha.value=respaldo;
-              }
-            })
-        }else{
-            fecha = aux.getTime();
-        }*/
 
         fecha = aux.getTime();
 
     });
+    
+    
+    var res = JSON.parse(respuesta);
+    if (res.habilitado == 'no') {
+        return 0;
+    }
+    inputFecha.setAttribute("value",res.fechaMinimaReserva);
+    inputFecha.setAttribute("min",res.fechaMinimaReserva);
+    inputFecha.setAttribute("max",res.fechaMaximaReserva);
 
-    $.post('./php/obtenerFechas.php','',function(respuesta){
-        var res = JSON.parse(respuesta);
-        inputFecha.setAttribute("value",res.fechaMinimaReserva);
-        inputFecha.setAttribute("min",res.fechaMinimaReserva);
-        inputFecha.setAttribute("max",res.fechaMaximaReserva);
+    var timeStamp = Number(res.timeStamp);
 
-        var timeStamp = Number(res.timeStamp);
+    fechaActual = new Date(timeStamp*1000);
 
-        fechaActual = new Date(timeStamp*1000);
+    fechaMinima = new Date(((timeStamp)+(Number(res.minimo)*24*60*60))*1000);
+    fechaMinima.setHours(0);fechaMinima.setMinutes(0);fechaMinima.setSeconds(0);
 
-        fechaMinima = new Date(((timeStamp)+(Number(res.minimo)*24*60*60))*1000);
-        fechaMinima.setHours(0);fechaMinima.setMinutes(0);fechaMinima.setSeconds(0);
+    fechaEmergencia =new Date(timeStamp*1000);
+    fechaEmergencia.setHours(0);fechaEmergencia.setMinutes(0);fechaEmergencia.setSeconds(0);
 
-        fechaEmergencia =new Date(timeStamp*1000);
-        fechaEmergencia.setHours(0);fechaEmergencia.setMinutes(0);fechaEmergencia.setSeconds(0);
+    fechaMaxima = new Date(((timeStamp)+(Number(res.maximo)*24*60*60))*1000);
+    fechaMaxima.setHours(0);fechaMaxima.setMinutes(0);fechaMaxima.setSeconds(0);
 
-        fechaMaxima = new Date(((timeStamp)+(Number(res.maximo)*24*60*60))*1000);
-        fechaMaxima.setHours(0);fechaMaxima.setMinutes(0);fechaMaxima.setSeconds(0);
+    fecha = fechaMinima.getTime();
 
-        fecha = fechaMinima.getTime();
-    });
+    return 1;
 
 }
 

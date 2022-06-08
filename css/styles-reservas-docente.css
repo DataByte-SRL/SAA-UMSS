@@ -749,7 +749,22 @@ body{
     margin: auto;
 }
 
-    
+.seccion-loader-formulario-reserva{
+    height: 500px;
+}
+
+.contenedor-mensaje-formulario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    width: 100%;
+}
+.contenedor-mensaje-formulario p{
+    font-size: 20px;
+    color: #647881;
+}
 /*--------------------------------------------*/
 
 
