@@ -8,7 +8,7 @@ session_start();
 if ($_POST) {   
     date_default_timezone_set("America/Santiago");
     $fechaActual = time();
-    $fechaActual= date('Y-m-d',$fechaActual);
+    $fechaActual= date('Y-m-d H:i:s',$fechaActual);
     $con = conectarPDO();
     $asunto = $_POST['asunto'];
     $codMateria =$_POST['codMateria'];
