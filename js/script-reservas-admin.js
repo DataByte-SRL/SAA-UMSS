@@ -2,7 +2,7 @@
 
 funcionalidadBotonesEncabezado();
 funcionBtnGuardaConfiguracion();
-
+listaReservas();
 function cargarSeccionCofiguracion(){
     document.querySelector('.contenedor-formulario').classList.add("oculto");
     document.querySelector('.seccion-loader-configuracion').classList.remove("oculto");
@@ -150,7 +150,7 @@ function ponerDatosTablaHistorial() {
     document.querySelector(".contenedor-tabla-historial").classList.add("oculto");
     $.post("./php/hitorialConfiguraciones.php",'',function (respuesta) {
         var res = JSON.parse(respuesta);
-        
+        console.log(respuesta);
         var  template ="";
         var n=1;
         res.forEach(element => {
@@ -188,3 +188,32 @@ function ocultarPestanias() {
 
 
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+function listaReservas(){   
+    var x="hola";
+    $.post("./php/obtener-listaReservas-Admin.php",x,function(respuesta){
+        
+        var res = JSON.parse(respuesta);
+        
+        var  template ="";
+        var n=1;
+        res.forEach(element => {
+            template += `<tr>
+                            <td class="tabla-reservas" scope="row">${n++}</td>
+                            <td class="tabla-reservas">${element.fechaReserva}</td>
+                            <td class="tabla-reservas">${element.ambiente}</td>
+                            <td class="tabla-reservas">${element.nombreDoc + " " + element.apellidoDoc}</td>
+                            <td class="tabla-reservas">${element.horaInicio}</td>
+                            <td class="tabla-reservas">${element.horaFin}</td>
+                            <td class="tabla-reservas">${element.emergencia}</td>
+                            <td class="tabla-reservas">${element.materia}</td>
+                            <td class="tabla-reservas">${element.grupo}</td>
+                            <td class="tabla-reservas">${element.tipoAmbiente}</td>
+                            <td class="tabla-reservas"><button type="btn">detalles</button> </td>
+                        </tr>`;           
+        });
+        
+        $('.tbody-tabla-reservas').html(template);
+    });
+}

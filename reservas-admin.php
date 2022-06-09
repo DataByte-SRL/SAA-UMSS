@@ -1,14 +1,4 @@
 <?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
-<<<<<<< HEAD
-    session_start();
-    $nombre = $_SESSION['nombre'];
-    $apellido = $_SESSION['apellido'];
-    if(!isset($_SESSION['cuenta'])){
-        header('location:index.php');
-    }
-?>
-
-=======
     
     $nombre = " ";
     $apellido = " ";
@@ -27,7 +17,6 @@
 ?>
 
 
->>>>>>> main
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,45 +40,6 @@
 </head>
 <body>
     <header>
-<<<<<<< HEAD
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand me-auto" href="index.php">SAA-UMSS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item ">
-                            <a class="nav-link  text-center " aria-current="page" href="aulas-admin.php">Aulas</a>
-                        </li>
-                        <li class="nav-item text-center ">
-                            <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
-                        </li>
-                        <li class="nav-item   text-center">
-                            <a class="nav-link active" href="reservas-admin.php">Reservas</a>
-                        </li>
-                        <?php 
-
-                        echo ("<li class='nav-item  text-center nav-item-usuario'>
-                                <div class= 'info-usuario-menu '>
-                                    <p class='nav-link  nombre-usuario-menu ' >$nombre $apellido</p>
-                                    <div class='imagen-usuario'>
-                                        <p class= 'texto-imagen-usuario'>$nombre[0]$apellido[0]</p>
-                                    </div>
-                                </div>
-                                <div class='opciones-usuario oculto'>
-                                    <div class='item-opciones-usuario item-opciones-usuario1'>
-                                        <a href='#'>Configuracion de Cuenta</a>
-                                    </div>
-                                    <div class='item-opciones-usuario'>
-                                        <a href='#'>Cerrar Sesion</a>
-                                    </div>
-                                </div>
-                            </li>");
-                        ?>
-                    </ul>
-=======
         <div class="contenedor-navegacion">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
@@ -129,7 +79,6 @@
                             ?>
                         </ul>
                     </div>
->>>>>>> main
                 </div>
             </nav>
         </div>
@@ -231,6 +180,26 @@
                 </div>
 
          </div>
+         <div class="table lista-reservas ">
+                <table class="table">
+                    <thead >
+                    <th class="tabla-reservas">Nº</th>
+                    <th class="tabla-reservas">Fecha</th>
+                    <th class="tabla-reservas">Ambiente</th>
+                    <th class="tabla-reservas">Docente</th>
+                    <th class="tabla-reservas">HoraInicio</th>
+                    <th class="tabla-reservas">HoraFin</th>
+                    <th class="tabla-reservas">Emergencia</th>
+                    <th class="tabla-reservas">Materia</th>
+                    <th class="tabla-reservas">Grupo</th>                   
+                    <th class="tabla-reservas">Tipo Ambiente</th>
+                    <th class="tabla-reservas">Detalle</th>
+                </thead>
+                <tbody class="tbody-tabla-reservas">
+                    
+                </tbody>
+            </table>           
+        </div>
 
     </main>
 

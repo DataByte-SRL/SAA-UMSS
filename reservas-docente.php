@@ -87,7 +87,7 @@
             <p class="opcion-encabezado-pagina-reserva ultimo ">Lista de Reservas</p>
             
         </div>
-        <div class="formulario-reserva">
+        <div class="formulario-reserva oculto">
             <h1 class="titulo-formulario-reserva">Formulario Para Reserva De Ambientes</h1>
 
             <div class = "contenedor-mensaje-formulario oculto">
@@ -255,6 +255,24 @@
 
         </div>
 
+        <div class="table lista-reservas">
+                <table class="table">
+                    <thead >
+                    <th class="tabla-reservas">Nº</th>
+                    <th class="tabla-reservas">Fecha</th>
+                    <th class="tabla-reservas">Ambiente</th>
+                    <th class="tabla-reservas">HoraInicio</th>
+                    <th class="tabla-reservas">HoraFin</th>
+                    <th class="tabla-reservas">Emergencia</th>
+                    <th class="tabla-reservas">Materia</th>
+                    <th class="tabla-reservas">Grupo</th>
+                    <th class="tabla-reservas">Detalle</th>
+                </thead>
+                <tbody class="tbody-tabla-reservas">
+                    
+                </tbody>
+            </table>           
+        </div>
 
 
 
