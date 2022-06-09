@@ -6,7 +6,6 @@ body{
 
 .contenido-main{
     width: 90%;
-    min-height: 100vh;
     margin: auto;
     display: flex;
     flex-direction: column;

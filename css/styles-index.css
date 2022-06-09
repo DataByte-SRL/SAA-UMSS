@@ -4,10 +4,22 @@ body{
     font-size: 15px;
     margin: 0;
     padding: 0;
+    min-width: 400px;
+}
+
+body::-webkit-scrollbar{
+    width: 13px;
+    border-radius: 15px;
+}
+
+body::-webkit-scrollbar-thumb{
+    background: #a1a1a1;
+    border-radius: 5px;
+    border: 3px solid white;
 }
 
 main{
-   padding-top: 90px ;
+   padding-top: 97px ;
    min-height: 100vh;
 }
 
@@ -15,7 +27,15 @@ header{
     border-bottom: 1px solid #D4D4D4;
     position: fixed;
     width: 100%;
-    background: white;
+    background-color: #f9fafb;
+    z-index: 10;
+}
+
+.contenedor-navegacion{
+    width: 90%;
+    max-width: 90%;
+    margin: auto;
+    
 }
 
 .navbar-brand{
@@ -127,7 +147,63 @@ footer p{
 .titulo-inicio-sesion{
     font-size: 3.3em;
     color: #1B4B94;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
+}
+
+
+
+.mensaje-error-sesion{
+    border: 1px solid #E0DCDC;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 70px;
+    margin: 0px auto 0px auto;
+    overflow: hidden;
+}
+.mensaje-error-sesion-oculto{
+    display: none;
+}
+.mensaje-error-sesion-visible{
+    margin-bottom: 30px;
+}
+
+.contenedor-simbolo-error-sesion{
+    height: 100%;
+    width: 15%;
+    background-color: #E34843;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+.simbolo-error-sesion{
+    width: 27px;
+    height: 27px;
+    margin-top: 10px;
+    background-image: url(../img/simbolo-error-sesion.svg) ;
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+}
+.contenedor-mesaje-error-sesion{
+    padding: 7px 6px 3px 6px;
+    width: 85%;
+}
+.mesaje-error-sesion{
+    width: 100%;
+    color: #BDBCBC;
+    font-size: 14px;
+    text-align: start;
+}
+
+.form-inicio-sesion{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .seccion-input-sesion{
@@ -141,7 +217,7 @@ footer p{
     margin-bottom: 10px;
 }
 .seccion-input-sesion input{
-    font-size: 1em;
+    font-size: 1.3em;
     padding: 5px 10px;
     text-decoration: none;
     border: none;
@@ -155,6 +231,8 @@ footer p{
     border-bottom: 1px solid #473af7;
 
 }
+
+
 .btn-iniciar-sesion{
     color: white;
     text-align: center;
@@ -201,6 +279,127 @@ footer p{
     line-height: 2;
     
 }
+
+
+
+/*    estilos para el menu cuando se inicie secion   */
+.info-usuario-menu{
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    max-height: 48.5px;
+    border-left: 1px solid #C8C2C2;
+}
+
+.nombre-usuario-menu{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 100%;
+    margin-right: 10px;
+    margin-left: 32px;
+    max-width: 200px;
+       
+}
+
+.imagen-usuario{
+    width: 40px;
+    height: 40px;
+    background-color: #A5A5A5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 0px auto 0px;
+    box-shadow: 0px 0px 3px #A5A5A5;
+}
+
+.texto-imagen-usuario{
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    margin: auto;
+    line-height: 0.8;
+}
+
+.nav-item-usuario{
+    margin-left: 32px;
+    position: relative;
+}
+
+.opciones-usuario{
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 0px 5px #A5A5A5;
+    width: 250px;
+    border-radius: 5px;
+    right: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.item-opciones-usuario{
+  width: 100%;
+  display: flex;
+}
+
+.item-opciones-usuario:hover{
+     background-color: #eeeeee ;
+  }
+
+.item-opciones-usuario a{
+    margin: 0px auto 0px 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 15px;
+    text-decoration: none;
+    color: #5D5F62 ;
+}
+
+.imagen-usuario-hover{
+    background-color: #1071E5;
+
+}
+.nombre-usuario-hover{
+    color: #1071E5!important;
+}
+
+
+/* --------------------------------------------------------*/
+
+
+@media(min-width: 1500px){
+    .contenedor-simbolo-error-sesion{
+        width: 11%;
+       
+    }
+    .contenedor-mesaje-error-sesion{
+        width: 89%;
+    }
+
+    
+    
+}
+
+@media(max-width: 991px){
+
+    .imagen-usuario{
+        /*display: none;*/
+        margin: 10px auto 20px auto;
+    }
+
+    .nombre-usuario-menu{
+        display: none;
+    }
+    .info-usuario-menu{
+        border-left: none;
+    }
+    .opciones-usuario{
+        right: -100px;
+    }
+    
+}
+
 
 
 

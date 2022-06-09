@@ -1,4 +1,5 @@
 <?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
+<<<<<<< HEAD
     session_start();
     $nombre = $_SESSION['nombre'];
     $apellido = $_SESSION['apellido'];
@@ -7,6 +8,26 @@
     }
 ?>
 
+=======
+    
+    $nombre = " ";
+    $apellido = " ";
+    session_start();
+
+    if(!isset($_SESSION['cuenta'])){
+        header('location:index.php');
+    }else{
+        if ($_SESSION['cuenta'] != "administrador") {
+            header('location:index.php');
+        }
+        $nombre = $_SESSION['nombre'];
+        $apellido = $_SESSION['apellido'];
+    }
+
+?>
+
+
+>>>>>>> main
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +51,7 @@
 </head>
 <body>
     <header>
+<<<<<<< HEAD
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand me-auto" href="index.php">SAA-UMSS</a>
@@ -67,26 +89,148 @@
                             </li>");
                         ?>
                     </ul>
+=======
+        <div class="contenedor-navegacion">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand me-auto" href="index.php">SAA-UMSS</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item ">
+                                <a class="nav-link  text-center" aria-current="page" href="aulas-admin.php">Aulas</a>
+                            </li>
+                            <li class="nav-item text-center ">
+                                <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
+                            </li>
+                            <li class="nav-item   text-center">
+                                <a class="nav-link active " href="reservas-admin.php">Reservas</a>
+                            </li>
+                            <?php 
+                            
+                                echo ("<li class='nav-item  text-center nav-item-usuario'>
+                                          <div class= 'info-usuario-menu '>
+                                              <p class='nav-link  nombre-usuario-menu ' >$nombre $apellido</p>
+                                              <div class='imagen-usuario'>
+                                                  <p class= 'texto-imagen-usuario'>$nombre[0]$apellido[0]</p>
+                                              </div>
+                                          </div>
+                                          <div class='opciones-usuario oculto'>
+                                            <div class='item-opciones-usuario item-opciones-usuario1'>
+                                                <a href='perfil-admin.php'>Configuracion de Cuenta</a>
+                                            </div>
+                                            <div class='item-opciones-usuario'>
+                                                <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
+                                            </div>
+                                          </div>
+                                      </li>");
+                            ?>
+                        </ul>
+                    </div>
+>>>>>>> main
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+        
     </header>
 
     <main class="contenido-main">
-        <h1 class="titulo-encabezado-a">Administracion de Rerservas</h1>
-
-        <div class="herramientas-encabezado-a">
-            <div class="buscador-encabezado-a">
-            </div>
-
-            <div class="filtro-encabezado-a">
-            </div>
-
+        <div class="encabezado-pagina-reservas">
+            <p class="opcion-encabezado-pagina-reserva opcion-encabezdo-selecionado opcion-lista-reservas">Lista de Reservas</p>
+            <p class="opcion-encabezado-pagina-reserva ultimo  opcion-configuracion-reservas">Configuracion de Reservas</p>
+            <p class="opcion-encabezado-pagina-reserva ultimo  opcion-historial-configuracions">Historial de configuraciones</p>
         </div>
 
-        <div class="seccion-tabla">
+        <div class="formulario-configuracion oculto">
+            
+           
+                <div class="contenedor-formulario oculto">
+                    <div class="seccion-input-configuracion">
+                        <label class="label-input"  for="">Habilitar Reservas:</label>
 
-        </div>
+                        <div class="opcion-radio-button">
+                            <input class="input-radio" type="radio" name="radio-btn-habilitar-reserva" id="radio-btn-si" value="si">
+                            <label class="label-radio-btn" for="radio-btn-si">Si</label>
+                        </div>
+
+                        <div class="opcion-radio-button">
+                            <input class="input-radio" type="radio" name="radio-btn-habilitar-reserva" id="radio-btn-no" value="no">
+                            <label class="label-radio-btn" for="radio-btn-no">No</label>
+                        </div>
+
+                    </div>
+                    
+                    <div class="seccion-input-configuracion">
+                        <label class="label-input" for="input-minimo-dias">Minimo Dias:</label>
+                        <div class="contenedor-input-mensaje-error">
+                            <input class="input-configuracion" type="text" name="" id="input-minimo-dias">
+                            <p class="mensaje-error mensaje-error-minimo-dias oculto">Menasaje de error</p>
+                        </div>
+                        
+
+                    </div>
+                    <div class="seccion-input-configuracion">
+                        <label class="label-input" for="input-maximo-dias">Maximo Dias:</label>
+                        <div class="contenedor-input-mensaje-error">
+                            <input class="input-configuracion"type="text" name="" id="input-maximo-dias">
+                            <p class="mensaje-error mensaje-error-maximo-dias oculto">Menasaje de error</p>
+                        </div>
+                        
+                    </div>
+                    <div class="seccion-input-configuracion">
+                        <label class="label-input" for="input-motico">Motivo:</label>
+                        <div class="contenedor-input-mensaje-error">
+                            <textarea class="input-configuracion"name="" id="input-motivo" placeholder="En caso de modificar indique el motivo" ></textarea>
+                            <p class="mensaje-error mensaje-error-motivo oculto">Menasaje de error</p>
+                        </div>
+                    </div>
+
+                    <button class="btn-guardar-cambios">Guardar Cambios</button>
+                </div>
+
+                <div class="seccion-loader-configuracion ">
+                    <div class="contenedor-loader">
+                        <div class="loader ">
+                            <span></span><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+            
+
+        </div> 
+
+         <div class="seccion-historial-configuraciones oculto">
+                <div class="contenedor-tabla-historial">
+                    <table class="table table-striped ">
+                        <thead>
+                            <tr>
+                                <th class="celda-tabla-historial">N</th>
+                                <th class="celda-tabla-historial">CodigoSis Admin</th>
+                                <th class="celda-tabla-historial">Nombre Admin</th>
+                                <th class="celda-tabla-historial">Fecha Configuracion</th>
+                                <th class="celda-tabla-historial">Habilitado</th>
+                                <th class="celda-tabla-historial">Minimo</th>
+                                <th class="celda-tabla-historial">Maximo</th>
+                                <th class="celda-tabla-historial">Motivo</th>
+                            </tr>
+                        </thead>
+                        <tbody class ="tbody-tabla-historial">
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="seccion-loader-historial ">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                </div>
+
+         </div>
 
     </main>
 
@@ -114,9 +258,11 @@
 
     </footer>
 
-
+    <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-reservas-admin.js"></script>
+    <script src="js/script-index.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  
     
 </body>

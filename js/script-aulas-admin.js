@@ -5,6 +5,7 @@ var overlay_form = document.querySelector(".overlay-form-a");
 var form = document.querySelector(".form-a");
 
 
+var btn_buscar= document.querySelector(".btn-input-bucar");
 var btn_cancelar_form = document.querySelector(".seccion-botones-form-a .btn-cancelar");
 var btn_aceptar_form = document.querySelector(".seccion-botones-form-a .btn-aceptar");
 var mensajeError = document.querySelectorAll(".mensaje-error-form-a")
@@ -18,6 +19,11 @@ ponerFuncionalidadMesajeErrorFom();
 
 function ponerFuncionBotones(){
     
+    btn_buscar.addEventListener("click",()=>{
+       buscar($(".opcion-busqueda").val(),document.querySelector(".encabezado-input-buscar").value);
+    });
+    ponerEventoInputBuscar();
+
     btn_nueva_aula.addEventListener("click",()=>{
         abrirFormulario();
     });
@@ -69,11 +75,11 @@ function ValidarDatosFormulario(datos){
     }
 
     /* Validando codAula */
-    var expresion= /^\s*[a-zA-Z0-9\s]{1,20}\s*$/;
+    var expresion= /^\s*[a-zA-Z0-9\-\s]{1,20}\s*$/;
     if(expresion.test(datos['codAula'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-nombre');
     }else{
-        darMesajeErrorInput("seccion-advertencia-nombre","Debe tener almenos 1 caracter y maximo 20");
+        darMesajeErrorInput("seccion-advertencia-nombre","Solo se acepta entre 1-20 caracteres alfanumericos y el simbolo - ");
         res = 0;
     }
 
@@ -110,40 +116,257 @@ function ValidarDatosFormulario(datos){
 }
 /* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
+obtenerListaBaseDatos();
+var paginaActual= 1;
+var cantPaginas = 1;
+var maxFilasPagina = Number($(".select-filtro-mostrar").val()); 
+if (!(maxFilasPagina == 25 ||maxFilasPagina == 50 ||maxFilasPagina == 70 ||maxFilasPagina == 100 )){
+    maxFilasPagina = 50;
+    establecerPaginacion();
+    ponerFuncionBotonesPaginacion();
+    cargarDatosPaginaTablaAula(1);
+}
 
-llenarTablaAulas();
+datosTablaOriginal = [];
+datosTabla = [];
 
-function llenarTablaAulas(){
+
+function obtenerListaBaseDatos(){
+    $('#tbody-lista-aulas').html("");
     var loader = document.querySelector(".seccion-loader");
     loader.classList.remove("oculto");
-    $.post("./php/consultaListaAulas.php","datos",function(respuesta){
-        console.log(respuesta);
+    $.post("./php/consultaListaAmbientes.php","datos",function(respuesta){
         var lista = JSON.parse(respuesta);
-        var template = "";
-        
-        console.log(lista);
-        var n = 1;
-
-        lista.forEach(element => {
-           console.log(element.codigoSis);
-             template += ` <tr>
-                               <td>${n}</td>
-                               <td class="codigosis-tabla">${element.codFacultad}</td>
-                               <td>${element.codAula}</td>
-                               <td>${element.detalles}</td>
-                               <td>${element.capacidad}</td>
-                               <td>${element.proyector}</td>
-                             
-                         </tr>`;
-            n++;
-        });
+        datosTablaOriginal = lista;
+        datosTabla = lista;
         loader.classList.add("oculto");
-        $('#tbody-lista-docentes').html(template);
+        verificarYAplicarFiltrosAulas();
+        establecerPaginacion();
+        ponerFuncionBotonesPaginacion();
+        cargarDatosPaginaTablaAula(1);
     });
+}
 
+function cargarDatosPaginaTablaAula(numPagina){
+    var template = "";
+    if (numPagina < 1 || numPagina > cantPaginas) {
+        return;
+    }
+    paginaActual = numPagina;
+
+    var aux =  ((numPagina-1) * (maxFilasPagina));
+
+    for (let index = aux ; index < (aux + maxFilasPagina) && index < datosTabla.length ; index++) {
+        var element = datosTabla[index];
+        template += ` <tr>
+                           <td>${index+1}</td>
+                           <td class="codigosis-tabla">${element.nombreFacultad}</td>
+                           <td>${element.codAmbiente}</td>
+                           <td>${element.tipoAmbiente}</td>
+                           <td>${element.detalles}</td>
+                           <td>${element.capacidad}</td>
+                           <td>${element.proyector}</td>
+                           
+                         
+                     </tr>`;
+    }
+    $('#tbody-lista-aulas').html(template);
+    var numerosPaginacion = document.querySelectorAll(".page-item-numero");
+    for (let index = 0; index < numerosPaginacion.length; index++) {
+        element = numerosPaginacion[index];
+        if (index == numPagina -1 ) {
+            element.classList.add("active"); 
+        }else{
+            element.classList.remove("active");
+        }
+        
+    }
+
+}
+
+
+function establecerPaginacion(){
+    var template = ``;
+
+    cantPaginas = Math.ceil(datosTabla.length / maxFilasPagina);
+
+    if (cantPaginas == 0) {
+         cantPaginas = 1;
+    }
+
+    for (let index = 1; index <= cantPaginas; index++) {
+        template += `<li class="page-item page-item-numero" value = '${index}' ><a class="page-link value = '${index}' " href="#">${index}</a></li>`;
+    }
+     $('#numeros-paginacion').html(template);
+     (document.querySelector(".seccion-paginacion")).classList.remove("oculto");
     
 
+}
 
+var btnIniciados = 0;
+function ponerFuncionBotonesPaginacion(){
+
+    var numerosPaginacion = document.querySelectorAll(".page-item-numero");
+    var btnAtras = document.querySelector(".page-item-atras");
+    var btnAdelante = document.querySelector(".page-item-adelante");
+    var n = 1;
+    numerosPaginacion.forEach(element => {
+        var aux = n;
+        element.addEventListener("click", (e)=>{
+             cargarDatosPaginaTablaAula(aux);
+        });
+        n++;
+    });
+
+    if (btnIniciados == 0) {
+        btnAtras.addEventListener("click",()=>{
+            console.log(paginaActual);
+            cargarDatosPaginaTablaAula(paginaActual-1);
+        });
+        btnAdelante.addEventListener("click",()=>{
+            console.log(paginaActual);
+            cargarDatosPaginaTablaAula(paginaActual+1);
+        });
+        btnIniciados = 1;
+    }
+
+}
+
+ponerFuncionalidadFiltrosAulas();
+
+
+function ponerFuncionalidadFiltrosAulas(){
+
+    $(".select-filtro-facultad").change(function(){
+        document.querySelector(".encabezado-input-buscar").value ="";
+        verificarYAplicarFiltrosAulas();
+    });
+
+    $(".select-filtro-ordenar").change(function(){
+        document.querySelector(".encabezado-input-buscar").value ="";
+        verificarYAplicarFiltrosAulas();
+    });
+
+    $(".select-filtro-mostrar").change(function(){
+        console.log($(this).val())
+        cambiarCantidadDatosAMostrar(Number($(this).val()));
+    });
+    
+
+}
+
+function verificarYAplicarFiltrosAulas(){
+
+    if (datosTablaOriginal.length == 0) {
+        return;
+    }
+ 
+    var facultad = $(".select-filtro-facultad").val();
+    var ordenar = $(".select-filtro-ordenar").val();
+
+    datosTabla = datosTablaOriginal;
+
+    var expresion= /^\s*[0-9]{1,5}\s*$/;
+
+    if (expresion.test(facultad)){
+        var filtradoFacultad = datosTabla.filter(item =>{
+            if (facultad  == 0) {
+                return 1;
+            }
+           return item.codFacultad == facultad;
+        });
+
+        datosTabla = filtradoFacultad;
+    }
+
+    if (ordenar == "codigo-aula") {
+        datosTabla.sort((a,b)=>{
+            var codAulaA = a.codAmbiente.toLowerCase();
+            var codAulaB = b.codAmbiente.toLowerCase();
+            
+            if (codAulaA < codAulaB) {
+                return -1;
+            }
+
+            if (codAulaA > codAulaB) {
+                return 1;
+            }
+            return 0;
+        });
+    }else if(ordenar == "capacidad"){
+        datosTabla.sort((a,b)=>{
+            var capacidadA = Number(a.capacidad.trim());
+            var capacidadB = Number(b.capacidad.trim());
+
+            if (capacidadA < capacidadB) {
+                return -1;
+            }
+
+            if (capacidadA > capacidadB) {
+                return 1;
+            }
+            return 0;
+        });
+    }
+
+    establecerPaginacion();
+    ponerFuncionBotonesPaginacion();
+    cargarDatosPaginaTablaAula(1);
+}
+
+
+
+function buscar(nombreColum,busqueda){
+
+    if (datosTablaOriginal.length == 0) {
+        return ;
+    }
+
+    datosTabla = datosTablaOriginal ; 
+    verificarYAplicarFiltrosAulas();
+
+    if (busqueda.length != 0) {
+        var datoBusqueda = busqueda.toLowerCase();
+        datoBusqueda = datoBusqueda.trim();
+        datoBusqueda = datoBusqueda.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+    
+        arregloFiltrado = datosTabla.filter(element =>{
+            var datoColum = element[""+nombreColum].toLowerCase();
+            datoColum = datoColum.trim();
+            datoColum = datoColum.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
+            
+            if (datoColum.search(datoBusqueda) >= 0) {
+                return 1;
+            } 
+            return 0;
+        });
+    
+        datosTabla = arregloFiltrado;
+    }
+    establecerPaginacion();
+    ponerFuncionBotonesPaginacion();
+    cargarDatosPaginaTablaAula(1);
+    
+}
+
+function  ponerEventoInputBuscar(){
+    document.querySelector(".encabezado-input-buscar").addEventListener('keyup', function(e) {
+        var keycode = e.keyCode || e.which;
+        if (keycode == 13) {
+            buscar($(".opcion-busqueda").val(),document.querySelector(".encabezado-input-buscar").value);
+        }
+      });
+
+}
+
+
+function cambiarCantidadDatosAMostrar(cant){
+    if (cant == 25 ||cant == 50 ||cant == 70 ||cant == 100 ) {
+        maxFilasPagina = cant;
+        establecerPaginacion();
+        ponerFuncionBotonesPaginacion();
+        cargarDatosPaginaTablaAula(1);
+    }
 }
 
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */
@@ -160,7 +383,7 @@ function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo de
                    showConfirmButton: false,
                    timer: 1300
                });
-               llenarTablaAulas()
+               obtenerListaBaseDatos();
            }else{
                Swal.fire({
                    title : "Error!",

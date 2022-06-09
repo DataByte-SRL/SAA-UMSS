@@ -1,5 +1,6 @@
 
 <?php //esto se ocupa de ver si hay una sesion activa y si no redirecciona a que inicie sesion
+<<<<<<< HEAD
     session_start();
     $nombre = $_SESSION['nombre'];
     $apellido = $_SESSION['apellido'];
@@ -8,6 +9,24 @@
     }
 ?>
 
+=======
+    
+    $nombre = " ";
+    $apellido = " ";
+    session_start();
+    if(!isset($_SESSION['cuenta'])){
+        header('location:index.php');
+    }else{
+        if ($_SESSION['cuenta'] != "administrador") {
+            header('location:index.php');
+        }
+        $nombre = $_SESSION['nombre'];
+        $apellido = $_SESSION['apellido'];
+    }
+?>
+
+
+>>>>>>> main
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,6 +50,7 @@
 </head>
 <body>
     <header>
+<<<<<<< HEAD
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand me-auto" href="index.php">SAA-UMSS</a>
@@ -70,9 +90,51 @@
                         ?>
 
                     </ul>
+=======
+        <div class="contenedor-navegacion">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand me-auto" href="index.php">SAA-UMSS</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item ">
+                                <a class="nav-link  text-center active" aria-current="page" href="aulas-admin.php">Aulas</a>
+                            </li>
+                            <li class="nav-item text-center ">
+                                <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
+                            </li>
+                            <li class="nav-item   text-center">
+                                <a class="nav-link" href="reservas-admin.php">Reservas</a>
+                            </li>
+                            <?php 
+                            
+                                echo ("<li class='nav-item  text-center nav-item-usuario'>
+                                          <div class= 'info-usuario-menu '>
+                                              <p class='nav-link  nombre-usuario-menu ' >$nombre $apellido</p>
+                                              <div class='imagen-usuario'>
+                                                  <p class= 'texto-imagen-usuario'>$nombre[0]$apellido[0]</p>
+                                              </div>
+                                          </div>
+                                          <div class='opciones-usuario oculto'>
+                                            <div class='item-opciones-usuario item-opciones-usuario1'>
+                                                <a href='perfil-admin.php'>Configuracion de Cuenta</a>
+                                            </div>
+                                            <div class='item-opciones-usuario'>
+                                                <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
+                                            </div>
+                                          </div>
+                                      </li>");
+                            ?>
+                        </ul>
+                    </div>
+>>>>>>> main
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
+        
     </header>
 
     <main class="contenido-main">
@@ -80,7 +142,14 @@
 
         <div class="herramientas-encabezado-a">
             <div class="buscador-encabezado-a">
-                <input type="text" class="encabezado-input-buscar" placeholder="Buscar coincidencias">
+                <input type="text" class="encabezado-input-buscar" placeholder="Buscar Coincidencias">
+                <select  class="opcion-busqueda">
+                    <option  value="codAula" selected>Codigo Aula</option>
+                    <option  value="detalles">Detalles</option>
+                    <option  value="capacidad">Capacidad</option>
+                    <option  value="proyector">Proyector</option>
+    
+                </select>
                 <button class="btn-input-bucar">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
@@ -90,6 +159,46 @@
             </div>
 
             <div class="filtro-encabezado-a">
+                <div class="opcion-filtro  filtro-facultada">
+                     <label >Facultad:</label>
+                     <select  class="select-filtro-facultad">
+                        <option  value="0"  selected>Todas</option>
+                        <option  value="1">Ciencias agricolas y Pecuarias</option>
+                        <option  value="2">CS.Bioquimicas</option>
+                        <option  value="3">Ciencias Económicas</option>
+                        <option  value="4">Desarrollo Rural</option>
+                        <option  value="5">Odontologia</option>
+                        <option  value="6">Medicina</option>
+                        <option  value="7">Arquitectura</option>
+                        <option  value="8">Humanidades</option>
+                        <option  value="9">Ciencias Juridicas</option>
+                        <option  value="10">Ciencias y Tecnologia</option>
+                        <option  value="11">Ciencias Sociales</option>
+                        <option  value="12">Ciencias Veterinarias</option>
+                        <option  value="13">Enfermeria</option>
+                    </select>
+
+                </div>
+                <div class="opcion-filtro  filtro-ordenar">
+                    <label >Odenar por:</label>
+                    <select  class="select-filtro-ordenar">
+                        <option  value="codigo-aula"  selected>Codigo Aula</option>
+                        <option   value="capacidad">Capacidad</option>
+                    </select>
+
+                </div>
+
+                <div class="opcion-filtro  filtro-facultada">
+                    <label >Mostrar:</label>
+                    <select  class="select-filtro-mostrar">
+                       <option  value="25">25</option>
+                       <option  value="50" selected>50</option>
+                       <option  value="70">70</option>
+                       <option  value="100">100</option>
+                   </select>
+               </div>
+
+                
             </div>
 
             <button class="btn-encabezado-a">Nueva Aula</button>     
@@ -101,13 +210,14 @@
                     <tr>
                         <th>N°</th>
                         <th>Facultad</th>
-                        <th>Codigo Aula</th>
+                        <th>Codigo Ambiente</th>
+                        <th>Tipo Ambiente</th>
                         <th>Destalles</th>
                         <th>Capacidad</th>
                         <th>Proyector</th>
                     </tr>
                 </thead>
-                <tbody id="tbody-lista-docentes">
+                <tbody id="tbody-lista-aulas">
                    
                 </tbody>
                
@@ -123,6 +233,30 @@
 
             
 
+        </div>
+
+        <div class="seccion-paginacion oculto">
+            <div class="contenedor-paginacion">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination" id="paginacion">
+                        <li class="page-item page-item-atras">
+                            <a class="page-link" href="#" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <div  class="numeros-paginacion" id="numeros-paginacion">
+                          
+                        </div>
+                        <li class="page-item page-item-adelante">
+                            <a class="page-link" href="#" aria-label="Next" >
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                  </nav>
+
+            </div>
+           
         </div>
 
     </main>
@@ -242,6 +376,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-aulas-admin.js"></script>
+    <script src="js/script-index.js"></script>
 
     
 </body>

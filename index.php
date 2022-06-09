@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <?php
     include_once ("php/conectar.php");
@@ -50,6 +51,22 @@
 
 ?>
 
+=======
+<?php 
+   session_start();
+
+   if (isset($_SESSION['cuenta'])) {
+        if ($_SESSION['cuenta'] == "docente") {
+            header('location: reservas-docente.php');
+        }
+        if ($_SESSION['cuenta'] == "administrador") {
+            header('location: reservas-admin.php');
+        }
+   }
+?>
+
+
+>>>>>>> main
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,6 +87,7 @@
 <body>
 
     <header>
+<<<<<<< HEAD
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand me-auto" href="index.php">SAA-UMSS</a>
@@ -78,11 +96,33 @@
                 </button>               
             </div>
         </nav>
+=======
+        <div class="contenedor-navegacion">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <a class="navbar-brand me-auto" href="index.php">SAA-UMSS</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            
+                            <li class="nav-item  text-center">
+                                <a class="nav-link active" href="index.php">Iniciar Sesion</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        
+>>>>>>> main
     </header>
 
     <main class="contenido-main-inicio-sesion" method="POST">
         <div class="inicio-sesion">
             <h1 class="titulo-inicio-sesion">¡BIENVENIDO!</h1>
+<<<<<<< HEAD
             <form class="form-inicio-sesion" action="index.php" method="post">
                 <div class="seccion-input-sesion">
                     <label>CodigoSIS</label>
@@ -109,6 +149,36 @@
                 
                 
                 
+=======
+
+            <div class="mensaje-error-sesion mensaje-error-sesion-visible mensaje-error-sesion-oculto">
+                <div class="contenedor-simbolo-error-sesion">
+                    <div class="simbolo-error-sesion">
+
+                    </div>
+                </div>
+                <div class="contenedor-mesaje-error-sesion">
+                    <p class="mesaje-error-sesion">Los  datos que ha ingresado al formulario  son incorrectos, por favor reviselos</p>
+                </div>
+
+            </div>
+            
+            <form class="form-inicio-sesion" action="index.php" method="post">
+                
+                <div class="seccion-input-sesion">
+                    <label>CodigoSIS</label>
+                    <input class="input-codigoSis" type="text" name="codigosis" >
+                </div>
+
+                <div class="seccion-input-sesion">
+                    <label>Constaseña</label>
+                    <input class="input-contrasena" type="password" name="contrasena">
+                    
+                </div>
+ 
+                <button class="btn-iniciar-sesion" >INICIAR SESION</button>
+               
+>>>>>>> main
             </form>
         </div>
         <div class="info">
@@ -142,6 +212,7 @@
 
     </footer>
 
+    <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="js/script-index.js"></script>
 </body>
