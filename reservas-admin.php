@@ -180,6 +180,26 @@
                 </div>
 
          </div>
+         <div class="table lista-reservas ">
+                <table class="table">
+                    <thead >
+                    <th class="tabla-reservas">Nº</th>
+                    <th class="tabla-reservas">Fecha</th>
+                    <th class="tabla-reservas">Ambiente</th>
+                    <th class="tabla-reservas">Docente</th>
+                    <th class="tabla-reservas">HoraInicio</th>
+                    <th class="tabla-reservas">HoraFin</th>
+                    <th class="tabla-reservas">Emergencia</th>
+                    <th class="tabla-reservas">Materia</th>
+                    <th class="tabla-reservas">Grupo</th>                   
+                    <th class="tabla-reservas">Tipo Ambiente</th>
+                    <th class="tabla-reservas">Detalle</th>
+                </thead>
+                <tbody class="tbody-tabla-reservas">
+                    
+                </tbody>
+            </table>           
+        </div>
 
     </main>
 

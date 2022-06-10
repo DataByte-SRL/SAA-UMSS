@@ -19,7 +19,7 @@ var usuario= {codigoSis:"" , nombre:"",codFacultad:""};
 
 
 inicializar();
-
+listaReservas();
 
 
 
@@ -39,6 +39,7 @@ function inicializar(){
                 funcionBonesCambiarPasoFormulario();
                 checkboxEmergencia();
                 ponerHoverBtnInfoUrgencia();
+                
                 document.querySelector(".seccion-loader-formulario-reserva").classList.add("oculto");
                 document.querySelector(".seccion-datos-reserva").classList.remove("oculto");
                 
@@ -1299,4 +1300,30 @@ function ponerHoverEnInputsFormulario(){
         
     });
 
+}
+//-------------------------Lista Reservas Docente-----------------------------------------
+function listaReservas(){   
+    var x= "hola";
+    $.post("./php/obtener-listaDoc.php",x,function(respuesta){
+       
+        var res = JSON.parse(respuesta);
+        
+        var  template ="";
+        var n=1;
+        res.forEach(element => {
+            template += `<tr>
+                            <td class="tabla-reservas" scope="row">${n++}</td>
+                            <td class="tabla-reservas">${element.fechaReserva}</td>
+                            <td class="tabla-reservas">${element.ambiente}</td>
+                            <td class="tabla-reservas">${element.horaInicio}</td>
+                            <td class="tabla-reservas">${element.horaFin}</td>
+                            <td class="tabla-reservas">${element.emergencia}</td>
+                            <td class="tabla-reservas">${element.materia}</td>
+                            <td class="tabla-reservas">${element.grupo}</td>
+                            <td class="tabla-reservas"><button type="btn">detalles</button> </td>
+                        </tr>`;           
+        });
+        
+        $('.tbody-tabla-reservas').html(template);
+    });
 }
