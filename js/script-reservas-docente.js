@@ -18,9 +18,9 @@ var listaAmbientesDisponibles = [];
 var usuario= {codigoSis:"" , nombre:"",codFacultad:""};
 
 
-inicializar();
+//inicializar();
 listaReservas();
-
+funcionalidadBotonesEncabezado();
 
 
 function inicializar(){
@@ -1320,10 +1320,37 @@ function listaReservas(){
                             <td class="tabla-reservas">${element.emergencia}</td>
                             <td class="tabla-reservas">${element.materia}</td>
                             <td class="tabla-reservas">${element.grupo}</td>
-                            <td class="tabla-reservas"><button type="btn">detalles</button> </td>
+                            <td class="tabla-reservas"><button class="btn-detalles" type="btn">detalles</button> </td>
                         </tr>`;           
         });
-        
+        document.querySelector(".seccion-loader-lista").classList.add("oculto");
+        document.querySelector(".lista-reservas").classList.remove("oculto");
         $('.tbody-tabla-reservas').html(template);
+    });
+}
+//-----------------------------------funcionalidad del encabezado----------------------------------------
+function ocultarPestanias() {
+    document.querySelector(".opcion-lista-reserva" ).classList.remove("opcion-encabezdo-selecionado");
+    document.querySelector(".opcion-formulario-reserva" ).classList.remove("opcion-encabezdo-selecionado");
+    document.querySelector(".formulario-reserva").classList.add("oculto");
+    document.querySelector(".lista-reservas").classList.add("oculto");
+}
+
+function funcionalidadBotonesEncabezado(){
+    document.querySelector(".opcion-formulario-reserva").addEventListener("click",e=>{
+        ocultarPestanias();
+        e.target.classList.add("opcion-encabezdo-selecionado");
+        document.querySelector(".formulario-reserva").classList.remove("oculto");
+       
+        inicializar();
+    });
+
+    document.querySelector(".opcion-lista-reserva").addEventListener("click",e=>{
+        ocultarPestanias();
+        e.target.classList.add("opcion-encabezdo-selecionado");
+        document.querySelector(".lista-reservas").classList.remove("oculto");
+        
+        listaReservas();
+        
     });
 }

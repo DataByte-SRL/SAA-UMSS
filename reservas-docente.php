@@ -83,8 +83,9 @@
 
     <main class="contenido-main">
         <div class="encabezado-pagina-reservas">
-            <p class="opcion-encabezado-pagina-reserva opcion-encabezdo-selecionado">Formulario de Reserva</p>
-            <p class="opcion-encabezado-pagina-reserva ultimo ">Lista de Reservas</p>
+            
+            <p class="opcion-encabezado-pagina-reserva opcion-lista-reserva opcion-encabezdo-selecionado ">Lista de Reservas</p>
+            <p class="opcion-encabezado-pagina-reserva opcion-formulario-reserva ultimo ">Formulario de Reserva</p>
             
         </div>
         <div class="formulario-reserva oculto">
@@ -274,6 +275,13 @@
             </table>           
         </div>
 
+        <div class="seccion-loader-lista ">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                </div>
 
 
      

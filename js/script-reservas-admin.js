@@ -220,7 +220,7 @@ function listaReservas(){
                             <td class="tabla-reservas">${element.materia}</td>
                             <td class="tabla-reservas">${element.grupo}</td>
                             <td class="tabla-reservas">${element.tipoAmbiente}</td>
-                            <td class="tabla-reservas"><button type="btn">detalles</button> </td>
+                            <td class="tabla-reservas"><button class="btn-detalles" type="btn">detalles</button> </td>
                         </tr>`;           
         });
         document.querySelector(".seccion-loader-lista").classList.add("oculto");

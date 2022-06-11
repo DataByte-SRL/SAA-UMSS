@@ -781,3 +781,16 @@ body{
     background: #ACACAC;
 }
 
+.btn-detalles{
+    width: 100px;
+    height: 30px;
+    font-size: 17px;
+    color: white;
+    background-color: #1071E5;
+    border: none;
+    border-radius: 7px;
+    margin-top: 10px;
+}
+.btn-detalles:hover{
+    background-color: #4b97f3;
+}
