@@ -180,7 +180,10 @@
                 </div>
 
          </div>
-         <div class="table lista-reservas ">
+        <div class="contenedor-lista-reservas">
+            
+        
+         <div class="table lista-reservas">
                 <table class="table">
                     <thead >
                     <th class="tabla-reservas">Nº</th>
@@ -199,7 +202,15 @@
                     
                 </tbody>
             </table>           
-        </div>
+         </div>
+         </div> 
+        <div class="seccion-loader-lista ">
+                        <div class="contenedor-loader">
+                            <div class="loader ">
+                                <span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        </div>
+                </div>
 
     </main>
 

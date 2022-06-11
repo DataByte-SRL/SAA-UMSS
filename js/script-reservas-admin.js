@@ -5,6 +5,7 @@ funcionBtnGuardaConfiguracion();
 listaReservas();
 function cargarSeccionCofiguracion(){
     document.querySelector('.contenedor-formulario').classList.add("oculto");
+    //document.querySelector('.table').classList.add("oculto");
     document.querySelector('.seccion-loader-configuracion').classList.remove("oculto");
     var mensajesError= document.querySelectorAll('.mensaje-error');
     mensajesError.forEach(element => {
@@ -33,12 +34,15 @@ function funcionalidadBotonesEncabezado(){
     document.querySelector(".opcion-lista-reservas").addEventListener("click",e=>{
         ocultarPestanias();
         e.target.classList.add("opcion-encabezdo-selecionado");
+        document.querySelector(".contenedor-lista-reservas").classList.remove("oculto");
+        listaReservas();
     });
 
     document.querySelector(".opcion-configuracion-reservas").addEventListener("click",e=>{
         ocultarPestanias();
         e.target.classList.add("opcion-encabezdo-selecionado");
         document.querySelector(".formulario-configuracion").classList.remove("oculto");
+        
         cargarSeccionCofiguracion();
         
     });
@@ -47,6 +51,7 @@ function funcionalidadBotonesEncabezado(){
         ocultarPestanias();
         e.target.classList.add("opcion-encabezdo-selecionado");
         document.querySelector(".seccion-historial-configuraciones").classList.remove("oculto");
+    
         ponerDatosTablaHistorial();
         
     });
@@ -148,9 +153,11 @@ function funcionBtnGuardaConfiguracion() {
 function ponerDatosTablaHistorial() {
     document.querySelector(".seccion-loader-historial").classList.remove("oculto");
     document.querySelector(".contenedor-tabla-historial").classList.add("oculto");
-    $.post("./php/hitorialConfiguraciones.php",'',function (respuesta) {
+    var x="hola";
+    $.post("./php/hitorialConfiguraciones.php",x,function (respuesta) {
+        
+        
         var res = JSON.parse(respuesta);
-        console.log(respuesta);
         var  template ="";
         var n=1;
         res.forEach(element => {
@@ -182,6 +189,7 @@ function ocultarPestanias() {
 
     document.querySelector(".seccion-historial-configuraciones").classList.add("oculto");
     document.querySelector(".formulario-configuracion").classList.add("oculto");
+    document.querySelector(".contenedor-lista-reservas").classList.add("oculto");
     
     //ocultar la seccion lista de reservas
 }
@@ -191,6 +199,8 @@ function ocultarPestanias() {
 
 
 function listaReservas(){   
+    //document.querySelector('.seccion-loader-lista').classList.remove("oculto");
+    //document.querySelector('.contenedor-lista-reservas').classList.add("oculto");
     var x="hola";
     $.post("./php/obtener-listaReservas-Admin.php",x,function(respuesta){
         
@@ -213,7 +223,8 @@ function listaReservas(){
                             <td class="tabla-reservas"><button type="btn">detalles</button> </td>
                         </tr>`;           
         });
-        
+        document.querySelector(".seccion-loader-lista").classList.add("oculto");
+        document.querySelector(".contenedor-tabla-historial").classList.remove("oculto");
         $('.tbody-tabla-reservas').html(template);
     });
 }
