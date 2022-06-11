@@ -92,6 +92,11 @@
             <p class="opcion-encabezado-pagina-reserva ultimo  opcion-historial-configuracions">Historial de configuraciones</p>
         </div>
 
+
+        <div class="contenedor-lista-reservas">
+
+        </div>
+
         <div class="formulario-configuracion oculto">
             
            

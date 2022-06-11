@@ -1300,3 +1300,32 @@ function ponerHoverEnInputsFormulario(){
     });
 
 }
+
+
+botonesEncabezado();
+
+function botonesEncabezado() {
+
+    document.querySelector(".opcion-encabezado-pagina-reserva-formulario").addEventListener("click", e =>{
+        ocultarPestanias();
+        e.target.classList.add("opcion-encabezdo-selecionado");
+        document.querySelector(".formulario-reserva").classList.remove("oculto");
+    } );
+
+    document.querySelector(".opcion-encabezado-pagina-reserva-lista").addEventListener("click",e =>{
+        ocultarPestanias();
+        e.target.classList.add("opcion-encabezdo-selecionado");
+        document.querySelector(".contenedor-lista-reservas").classList.remove("oculto");
+    });
+    
+}
+
+
+function ocultarPestanias() {
+    document.querySelector(".opcion-encabezado-pagina-reserva-formulario").classList.remove("opcion-encabezdo-selecionado");
+    document.querySelector(".opcion-encabezado-pagina-reserva-lista").classList.remove("opcion-encabezdo-selecionado");
+   
+    document.querySelector(".contenedor-lista-reservas").classList.add("oculto");
+    document.querySelector(".formulario-reserva").classList.add("oculto");
+   
+}

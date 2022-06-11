@@ -33,6 +33,7 @@ function funcionalidadBotonesEncabezado(){
     document.querySelector(".opcion-lista-reservas").addEventListener("click",e=>{
         ocultarPestanias();
         e.target.classList.add("opcion-encabezdo-selecionado");
+        document.querySelector(".contenedor-lista-reservas").classList.remove("oculto");
     });
 
     document.querySelector(".opcion-configuracion-reservas").addEventListener("click",e=>{
@@ -182,8 +183,8 @@ function ocultarPestanias() {
 
     document.querySelector(".seccion-historial-configuraciones").classList.add("oculto");
     document.querySelector(".formulario-configuracion").classList.add("oculto");
+    document.querySelector(".contenedor-lista-reservas").classList.add("oculto");
     
-    //ocultar la seccion lista de reservas
 }
 
 

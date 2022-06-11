@@ -83,11 +83,15 @@
 
     <main class="contenido-main">
         <div class="encabezado-pagina-reservas">
-            <p class="opcion-encabezado-pagina-reserva opcion-encabezdo-selecionado">Formulario de Reserva</p>
-            <p class="opcion-encabezado-pagina-reserva ultimo ">Lista de Reservas</p>
+            <p class="opcion-encabezado-pagina-reserva  opcion-encabezado-pagina-reserva-formulario opcion-encabezdo-selecionado">Formulario de Reserva</p>
+            <p class="opcion-encabezado-pagina-reserva  opcion-encabezado-pagina-reserva-lista  ultimo ">Lista de Reservas</p>
             
         </div>
-        <div class="formulario-reserva">
+
+        <div class="contenedor-lista-reservas oculto">
+
+        </div>
+        <div class="formulario-reserva ">
             <h1 class="titulo-formulario-reserva">Formulario Para Reserva De Ambientes</h1>
 
             <div class = "contenedor-mensaje-formulario oculto">
