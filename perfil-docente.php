@@ -56,6 +56,14 @@
       <div class="seccion-datos">
         <h2 class="titulo-configuracion-perfil">Configuración del Perfil</h2>
         <div class="seccion-input">
+          <label class="label-input" for="asunto">Codigo SIS:</label>
+          <p><?php echo $extraer['codigoSis']; ?></p>
+        </div>
+        <div class="seccion-input">
+          <label class="label-input" for="asunto">CI:</label>
+          <p><?php echo $extraer['ci'];?></p>
+        </div> 
+        <div class="seccion-input">
           <label class="label-input" for="asunto">Nombre(s):</label>
           <input type="text" class="input-casilla" name="nombre" value="<?php echo $extraer['nombre'];?>" >
         </div>
@@ -66,20 +74,20 @@
         <div class="seccion-input">
           <label class="label-input" for="asunto">Facultad:</label>
           <input type="text" class="input-casilla" name="facultad" value="<?php echo $separar['nombre'];?>" >
-        </div> 
-        <div class="seccion-input">
-          <label class="label-input" for="asunto">CI:</label>
-          <p><?php echo $extraer['ci'];?></p>
-        </div> 
-        <div class="seccion-input">
-          <label class="label-input" for="asunto">Codigo SIS:</label>
-          <p><?php echo $extraer['codigoSis']; ?></p>
-        </div>   
+        </div>  
         <h2 class="titulo-configuracion-perfil">Cambiar Contraseña</h2>             
-          <div class="seccion-input">
-            <input type="button" class="btn-cambiar" name="CambiarContraseña" value="cambiar Contraseña" onClick="location.href='../cambiarContrasena.php'"> 
-          </div>   
-
+        <div>
+          <label class='label-input' for="asunto">Contraseña Actual:  </label>
+           <input type="text" class="input-casilla" name="ca">
+        </div>
+        <div>
+          <label class='label-input' for="asunto">Nueva Contraseña: </label>
+          <input type="text" class="input-casilla" name="nc">
+        </div>
+        <div>
+          <label class='label-input for="asunto"'>Repetir Contraseña:</label>
+          <input type="text" class="input-casilla" name="rc">
+        </div>  
         <h2 class="titulo-configuracion-perfil">Cambiar Datos de Contacto</h2>        
         <div class="seccion-input">
           <label class="label-input" for="asunto">Telefono:</label>
