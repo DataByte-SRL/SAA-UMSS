@@ -1307,25 +1307,30 @@ function listaReservas(){
     $.post("./php/obtener-listaDoc.php",x,function(respuesta){
        
         var res = JSON.parse(respuesta);
-        
         var  template ="";
-        var n=1;
+        var n =1;
+        
         res.forEach(element => {
+            var fecha=element.fechaReserva;
+            
+            
             template += `<tr>
                             <td class="tabla-reservas" scope="row">${n++}</td>
-                            <td class="tabla-reservas">${element.fechaReserva}</td>
+                            <td class="tabla-reservas"> ${fecha}</td>
                             <td class="tabla-reservas">${element.ambiente}</td>
                             <td class="tabla-reservas">${element.horaInicio}</td>
                             <td class="tabla-reservas">${element.horaFin}</td>
                             <td class="tabla-reservas">${element.emergencia}</td>
                             <td class="tabla-reservas">${element.materia}</td>
                             <td class="tabla-reservas">${element.grupo}</td>
-                            <td class="tabla-reservas"><button class="btn-detalles" type="btn">detalles</button> </td>
-                        </tr>`;           
+                            <td class="tabla-reservas"><button id=n class=btn-detalles type=btn onclick=detalle(`+(n-2)+`)>detalles</button> </td>
+                        </tr>`; 
+                   
         });
         document.querySelector(".seccion-loader-lista").classList.add("oculto");
         document.querySelector(".lista-reservas").classList.remove("oculto");
         $('.tbody-tabla-reservas').html(template);
+       
     });
 }
 //-----------------------------------funcionalidad del encabezado----------------------------------------
@@ -1353,4 +1358,18 @@ function funcionalidadBotonesEncabezado(){
         listaReservas();
         
     });
+}
+function detalle(index){
+    let n={index:index};
+
+       
+    $.post("./php/detallesDoc.php",n,function(respuesta){
+        var resp = JSON.parse(respuesta);
+        console.log(respuesta);
+        
+    
+    
+    });
+    //console.log(typeof(index));
+    
 }

@@ -220,11 +220,24 @@ function listaReservas(){
                             <td class="tabla-reservas">${element.materia}</td>
                             <td class="tabla-reservas">${element.grupo}</td>
                             <td class="tabla-reservas">${element.tipoAmbiente}</td>
-                            <td class="tabla-reservas"><button class="btn-detalles" type="btn">detalles</button> </td>
+                            <td class="tabla-reservas"><button class="btn-detalles" type="btn" onclick=detalle(`+(n-2)+`)>detalles</button> </td>
                         </tr>`;           
         });
         document.querySelector(".seccion-loader-lista").classList.add("oculto");
         document.querySelector(".contenedor-tabla-historial").classList.remove("oculto");
         $('.tbody-tabla-reservas').html(template);
+    });
+}
+
+function detalle(index){
+    let n={index:index};
+
+       
+    $.post("./php/detallesAdmin.php",n,function(respuesta){
+        var resp = JSON.parse(respuesta);
+        console.log(respuesta);
+        
+    
+    
     });
 }
