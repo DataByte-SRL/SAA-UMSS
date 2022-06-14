@@ -93,9 +93,25 @@ function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo boton
 
             if (verificarCamposFormulario(1) == 1) {
                 document.querySelector(".seccion-aulas-reserva").classList.remove("oculto");
-                document.querySelector(".seccion-datos-reserva").classList.add("oculto")
+                document.querySelector(".seccion-datos-reserva").classList.add("oculto");
+                var horaInicio = (periodos[0].nombre)[1];
+                var horaFin =  (periodos[periodos.length-1].nombre)[2];
+                var fechaReserva = fecha / 1000;
+                var codFacultad = usuario.codFacultad;
+           
+                var dato = {fechaReserva ,codFacultad ,horaInicio,horaFin };
+                $.post("./php/obtenerAmbientes.php",dato,function(respuesta){
+                     try {
+                         listaAmbientesDisponibles = JSON.parse(respuesta);
+                         ponerDatosSeccionSugerencias();
+                         
+                     } catch (error) {
+                         
+                     }
+                 });
             }
         });
+
         
     }); 
 
@@ -304,8 +320,6 @@ function funcionBotonAgregar(){ // los botones de estan a la derecha de los inpu
         
     });
 
-
-    ponerDatosSeccionSugerencias();
 
 }
 
@@ -640,24 +654,15 @@ function controlarEstadoBotonesPeriodo(){
 }
 
 function ponerDatosSeccionSugerencias(){
-    var dato = {periodos, fecha};
-
-    $.post("./php/obtenerSugerencias.php",dato,function(respuesta){
-        try {
-            var lista = JSON.parse(respuesta);
-            lista.forEach(element => {
-                agregarDatosSugerenciaAmbientes(element.codigoAmbiente,element.capacidad);
-            });
-            
-        } catch (error) {
-            console.log(error)
-            console.log("error al optener los datos");
-            
-        }
-    });
+    $(".input-sugerencias").html("");
+    sugerencias = [];
+     var lista = [];
+     lista = sugerirAmbientes();
+     lista.forEach(element => {
+        agregarDatosSugerenciaAmbientes(element.codigoAmbiente,element.capacidad);
+     });
 
 }
-
 
 
 function ponerDatosPopUpAmbientes(){
@@ -674,7 +679,7 @@ function ponerDatosPopUpAmbientes(){
         try {
             
             var lista = JSON.parse(respuesta);
-            console.log(lista);
+            listaAmbientesDisponibles = JSON.parse(respuesta);
             var template ="";
             var indiceRepetidos = [];
             var n = 0;
@@ -1036,6 +1041,49 @@ function eliminarAmbiente(indice){
 /*---------------------------------------------------------- */
 
 
+/*  ------------------------ fucion para  sugerir ambientes  ---------------------- */
+
+
+function sugerirAmbientes() {
+    if (listaAmbientesDisponibles.length == 0) {
+        return [];
+    }
+
+    var limite = 0;
+
+    var cantidadEstudiantes = 0;
+
+    grupos.forEach(element => {
+        cantidadEstudiantes += element.cantidad;
+    });
+    
+    while (limite <= cantidadEstudiantes) {
+        limite += 50;
+    }
+
+    var listaSugerencias = [];
+
+    if (listaAmbientesDisponibles[0].capacidad < cantidadEstudiantes){
+        return listaSugerencias;
+    }
+    var aux = 0;
+
+    while (listaSugerencias.length == 0 && aux < 10) {
+        aux++;
+        listaAmbientesDisponibles.forEach(element => {
+            if (element.capacidad >= cantidadEstudiantes && element.capacidad <= limite &&  listaSugerencias.length < 7) {
+                listaSugerencias.push(element);
+            }
+        });
+        if (listaSugerencias.length == 0) {
+            limite += 50;
+        }
+    }
+    return listaSugerencias;
+}
+
+
+/*-------------------------------------------------------------------------- */
 
 
 /*  ------------------------ cerrar y abrir popup ---------------------- */

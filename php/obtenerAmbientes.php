@@ -22,7 +22,7 @@ if ($_POST) {
              (('$horaInicio' BETWEEN horaInicio AND timediff(horaFin, '00:00:01')) OR 
              (timediff('$horaFin','00:00:01') BETWEEN horaInicio AND timediff(horaFin, '00:00:01')) OR
               (horaInicio BETWEEN '$horaInicio' AND timediff('$horaFin','00:00:01')) OR 
-              (timediff(horaFin,'00:00:01') BETWEEN '$horaInicio' AND  timediff('$horaFin','00:00:01')))))");
+              (timediff(horaFin,'00:00:01') BETWEEN '$horaInicio' AND  timediff('$horaFin','00:00:01'))))) ORDER BY A.capacidad DESC");
 
     $res =mysqli_fetch_all( $respuesta, $resulttype = MYSQLI_ASSOC);
 
