@@ -1,16 +1,11 @@
 <?php 
 
+include_once("conectar.php");
 
   if($_POST){
-    $servidor = "mysql-andre.alwaysdata.net";
-    $usuario="andre";
-    $contrasena="cualquiera";
-    $BD="andre_base_datos";
-    
   
     try {
-      $conexionPDO = new PDO("mysql:host=$servidor;dbname=$BD",$usuario,$contrasena);
-      $conexionPDO->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+      $conexionPDO = conectarPDO();
   
       $codigoSis = $_POST['codigoSis'];
       $nombre = $_POST['nombre'];
@@ -22,8 +17,8 @@
       $telefono= $_POST['telefono'];
       $correo= $_POST['correo'];
       
-      $consulta = "insert into `Docente`(`codigoSis`, `nombre`, `apellido`, `ci`, `codFacultad`, `contrasena`, `celular`, `telefono`, `correo`) VALUES ('$codigoSis','$nombre','$apellido','$ci','$codFacultad','$contrasena','$celular','$telefono','$correo')";
-      
+      $consulta = "insert into `Docente`(`codigoSis`, `nombre`, `apellido`, `ci`, `codFacultad`, `contrasenia`, `celular`, `telefono`, `correo`) VALUES ('$codigoSis','$nombre','$apellido','$ci','$codFacultad','$contrasena','$celular','$telefono','$correo')";
+                                       
       $respuesta = "";
         $respuesta = $conexionPDO->exec($consulta);
         echo "1";

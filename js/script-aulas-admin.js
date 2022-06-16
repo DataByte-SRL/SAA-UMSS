@@ -4,6 +4,8 @@ var btn_nueva_aula = document.querySelector(".btn-encabezado-a");
 var overlay_form = document.querySelector(".overlay-form-a");
 var form = document.querySelector(".form-a");
 
+var ordenarPor = "capacidad";
+var sentidoOrdenamiento = 1; // 1 (de menor a mayor) 0 (de mayor a menor)
 
 var btn_buscar= document.querySelector(".btn-input-bucar");
 var btn_cancelar_form = document.querySelector(".seccion-botones-form-a .btn-cancelar");
@@ -43,7 +45,7 @@ function ponerFuncionBotones(){
         var datosFormulario = obtenerDatosFormulario();
         var resValidacion = ValidarDatosFormulario(datosFormulario)
         if (resValidacion == "1") {
-            guardarDatosEnBD(datosFormulario , "agregarAula.php");
+            guardarDatosEnBD(datosFormulario , "agregarAmbiente.php");
         }
     });
 }
@@ -53,7 +55,8 @@ function ponerFuncionBotones(){
 function obtenerDatosFormulario(){
      var datosForm ={
       codFacultad : $('#facultad').val(),
-      codAula : $('#nombre').val(),
+      codTipoAmbiente: $('#tipo-ambiente').val(),
+      codAmbiente : $('#nombre').val(),
       capacidad : $('#capacidad').val(),
       detalles : $('#detalles').val(),
       proyector : $('input[name="proyector"]:checked').val()
@@ -73,10 +76,18 @@ function ValidarDatosFormulario(datos){
     }else{
         borrarMensajeErrorInput( 'seccion-advertencia-facultad');
     }
+    /* validando tipoAmbiente */
+    if(datos['codTipoAmbiente']  == ""  ||  datos['codTipoAmbiente']  == null) {
+        darMesajeErrorInput("seccion-advertencia-tipo-ambiente","Debe selecionar un tipo ambiente");
+        res = 0;
+    }else{
+        borrarMensajeErrorInput( 'seccion-advertencia-tipo-ambiente');
+    }
+       
 
-    /* Validando codAula */
+    /* Validando codAmbiente */
     var expresion= /^\s*[a-zA-Z0-9\-\s]{1,20}\s*$/;
-    if(expresion.test(datos['codAula'].trim())) {
+    if(expresion.test(datos['codAmbiente'].trim())) {
         borrarMensajeErrorInput( 'seccion-advertencia-nombre');
     }else{
         darMesajeErrorInput("seccion-advertencia-nombre","Solo se acepta entre 1-20 caracteres alfanumericos y el simbolo - ");
@@ -242,10 +253,11 @@ function ponerFuncionalidadFiltrosAulas(){
         verificarYAplicarFiltrosAulas();
     });
 
-    $(".select-filtro-ordenar").change(function(){
+    $(".select-filtro-tipo-ambiente").change(function(){
         document.querySelector(".encabezado-input-buscar").value ="";
         verificarYAplicarFiltrosAulas();
     });
+
 
     $(".select-filtro-mostrar").change(function(){
         console.log($(this).val())
@@ -262,7 +274,7 @@ function verificarYAplicarFiltrosAulas(){
     }
  
     var facultad = $(".select-filtro-facultad").val();
-    var ordenar = $(".select-filtro-ordenar").val();
+    var tipoAmbiente =  $(".select-filtro-tipo-ambiente").val();
 
     datosTabla = datosTablaOriginal;
 
@@ -279,41 +291,61 @@ function verificarYAplicarFiltrosAulas(){
         datosTabla = filtradoFacultad;
     }
 
-    if (ordenar == "codigo-aula") {
-        datosTabla.sort((a,b)=>{
-            var codAulaA = a.codAmbiente.toLowerCase();
-            var codAulaB = b.codAmbiente.toLowerCase();
-            
-            if (codAulaA < codAulaB) {
-                return -1;
-            }
-
-            if (codAulaA > codAulaB) {
+    if (expresion.test(tipoAmbiente)){
+        var filtradoTipoAmbiente = datosTabla.filter(item =>{
+            if (tipoAmbiente  == 0) {
                 return 1;
             }
-            return 0;
+           return item.codTipoAmbiente == tipoAmbiente;
         });
-    }else if(ordenar == "capacidad"){
-        datosTabla.sort((a,b)=>{
-            var capacidadA = Number(a.capacidad.trim());
-            var capacidadB = Number(b.capacidad.trim());
 
-            if (capacidadA < capacidadB) {
-                return -1;
-            }
-
-            if (capacidadA > capacidadB) {
-                return 1;
-            }
-            return 0;
-        });
+        datosTabla = filtradoTipoAmbiente;
     }
+
+    ordenarTabla();
+
+    
+
 
     establecerPaginacion();
     ponerFuncionBotonesPaginacion();
     cargarDatosPaginaTablaAula(1);
 }
 
+function ordenarTabla() {
+    datosTabla.sort((a,b)=>{
+        if (ordenarPor == "capacidad") {
+            a = Number(a[ordenarPor].trim());
+
+            b = Number(b[ordenarPor].trim());
+            
+        }else{
+            a = a[ordenarPor].trim();
+            a = a.toLowerCase();
+
+            b = b[ordenarPor].trim();
+            b = b.toLowerCase();
+        }
+
+        if (a == b) {
+            return 0;
+        }
+
+        if (sentidoOrdenamiento) {
+            if (a < b) {
+                return -1;
+            }
+        }else{
+            if (a > b) {
+                return -1;
+            }
+
+        }
+
+        return 1;
+    });
+    cargarDatosPaginaTablaAula(1);
+}
 
 
 function buscar(nombreColum,busqueda){
@@ -331,6 +363,7 @@ function buscar(nombreColum,busqueda){
         datoBusqueda = datoBusqueda.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
     
         arregloFiltrado = datosTabla.filter(element =>{
+            console.log(nombreColum);
             var datoColum = element[""+nombreColum].toLowerCase();
             datoColum = datoColum.trim();
             datoColum = datoColum.normalize("NFD").replace(/[\u0300-\u036f]/g, ""); 
@@ -367,6 +400,38 @@ function cambiarCantidadDatosAMostrar(cant){
         ponerFuncionBotonesPaginacion();
         cargarDatosPaginaTablaAula(1);
     }
+}
+
+funcionalidadColumnaTablero();
+
+function funcionalidadColumnaTablero() {  // cuando haga click en alguno le los titulos de una columna de ordenara la tabla segun esa columana
+    var tituloColumanas = document.querySelectorAll(".opcion-columna-tabla");
+    tituloColumanas.forEach(element => {
+        element.addEventListener("click",e=>{
+            if (ordenarPor == e.target.attributes.value.textContent ) {
+                if (sentidoOrdenamiento) {
+                    sentidoOrdenamiento = 0;
+                }else{
+                    sentidoOrdenamiento = 1 ;
+                }
+                
+            }else{
+                ordenarPor = e.target.attributes.value.textContent;
+                sentidoOrdenamiento = 1;
+            }
+
+            ordenarTabla()
+
+            var aux = document.querySelectorAll(".opcion-columna-tabla");
+            aux.forEach(element => {
+                element.classList.remove("opcion-columna-tabla-seleccionado");
+            });
+            e.target.classList.add("opcion-columna-tabla-seleccionado");
+            
+        });
+
+        
+    });
 }
 
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */

@@ -1,5 +1,6 @@
 var reservasHabilitads = 'no';
 
+var horariosGrupos =  [];
 var materia = [];
 var solicitantes = [];
 var grupos = [];
@@ -100,6 +101,8 @@ function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo boton
                 var codFacultad = usuario.codFacultad;
            
                 var dato = {fechaReserva ,codFacultad ,horaInicio,horaFin };
+
+                $(".input-sugerencias").html("");
                 $.post("./php/obtenerAmbientes.php",dato,function(respuesta){
                      try {
                          listaAmbientesDisponibles = JSON.parse(respuesta);
@@ -125,7 +128,6 @@ function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo boton
 
         e.target.textContent = "Reservando ...";
         e.target.disabled = true;
-        console.log(e.target)
         
 
         var horaInicio = (periodos[0].nombre)[1];
@@ -499,7 +501,7 @@ function ponerDatosPopUpGrupos(){
                     
                 }else{
                      botones[index].addEventListener("click",(e)=>{
-                       agregarDatosGrupos(lista[index].codigoGrupo,lista[index].cantidad );
+                       agregarDatosGrupos(lista[index].codigoGrupo,lista[index].cantidad ,lista[index].codDocente );
                      });
                 }
             }
@@ -724,7 +726,22 @@ function ponerDatosPopUpAmbientes(){
                                 text: 'Solo  puede elegir 2 ambientes como maximo'
                             });
                         }else{
-                            agregarDatosAmbientes(lista[index].codigoAmbiente,lista[index].capacidad );
+                            var cantEstudiantes = 0;
+                            var capacidadTotal =0;
+                            grupos.forEach(element => {
+                                cantEstudiantes = cantEstudiantes + element.cantidad;
+                            });
+                            ambientes.forEach(element => {
+                                capacidadTotal = capacidadTotal + element.capacidad;
+                            });
+                            if (cantEstudiantes <= capacidadTotal) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    text: 'La capacidad total ya es suficiente para la cantidad de estudiantes'
+                                });
+                            }else{
+                                agregarDatosAmbientes(lista[index].codigoAmbiente,lista[index].capacidad );
+                            }
                         }
                         
                     });
@@ -751,6 +768,13 @@ function ponerDatosPopUpAmbientes(){
 /*  --------------------------------  Agregar los datos a  un imput------------------------- */
 function agregarDatosMateria(boton,codigoM,nombreM){
     if (materia.length == 0) {
+        
+        var dato = {codMateria:""+codigoM}
+        $.post("./php/obtenerHorariosGrupos.php",dato,function(respuesta) {
+            var res = JSON.parse(respuesta);
+            horariosGrupos = res;
+        });
+
         materia.push({codigo:""+codigoM,nombre:""+nombreM});
         var template = `<div class="item-seccion-input">
                             <p class="info-input">${nombreM}</p>
@@ -813,10 +837,19 @@ function agregarDatosSolicitantes(codigoS,nombreS){
         var template ="";
 
         solicitantes.forEach(element => {
-            template += `<div class="item-seccion-input">
+            if (element.codigoSis == usuario.codigoSis) {
+                template += `<div class="item-seccion-input">
+                                <p class="info-input">${element.nombre}</p>
+                                <button class="btn-item-input oculto">x</button>
+                            </div>`;
+                
+            }else{
+                template += `<div class="item-seccion-input">
                             <p class="info-input">${element.nombre}</p>
                             <button class="btn-item-input">x</button>
                         </div>`;
+
+            }
         });
 
         $(".input-solicitantes").html(template);
@@ -843,6 +876,21 @@ function eliminarSolicitante(indice){
     }
     $(".input-solicitantes").html("");
      var nuevaLista = [];
+     var nuevaListaGrupos = [];
+     
+     var codigoSolicitante = solicitantes[indice].codigoSis;
+
+     for (let index = 0; index < grupos.length; index++) {
+         if (grupos[index].codDocente != codigoSolicitante) {
+            nuevaListaGrupos.push(grupos[index]);
+         }
+     }
+
+     grupos = [];
+     nuevaListaGrupos.forEach(element => {
+        agregarDatosGrupos(element.codigoGrupo ,element.cantidad,element.codDocente);
+     });
+
      for (let index = 0; index < solicitantes.length; index++) {
          if (index != indice) {
             nuevaLista.push(solicitantes[index]);
@@ -855,8 +903,9 @@ function eliminarSolicitante(indice){
 }
 
 
-function agregarDatosGrupos(codigoG,cantidadG){
-    grupos.push({codigoGrupo:""+codigoG,cantidad:Number(cantidadG)});
+function agregarDatosGrupos(codigoG,cantidadG,codDocenteG){
+    grupos.push({codigoGrupo:""+codigoG,cantidad:Number(cantidadG),codDocente:""+codDocenteG});
+    sugerirHorario();
     var template ="";
 
     grupos.forEach(element => {
@@ -877,9 +926,15 @@ function agregarDatosGrupos(codigoG,cantidadG){
         });
     }
 
+
+
     var infoCantidadEst = document.querySelector(".dato-cantidad-estudiantes").textContent;
-    document.querySelector(".dato-cantidad-estudiantes").textContent= Number(infoCantidadEst)+Number(cantidadG);
-    document.querySelector(".dato-cantidad-estudiantes2").textContent= Number(infoCantidadEst)+Number(cantidadG);
+    var cantidadEst = 0;
+    grupos.forEach(element => {
+        cantidadEst = cantidadEst + element.cantidad;
+    });
+    document.querySelector(".dato-cantidad-estudiantes").textContent=cantidadEst;
+    document.querySelector(".dato-cantidad-estudiantes2").textContent= cantidadEst;
     
     cerrarPopUp();
 }
@@ -897,7 +952,7 @@ function eliminarGrupo(indice){
      document.querySelector(".dato-cantidad-estudiantes").textContent= "0";
      document.querySelector(".dato-cantidad-estudiantes2").textContent= "0";
      nuevaLista.forEach(element => {
-        agregarDatosGrupos(element.codigoGrupo,element.cantidad);
+        agregarDatosGrupos(element.codigoGrupo,element.cantidad,element.codDocente);
      });
 
 }
@@ -907,7 +962,6 @@ function agregarDatosPeriodo(codigoP,nombreP){
     periodos.push({codigoPeriodo:""+codigoP,nombre: nombreP});
     var template ="";
     periodos.forEach(element => {
-        console.log(element)
         template += `<div class="item-seccion-input">
                         <p class="info-input">${element.nombre[0]}</p>
                         <button class="btn-item-input">x</button>
@@ -969,6 +1023,7 @@ function agregarDatosSugerenciaAmbientes(codigoA,capacidadA){
                     text: 'Solo  puede elegir 2 ambientes como maximo'
                 });
             }else{
+
                 var repetido = 0;
                 ambientes.forEach(element => {
                     if (element.codigoAmbiente == sugerencias[index].codigoAmbiente) {
@@ -980,7 +1035,22 @@ function agregarDatosSugerenciaAmbientes(codigoA,capacidadA){
                     }
                 });
                 if (repetido == 0) {
-                    agregarDatosAmbientes(sugerencias[index].codigoAmbiente,sugerencias[index].capacidad);
+                    var cantEstudiantes = 0;
+                    var capacidadTotal =0;
+                    grupos.forEach(element => {
+                        cantEstudiantes = cantEstudiantes + element.cantidad;
+                    });
+                    ambientes.forEach(element => {
+                        capacidadTotal = capacidadTotal + element.capacidad;
+                    });
+                    if (cantEstudiantes <= capacidadTotal) {
+                        Swal.fire({
+                            icon: 'error',
+                            text: 'La capacidad total ya es suficiente para la cantidad de estudiantes'
+                        });
+                    }else{
+                        agregarDatosAmbientes(sugerencias[index].codigoAmbiente,sugerencias[index].capacidad);
+                    }
                 }
             }
            
@@ -1045,32 +1115,56 @@ function eliminarAmbiente(indice){
 
 
 function sugerirAmbientes() {
-    if (listaAmbientesDisponibles.length == 0) {
+
+    var listaSugerencias = [];
+    var auxListaAmbientes = listaAmbientesDisponibles.slice();
+    var limite = 0;
+    var cantidadEstudiantes = 0;
+
+    if (auxListaAmbientes.length == 0) {
         return [];
     }
-
-    var limite = 0;
-
-    var cantidadEstudiantes = 0;
 
     grupos.forEach(element => {
         cantidadEstudiantes += element.cantidad;
     });
+
+
+    if (auxListaAmbientes[0].capacidad < cantidadEstudiantes){
+        var capaciodadTotal = 0;
+        auxListaAmbientes.forEach(element => {
+            capaciodadTotal += element.capacidad;
+        });
+        if (capaciodadTotal < cantidadEstudiantes) {
+            return listaSugerencias;
+        }else{
+            while ( auxListaAmbientes.length > 0  && auxListaAmbientes[0].capacidad < cantidadEstudiantes) {
+                listaSugerencias.push(JSON.parse(JSON.stringify(auxListaAmbientes[0])));
+                cantidadEstudiantes = cantidadEstudiantes - auxListaAmbientes[0].capacidad;
+                auxListaAmbientes.shift();
+            }
+            var agregado = 0;
+            for (let index = auxListaAmbientes.length -1 ; index >=  0 && agregado == 0; index--) {
+                if (auxListaAmbientes[index].capacidad >= cantidadEstudiantes) {
+                    listaSugerencias.push(auxListaAmbientes[index]);
+                    agregado = 1;
+                }
+            }
+            return listaSugerencias;
+        }
+    }
+
     
     while (limite <= cantidadEstudiantes) {
         limite += 50;
     }
 
-    var listaSugerencias = [];
-
-    if (listaAmbientesDisponibles[0].capacidad < cantidadEstudiantes){
-        return listaSugerencias;
-    }
+ 
     var aux = 0;
 
     while (listaSugerencias.length == 0 && aux < 10) {
         aux++;
-        listaAmbientesDisponibles.forEach(element => {
+        auxListaAmbientes.forEach(element => {
             if (element.capacidad >= cantidadEstudiantes && element.capacidad <= limite &&  listaSugerencias.length < 7) {
                 listaSugerencias.push(element);
             }
@@ -1142,10 +1236,33 @@ function verificarCamposFormulario(parte){  // 1 em caso de verificar la primera
         }
     
         if (grupos.length == 0) {
+            document.querySelector(".mensaje-error-grupos").textContent = "Debe elegir almenos 1 grupo";
             document.querySelector(".mensaje-error-grupos").classList.remove("oculto");
             exito = 0;
         }else{
-            document.querySelector(".mensaje-error-grupos").classList.add("oculto");
+            var error = 0;
+            solicitantes.forEach(element => {
+                var encontrado = 0;
+                for (let index = 0; index < grupos.length && encontrado == 0; index++) {
+                    if (grupos[index].codDocente == element.codigoSis) {
+                        encontrado = 1;
+                    }
+                }
+                if (encontrado == 0) {
+                    error = 1;
+                    exito = 0;
+                }
+            });
+
+            if (error == 1) {
+                document.querySelector(".mensaje-error-grupos").textContent = "Debe elegir almenos 1 grupo de cada solicitante";
+                document.querySelector(".mensaje-error-grupos").classList.remove("oculto");
+                
+            }else{
+                document.querySelector(".mensaje-error-grupos").classList.add("oculto");
+            }
+
+            
         }
     
         if (checkEmergencia.checked) {
@@ -1282,6 +1399,7 @@ function funcionalidadInputFecha(respuesta){
         var aux = new Date( datoInput[0], datoInput[1] - 1, datoInput[2]);
 
         fecha = aux.getTime();
+        sugerirHorario();
 
     });
     
@@ -1376,4 +1494,64 @@ function ocultarPestanias() {
     document.querySelector(".contenedor-lista-reservas").classList.add("oculto");
     document.querySelector(".formulario-reserva").classList.add("oculto");
    
+}
+
+
+
+function sugerirHorario(){
+
+    if (periodos.length > 0) {
+        return;
+    }
+
+    if (grupos.length == 0) {
+        return;
+    }
+
+    var  aux = new Date(fecha);
+    var dia = aux.getDay();
+
+    var nombrePeriodos =[['6:45 - 8:15','06:45:00','08:15:00'],
+    ["8:15 - 9:45",'08:15:00','09:45:00'],
+    ["9:45 - 11:15",'09:45:00','11:15:00'],
+    ["11:15 - 12:45",'11:15:00','12:45:00'],
+    ["12:45 - 14:15",'12:45:00','14:15:00'],
+    ["14:15 - 15:45",'14:15:00','15:45:00'],
+    ["15:45 - 17:15",'15:45:00','17:15:00'],
+    ["17:15 - 18:45",'17:15:00','18:45:00'],
+    ["18:45 - 20:15",'18:45:00','20:15:00'],
+    ["20:15 - 21:45",'20:15:00','21:45:00']];
+
+    var dias = ["domingo","lunes","martes","miercoles","jueves","viernes","sabado"];
+
+
+    var encontrado = 0;
+
+   
+    for (let i = 0; i < grupos.length && encontrado == 0; i++) {
+        const element = grupos[i];
+        var auxHorariosGrupo = horariosGrupos.filter(horario =>{
+            if (horario.codGrupo == element.codigoGrupo) {
+                return 1;
+            }else{
+                return 0;
+            }
+        });
+
+        auxHorariosGrupo.forEach(element2 =>{
+            if (element2.dia == dias[dia]) {
+                for (let index = 0; index < nombrePeriodos.length && encontrado == 0 ; index++) {
+                    if ((nombrePeriodos[index])[1] == element2.horaInicio  && (nombrePeriodos[index])[2]  == element2.horaFin) {
+                        if (periodos.length == 0) {
+                            agregarDatosPeriodo(index,nombrePeriodos[index]);
+                        }
+                        encontrado = 1;
+                    }
+                }
+            }
+
+        });
+
+    }
+    
 }

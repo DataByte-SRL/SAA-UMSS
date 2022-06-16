@@ -6,6 +6,9 @@ var btn_nuevo_usuario = document.querySelector(".btn-encabezado-a");
 var overlay_form = document.querySelector(".overlay-form-a");
 var form = document.querySelector(".form-a");
 
+var ordenarPor = "nombre";
+var sentidoOrdenamiento = 1; // 1 (de menor a mayor) 0 (de mayor a menor)
+
 var btn_buscar= document.querySelector(".btn-input-bucar");
 var btn_cancelar_form = document.querySelector(".seccion-botones-form-a .btn-cancelar");
 var btn_aceptar_form = document.querySelector(".seccion-botones-form-a .btn-aceptar");
@@ -293,10 +296,6 @@ function ponerFuncionalidadFiltrosDocentes(){
         verificarYAplicarFiltrosDocentes();
     });
 
-    $(".select-filtro-ordenar").change(function(){
-        document.querySelector(".encabezado-input-buscar").value ="";
-        verificarYAplicarFiltrosDocentes();
-    });
     $(".select-filtro-mostrar").change(function(){
         console.log($(this).val())
         cambiarCantidadDatosAMostrar(Number($(this).val()));
@@ -332,56 +331,47 @@ function verificarYAplicarFiltrosDocentes(){
         datosTabla = filtradoFacultad;
     }
 
-    if (ordenar == "nombre") {
-        datosTabla.sort((a,b)=>{
-            var nombreA = a.nombre.toLowerCase();
-            var nombreB = b.nombre.toLowerCase();
-            
-            if (nombreA < nombreB) {
-                return -1;
-            }
-
-            if (nombreA > nombreB) {
-                return 1;
-            }
-            return 0;
-        });
-    }else if(ordenar == "apellido"){
-        datosTabla.sort((a,b)=>{
-            var apellidoA = a.apellido.toLowerCase();
-            var apellidoB = b.apellido.toLowerCase();
-
-            if (apellidoA < apellidoB) {
-                return -1;
-            }
-
-            if (apellidoA > apellidoB) {
-                return 1;
-            }
-            return 0;
-        });
-    }else if (ordenar == "codigoSis") {
-        datosTabla.sort((a,b)=>{
-            var codigoSisA = a.codigoSis.toLowerCase();
-            var codigoSisB = b.codigoSis.toLowerCase();
-
-            if (codigoSisA < codigoSisB) {
-                return -1;
-            }
-
-            if (codigoSisA > codigoSisB) {
-                return 1;
-            }
-            return 0;
-        });
-        
-    }
+    ordenarTabla();
 
     establecerPaginacion();
     ponerFuncionBotonesPaginacion();
     cargarDatosPaginaTablaDocente(1);
 }
 
+function ordenarTabla() {
+    datosTabla.sort((a,b)=>{
+        if (ordenarPor == "codigoSis" || ordenarPor == "telefono" || ordenarPor == "celular" || ordenarPor == "ci"  ) {
+            a = Number(a[ordenarPor].trim());
+
+            b = Number(b[ordenarPor].trim());
+            
+        }else{
+            a = a[ordenarPor].trim();
+            a = a.toLowerCase();
+
+            b = b[ordenarPor].trim();
+            b = b.toLowerCase();
+        }
+
+        if (a == b) {
+            return 0;
+        }
+
+        if (sentidoOrdenamiento) {
+            if (a < b) {
+                return -1;
+            }
+        }else{
+            if (a > b) {
+                return -1;
+            }
+
+        }
+
+        return 1;
+    });
+    cargarDatosPaginaTablaDocente(1);
+}
 
 
 function buscar(nombreColum,busqueda){
@@ -437,6 +427,37 @@ function cambiarCantidadDatosAMostrar(cant){
     }
 }
 
+funcionalidadColumnaTablero();
+
+function funcionalidadColumnaTablero() {  // cuando haga click en alguno le los titulos de una columna de ordenara la tabla segun esa columana
+    var tituloColumanas = document.querySelectorAll(".opcion-columna-tabla");
+    tituloColumanas.forEach(element => {
+        element.addEventListener("click",e=>{
+            if (ordenarPor == e.target.attributes.value.textContent ) {
+                if (sentidoOrdenamiento) {
+                    sentidoOrdenamiento = 0;
+                }else{
+                    sentidoOrdenamiento = 1 ;
+                }
+                
+            }else{
+                ordenarPor = e.target.attributes.value.textContent;
+                sentidoOrdenamiento = 1;
+            }
+
+            ordenarTabla()
+
+            var aux = document.querySelectorAll(".opcion-columna-tabla");
+            aux.forEach(element => {
+                element.classList.remove("opcion-columna-tabla-seleccionado");
+            });
+            e.target.classList.add("opcion-columna-tabla-seleccionado");
+            
+        });
+
+        
+    });
+}
 /*---------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo despues de validad los datos
@@ -446,7 +467,6 @@ function  guardarDatosEnBD(datosForm , nombreArchivoPHP){ // usar este metodo de
            if(respuestaArchivoPHP == "1"){ // exito
                cerrarFormulario();
                borrarDatosForm("formulario-nuevo-docente");
-               llenarTablaDocnetes();
                Swal.fire({
                    title : "Registro Exitoso!",
                    icon: "success",

@@ -50,7 +50,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item ">
-                                <a class="nav-link  text-center" aria-current="page" href="aulas-admin.php">Aulas</a>
+                                <a class="nav-link  text-center" aria-current="page" href="aulas-admin.php">Ambientes</a>
                             </li>
                             <li class="nav-item text-center ">
                                 <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
@@ -86,6 +86,7 @@
     </header>
 
     <main class="contenido-main">
+        
         <div class="encabezado-pagina-reservas">
             <p class="opcion-encabezado-pagina-reserva opcion-encabezdo-selecionado opcion-lista-reservas">Lista de Reservas</p>
             <p class="opcion-encabezado-pagina-reserva ultimo  opcion-configuracion-reservas">Configuracion de Reservas</p>

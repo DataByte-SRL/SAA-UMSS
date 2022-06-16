@@ -47,7 +47,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item ">
-                                <a class="nav-link  text-center" aria-current="page" href="aulas-admin.php">Aulas</a>
+                                <a class="nav-link  text-center" aria-current="page" href="aulas-admin.php">Ambientes</a>
                             </li>
                             <li class="nav-item text-center ">
                                 <a class="nav-link text-center active" href="docentes-admin.php">Docentes</a>
@@ -126,15 +126,8 @@
                    </select>
 
                </div>
-               <div class="opcion-filtro  filtro-ordenar">
-                   <label >Odenar por:</label>
-                   <select  class="select-filtro-ordenar">
-                       <option class="opcion-filtro" value="nombre"  selected>Nombre</option>
-                       <option  class="opcion-filtro" value="apellido">Apellido</option>
-                       <option  class="opcion-filtro" value="codigoSis">CodigoSIS</option>
-                   </select>
 
-               </div>
+              
                <div class="opcion-filtro  filtro-facultada">
                 <label >Mostrar:</label>
                 <select  class="select-filtro-mostrar">
@@ -156,16 +149,15 @@
                 <thead>
                     <tr>
                         <th>N°</th>
-                        <th>CodigoSIS</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>Carnet Identidad</th>
-                        <th>Facultad</th>
-                       <!-- <th>Departamento</th> -->
-                        <th>Telefono</th>
-                        <th>Correo</th>
-                        <th>Celular</th>
-                        <th>Contraseña</th>
+                        <th class="opcion-columna-tabla" value="codigoSis" >CodigoSIS</th>
+                        <th class="opcion-columna-tabla opcion-columna-tabla-seleccionado" value="nombre" >Nombre</th>
+                        <th class="opcion-columna-tabla" value="apellido" >Apellido</th>
+                        <th class="opcion-columna-tabla" value="ci" >Carnet Identidad</th>
+                        <th class="opcion-columna-tabla" value="nombreFacultad" >Facultad</th>
+                        <th class="opcion-columna-tabla" value="telefono" >Telefono</th>
+                        <th class="opcion-columna-tabla" value="correo" >Correo</th>
+                        <th class="opcion-columna-tabla" value="celular" >Celular</th>
+                        <th class="opcion-columna-tabla" value="contrasenia" >Contraseña</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-lista-docentes">

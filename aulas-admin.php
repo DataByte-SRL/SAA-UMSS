@@ -33,8 +33,9 @@
   
     <!-- <link rel='stylesheet' href='css/styles-index.css'> -->
     <link rel='stylesheet' href='css/styles-index.css'>
-    <link rel='stylesheet' href='css/styles-aulas-admin.css'>
+    
     <link rel='stylesheet' href='css/styles-repetitivos.css'>
+    <link rel='stylesheet' href='css/styles-aulas-admin.css'>
     
 </head>
 <body>
@@ -49,7 +50,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item ">
-                                <a class="nav-link  text-center active" aria-current="page" href="aulas-admin.php">Aulas</a>
+                                <a class="nav-link  text-center active" aria-current="page" href="aulas-admin.php">Ambientes</a>
                             </li>
                             <li class="nav-item text-center ">
                                 <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
@@ -85,13 +86,13 @@
     </header>
 
     <main class="contenido-main">
-        <h1 class="titulo-encabezado-a">Administracion de Aulas</h1>
+        <h1 class="titulo-encabezado-a">Administracion de Ambientes</h1>
 
         <div class="herramientas-encabezado-a">
             <div class="buscador-encabezado-a">
                 <input type="text" class="encabezado-input-buscar" placeholder="Buscar Coincidencias">
                 <select  class="opcion-busqueda">
-                    <option  value="codAula" selected>Codigo Aula</option>
+                    <option  value="codAmbiente" selected>Codigo Ambiente</option>
                     <option  value="detalles">Detalles</option>
                     <option  value="capacidad">Capacidad</option>
                     <option  value="proyector">Proyector</option>
@@ -126,14 +127,17 @@
                     </select>
 
                 </div>
-                <div class="opcion-filtro  filtro-ordenar">
-                    <label >Odenar por:</label>
-                    <select  class="select-filtro-ordenar">
-                        <option  value="codigo-aula"  selected>Codigo Aula</option>
-                        <option   value="capacidad">Capacidad</option>
-                    </select>
+                <div class="opcion-filtro  filtro-tipo-ambiente">
+                   <label >Tipo Ambiente:</label>
+                   <select  class="select-filtro-tipo-ambiente">
+                       <option class="opcion-filtro" value="0"  selected>Todos</option>
+                       <option  class="opcion-filtro" value="1">Aula Comun</option>
+                       <option  class="opcion-filtro" value="2">Laboratorio</option>
+                       <option  class="opcion-filtro" value="3">Auditorio</option>
+                       <option  class="opcion-filtro" value="4">Gabinete</option>
+                   </select>
+               </div>
 
-                </div>
 
                 <div class="opcion-filtro  filtro-facultada">
                     <label >Mostrar:</label>
@@ -156,12 +160,12 @@
                 <thead>
                     <tr>
                         <th>N°</th>
-                        <th>Facultad</th>
-                        <th>Codigo Ambiente</th>
-                        <th>Tipo Ambiente</th>
-                        <th>Destalles</th>
-                        <th>Capacidad</th>
-                        <th>Proyector</th>
+                        <th  class="opcion-columna-tabla " value ="nombreFacultad">Facultad</th>
+                        <th  class="opcion-columna-tabla" value ="codAmbiente">Codigo Ambiente</th>
+                        <th  class="opcion-columna-tabla" value ="tipoAmbiente">Tipo Ambiente</th>
+                        <th  class="opcion-columna-tabla" value ="detalles">Detalles</th>
+                        <th  class="opcion-columna-tabla opcion-columna-tabla-seleccionado" value ="capacidad">Capacidad</th>
+                        <th  class="opcion-columna-tabla" value ="proyector">Proyector</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-lista-aulas">
@@ -237,7 +241,7 @@
 
     <div class="overlay-form-a">
         <div class="form-a ">
-            <h1 class="titulo-form-a ">FORMULARIO NUEVA AULA</h1>
+            <h1 class="titulo-form-a ">FORMULARIO NUEVO AMBIENTE</h1>
             <form action="" id="formulario-nueva-aula">
                 <div class="seccion-input-form-a   input-facultad">
                     <label  >Facultad:</label>
@@ -262,8 +266,23 @@
                         <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
+
+                <div class="seccion-input-form-a   input-tipo-ambiente">
+                    <label  >Tipo Ambiente:</label>
+                    <select name="tipo-ambiente" id="tipo-ambiente" >
+                        <option value="1" selected>Aula Comun</option>
+                        <option value="2">Laboratorio</option>
+                        <option value="3">Auditorio</option>
+                        <option value="4">Gabinete</option>
+                    </select>
+                    <div class="mensaje-error-form-a seccion-advertencia-tipo-ambiente ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
+                    </div>
+                </div>
+
                 <div class="seccion-input-form-a  input-nombre">
-                    <label>Codigo Aula:</label>
+                    <label>Codigo Ambiente:</label>
                     <input name="nombre" id="nombre"  spellcheck="false" type="text" placeholder="(Campo Obligatorio))" maxlength="20">
                     <div class="mensaje-error-form-a seccion-advertencia-nombre ">
                         <div class="img-advertencia  oculto"></div>

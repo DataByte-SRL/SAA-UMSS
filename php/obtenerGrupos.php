@@ -15,7 +15,7 @@ if ($_POST) {
 
     foreach ($solicitantes as $key => $value) {
         $codSis =$value["codigoSis"];
-        $respuesta  = mysqli_query($con ,"SELECT  G.codGrupo as codigoGrupo , D.nombre as docente, G.estudiantes as cantidad FROM Grupo G, Docente D WHERE G.codDocente = D.codigoSis AND G.codDocente = $codSis AND G.codMateria = $codMateria");
+        $respuesta  = mysqli_query($con ,"SELECT  G.codGrupo as codigoGrupo , D.nombre as docente, G.estudiantes as cantidad ,G.codDocente  FROM Grupo G, Docente D WHERE G.codDocente = D.codigoSis AND G.codDocente = $codSis AND G.codMateria = $codMateria");
         $aux = mysqli_fetch_all($respuesta,$resulttype = MYSQLI_ASSOC);
         foreach ($aux as $keyaux => $valueAux) {
             array_push($res,$valueAux);
