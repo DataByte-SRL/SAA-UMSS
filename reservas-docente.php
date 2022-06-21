@@ -519,6 +519,7 @@
     <script src="js/script-reservas-docente.js"></script>
     <script src="js/script-index.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/script-verificarSesionAbierta.js"></script>
  
     
 </body>
