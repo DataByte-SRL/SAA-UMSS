@@ -1,0 +1,48 @@
+body{
+    font-family: 'Arimo', sans-serif;
+    box-sizing: border-box;
+}
+
+.contenido-main{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+
+
+/*                          estilos encabezado                 */
+
+
+.encabezado-pagina-grupo{
+    display: flex;
+    flex-direction: row;
+    margin: 50px auto 20px 0px;
+    padding-bottom: 5px;
+    font-size: 15px;
+    border-bottom: 1px solid #D4D4D4;
+    width: 700px;
+    
+}
+
+.opcion-encabezado-pagina-grupo{
+    font-size: 1.2em;
+    margin: 4px 0px 4px 0px;
+    padding: 0px 12px 0px 12px;
+    color: #5E5E5E;
+    cursor: pointer;
+}
+.opcion-encabezado-pagina-materia:hover{
+    color: #1071E5;
+}
+.opcion-encabezado-pagina-grupo.ultimo{
+    border-left: 1px solid #D4D4D4;
+}
+.opcion-encabezdo-selecionado{
+    color: #1071E5;
+}

@@ -3,7 +3,6 @@
     $nombre = " ";
     $apellido = " ";
     session_start();
-    
     if(!isset($_SESSION['cuenta'])){
         header('location:index.php');
     }else{
@@ -13,8 +12,9 @@
         $nombre = $_SESSION['nombre'];
         $apellido = $_SESSION['apellido'];
     }
-
 ?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,8 +32,10 @@
   
     <!-- <link rel='stylesheet' href='css/styles-index.css'> -->
     <link rel='stylesheet' href='css/styles-index.css'>
+    <link rel='stylesheet' href='css/styles-aulas-admin.css'>
     <link rel='stylesheet' href='css/styles-repetitivos.css'>
-    <link rel='stylesheet' href='css/styles-docentes-admin.css'>
+    <link rel='stylesheet' href='css/styles-materia-admin.css'>
+    <link rel='stylesheet' href='css/styles-grupo-admin.css'>
 </head>
 <body>
     <header>
@@ -46,9 +48,8 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                       
                             <li class="nav-item   text-center">
-                                <a class="nav-link  " href="materia-admin.php">Materias</a>
+                                <a class="nav-link active " href="materia-admin.php">Materias</a>
                             </li>
                             <li class="nav-item   text-center">
                                 <a class="nav-link " href="grupo-admin.php">Grupos</a>
@@ -57,30 +58,31 @@
                                 <a class="nav-link  text-center" aria-current="page" href="aulas-admin.php">Ambientes</a>
                             </li>
                             <li class="nav-item text-center ">
-                                <a class="nav-link text-center active" href="docentes-admin.php">Docentes</a>
+                                <a class="nav-link text-center" href="docentes-admin.php">Docentes</a>
                             </li>
                             <li class="nav-item   text-center">
                                 <a class="nav-link" href="reservas-admin.php">Reservas</a>
                             </li>
+                            
                             <?php 
                             
-                            echo ("<li class='nav-item  text-center nav-item-usuario'>
-                                      <div class= 'info-usuario-menu '>
-                                          <p class='nav-link  nombre-usuario-menu ' >$nombre $apellido</p>
-                                          <div class='imagen-usuario'>
-                                              <p class= 'texto-imagen-usuario'>$nombre[0]$apellido[0]</p>
+                                echo ("<li class='nav-item  text-center nav-item-usuario'>
+                                          <div class= 'info-usuario-menu '>
+                                              <p class='nav-link  nombre-usuario-menu ' >$nombre $apellido</p>
+                                              <div class='imagen-usuario'>
+                                                  <p class= 'texto-imagen-usuario'>$nombre[0]$apellido[0]</p>
+                                              </div>
                                           </div>
-                                      </div>
-                                      <div class='opciones-usuario oculto'>
-                                        <div class='item-opciones-usuario item-opciones-usuario1'>
-                                            <a href='perfil-admin.php'>Configuracion de Cuenta</a>
-                                        </div>
-                                        <div class='item-opciones-usuario'>
-                                            <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
-                                        </div>
-                                      </div>
-                                  </li>");
-                        ?>
+                                          <div class='opciones-usuario oculto'>
+                                            <div class='item-opciones-usuario item-opciones-usuario1'>
+                                                <a href='perfil-admin.php'>Configuracion de Cuenta</a>
+                                            </div>
+                                            <div class='item-opciones-usuario'>
+                                                <a href='php/cerrarSesion.php'>Cerrar Sesion</a>
+                                            </div>
+                                          </div>
+                                      </li>");
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -90,19 +92,17 @@
     </header>
 
     <main class="contenido-main">
-        <h1 class="titulo-encabezado-a">Administracion de Docentes</h1>
+        <h1 class="titulo-encabezado-a">Administracion de Materias</h1>
 
         <div class="herramientas-encabezado-a">
             <div class="buscador-encabezado-a">
                 <input type="text" class="encabezado-input-buscar" placeholder="Buscar Coincidencias">
                 <select  class="opcion-busqueda">
-                    <option  value="codigoSis" selected>CodigoSIS</option>
-                    <option  value="nombre">Nombre</option>
-                    <option  value="apellido">Apellido</option>
-                    <option  value="ci">CI</option>
-                    <option  value="telefono">Telefono</option>
-                    <option  value="celular">celular</option>
-                    <option  value="correo">correo</option>
+                    <option  value="codAula" selected>Codigo Materia</option>
+                    <option  value="detalles">Detalles</option>
+                   <!-- <option  value="capacidad">Capacidad</option>
+                    <option  value="proyector">Proyector</option>
+                    -->
                 </select>
                 <button class="btn-input-bucar">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -111,63 +111,50 @@
                     Buscar
                 </button>
             </div>
-
+            <!--
             <div class="filtro-encabezado-a">
                 <div class="opcion-filtro  filtro-facultada">
-                    <label >Facultad:</label>
-                    <select  class="select-filtro-facultad">
-                       <option class="opcion-filtro" value="0"  selected>Todas</option>
-                       <option class="opcion-filtro" value="1">Ciencias agricolas y Pecuarias</option>
-                       <option class="opcion-filtro" value="2">CS.Bioquimicas</option>
-                       <option class="opcion-filtro" value="3">Ciencias Económicas</option>
-                       <option class="opcion-filtro" value="4">Desarrollo Rural</option>
-                       <option class="opcion-filtro" value="5">Odontologia</option>
-                       <option class="opcion-filtro" value="6">Medicina</option>
-                       <option class="opcion-filtro" value="7">Arquitectura</option>
-                       <option class="opcion-filtro" value="8">Humanidades</option>
-                       <option class="opcion-filtro" value="9">Ciencias Juridicas</option>
-                       <option class="opcion-filtro" value="10">Ciencias y Tecnologia</option>
-                       <option class="opcion-filtro" value="11">Ciencias Sociales</option>
-                       <option class="opcion-filtro" value="12">Ciencias Veterinarias</option>
-                       <option class="opcion-filtro" value="13">Enfermeria</option>
-                   </select>
+                     <label >Facultad:</label>
+                     <select  class="select-filtro-facultad">
+                        <option  value="0"  selected>Todas</option>
+                        <option  value="1">Ciencias agricolas y Pecuarias</option>
+                        <option  value="2">CS.Bioquimicas</option>
+                        <option  value="3">Ciencias Económicas</option>
+                        <option  value="4">Desarrollo Rural</option>
+                        <option  value="5">Odontologia</option>
+                        <option  value="6">Medicina</option>
+                        <option  value="7">Arquitectura</option>
+                        <option  value="8">Humanidades</option>
+                        <option  value="9">Ciencias Juridicas</option>
+                        <option  value="10">Ciencias y Tecnologia</option>
+                        <option  value="11">Ciencias Sociales</option>
+                        <option  value="12">Ciencias Veterinarias</option>
+                        <option  value="13">Enfermeria</option>
+                    </select>
 
-               </div>
-
+                </div>
+                
               
-               <div class="opcion-filtro  filtro-facultada">
-                <label >Mostrar:</label>
-                <select  class="select-filtro-mostrar">
-                   <option class="opcion-filtro" value="25">25</option>
-                   <option class="opcion-filtro" value="50" selected>50</option>
-                   <option class="opcion-filtro" value="70">70</option>
-                   <option class="opcion-filtro" value="100">100</option>
-               </select>
+                
+            </div>-->
 
-           </div>
-            </div>
-
-            <button class="btn-encabezado-a">Nuevo Docente</button>     
+           
         </div>
 
-        <div class="seccion-tabla  ">
-
+        <div class="seccion-tabla">
             <table class="table table-striped ">
                 <thead>
                     <tr>
-                        <th>N°</th>
-                        <th class="opcion-columna-tabla" value="codigoSis" >CodigoSIS</th>
-                        <th class="opcion-columna-tabla opcion-columna-tabla-seleccionado" value="nombre" >Nombre</th>
-                        <th class="opcion-columna-tabla" value="apellido" >Apellido</th>
-                        <th class="opcion-columna-tabla" value="ci" >Carnet Identidad</th>
-                        <th class="opcion-columna-tabla" value="nombreFacultad" >Facultad</th>
-                        <th class="opcion-columna-tabla" value="telefono" >Telefono</th>
-                        <th class="opcion-columna-tabla" value="correo" >Correo</th>
-                        <th class="opcion-columna-tabla" value="celular" >Celular</th>
-                        <th class="opcion-columna-tabla" value="contrasenia" >Contraseña</th>
+                    <th>N°</th>
+                        <th>Codigo Materia</th>
+                        <th>Nombre Materia</th>
+                        <th>Cantidad estudiantes</th>
+                        <th>Cantidad de Grupos</th>
+                      <!--  <th>Capacidad</th>
+                        <th>Proyector</th> -->
                     </tr>
                 </thead>
-                <tbody id="tbody-lista-docentes">
+                <tbody id="tabla-materia">
                    
                 </tbody>
                
@@ -180,6 +167,8 @@
                     </div>
                 </div>
             </div>
+
+            
 
         </div>
 
@@ -209,6 +198,7 @@
 
     </main>
 
+
     
     <footer>
         <p class="fila-1">DERECHOS RESERVADOS © 2022 · UNIVERSIDAD MAYOR DE SAN SIMÓN</p>
@@ -231,57 +221,17 @@
         <p class="fila-4">Diseñado por<span class="empresa-disenadora"> DataByte S.R.L</span></p>
         
 
-
-
     </footer>
 
 
 
     <div class="overlay-form-a">
-
-        <div class="form-a">
-            <h1 class="titulo-form-a">FORMULARIO NUEVO DOCENTE</h1>
-
-            <form action="" id="formulario-nuevo-docente">
-                <div class="seccion-input-form-a input-codigosis">
-                    <label>CodigoSIS:</label>
-                    <input  spellcheck="false" type="text" placeholder="(Campo Obligatorio)" name="codigosis" id="codigosis">
-                    <div class="mensaje-error-form-a seccion-advertencia-codigosis ">
-                        <div class="img-advertencia  oculto"></div>
-                        <p class="mensaje-error  oculto"> </p>
-                    </div>
-                </div>
-                
-                <div class="seccion-input-form-a  input-nombre">
-                    <label>Nombre:</label>
-                    <input spellcheck="false" type="text" placeholder="(Campo Obligatorio)" name="nombre" id="nombre" maxlength="20">
-                    <div class="mensaje-error-form-a seccion-advertencia-nombre ">
-                        <div class="img-advertencia  oculto"></div>
-                        <p class="mensaje-error oculto"></p>
-                    </div>
-                </div>
-
-                <div class="seccion-input-form-a input-apellido">
-                    <label>Apellido:</label>
-                    <input spellcheck="false" type="text" placeholder="(Campo Obligatorio)" name="apellido" id="apellido" maxlength="20">
-                    <div class="mensaje-error-form-a seccion-advertencia-apellido ">
-                        <div class="img-advertencia  oculto"></div>
-                        <p class="mensaje-error oculto"> </p>
-                    </div>
-                </div>
-
-                <div class="seccion-input-form-a input-ci">
-                    <label>CI:</label>
-                    <input spellcheck="false" type="text" placeholder="(Campo Obligatorio)" name="ci" id="ci">
-                    <div class="mensaje-error-form-a seccion-advertencia-ci ">
-                        <div class="img-advertencia  oculto"></div>
-                        <p class="mensaje-error oculto"> </p>
-                    </div>
-                </div>
-
-                <div class="seccion-input-form-a input-facultad">
-                    <label>Facultad:</label>
-                    <select name="facultad" id="facultad">
+        <div class="form-a ">
+            <h1 class="titulo-form-a ">FORMULARIO NUEVA AULA</h1>
+            <form action="" id="formulario-nueva-aula">
+                <div class="seccion-input-form-a   input-facultad">
+                    <label  >Facultad:</label>
+                    <select name="facultad" id="facultad" >
                         <option value="0" disabled selected>Seleccionar una Facultad</option>
                         <option value="1">Ciencias agricolas y Pecuarias</option>
                         <option value="2">CS.Bioquimicas</option>
@@ -302,65 +252,68 @@
                         <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
-<!--
-                <div class="seccion-input-form-a  input-departamento">
-                    <label>Departamento:</label>
-                    <input spellcheck="false" type="text" placeholder="(Campo Opcional)" name="departamento" id="departamento">
-                    <div class="mensaje-error-form-a seccion-advertencia-departamento ">
-                        <div class="img-advertencia  oculto"></div>
-                        <p class="mensaje-error oculto"> </p>
-                    </div>
-                </div>
--->
-                <div class="seccion-input-form-a  input-celular">
-                    <label>Celular:</label>
-                    <input spellcheck="false" type="text" placeholder="(Campo Obligatorio)" name="celular" id="celular">
-                    <div class="mensaje-error-form-a seccion-advertencia-celular ">
+                <div class="seccion-input-form-a  input-nombre">
+                    <label>Codigo Aula:</label>
+                    <input name="nombre" id="nombre"  spellcheck="false" type="text" placeholder="(Campo Obligatorio))" maxlength="20">
+                    <div class="mensaje-error-form-a seccion-advertencia-nombre ">
                         <div class="img-advertencia  oculto"></div>
                         <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
 
-                <div class="seccion-input-form-a  input-telefono">
-                    <label>Telefono:</label>
-                    <input spellcheck="false" type="text" placeholder="(Campo Opcional)" name="telefono" id="telefono">
-                    <div class="mensaje-error-form-a seccion-advertencia-telefono ">
-                        <div class="img-advertencia  oculto "></div>
-                        <p class="mensaje-error oculto"> </p>
-                    </div>
-                </div>
-
-                <div class="seccion-input-form-a  input-email">
-                    <label>Correo:</label>
-                    <input spellcheck="false" type="email" placeholder="(Campo Obligatorio)" name="correo" id="correo">
-                    <div class="mensaje-error-form-a seccion-advertencia-correo ">
+                <div class="seccion-input-form-a  input-detalles">
+                    <label>Detalles:</label>
+                    <input name="detalles" id="detalles" spellcheck="false" type="text" placeholder="(Campo Opcional)" maxlength="100">
+                    <div class="mensaje-error-form-a seccion-advertencia-detalles ">
                         <div class="img-advertencia  oculto"></div>
                         <p class="mensaje-error oculto"> </p>
                     </div>
                 </div>
-               
+                
+               <!-- <div class="seccion-input-form-a  input-capacidad">
+                    <label>Capacidad:</label>
+                    <input name="capacidad"  id="capacidad"  spellcheck="false" type="number" placeholder="(Campo Obligatorio))">
+                    <div class="mensaje-error-form-a seccion-advertencia-capacidad ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
+                    </div>
+                </div>
+                -->
+            
+
+                <div class="seccion-input-form-a  input-proyector">
+                    <label>Proyector:</label>
+                    <div class="lista-radiobtns">
+                        <div class="radiobtn">
+                            <input type="radio" id="si"  value="si"  name="proyector"  >
+                            <label for="si">si</label>
+                        </div>
+                        <div class="radiobtn">
+                            <input type="radio" id="no"  value="no" name="proyector"  checked>
+                            <label for="no">no</label>
+
+                        </div>
+                    </div>
+                    <div class="mensaje-error-form-a seccion-advertencia-proyector ">
+                        <div class="img-advertencia  oculto"></div>
+                        <p class="mensaje-error oculto"> </p>
+                    </div>
+                </div>    
             </form>
 
-            <div class="seccion-botones-form-a ">
+            <div class="seccion-botones-form-a">
                 <button class="btn-formulario btn-cancelar">cancelar</button>
-                <button class="btn-formulario btn-aceptar">registrar</button>
-            </div>
-                                                                                                    
+                <button class="btn-formulario btn-aceptar">aceptar</button>
+            </div>                                                                                             
         </div>
-
     </div>
-
-
-
-
-
+    
 
     <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="js/script-docentes-admind.js"></script>
+    <script src="js/scrip-materia-admin.js"></script>
     <script src="js/script-index.js"></script>
-    <script src="js/script-verificarSesionAbierta.js"></script>
 
     
 </body>
