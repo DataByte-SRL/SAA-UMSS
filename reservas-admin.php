@@ -36,6 +36,8 @@
     <link rel='stylesheet' href='css/styles-index.css'>
     <link rel='stylesheet' href='css/styles-repetitivos.css'>
     <link rel='stylesheet' href='css/styles-reservas-admin.css'>
+    <link rel='stylesheet' href='css/styles-materia-admin.css'>
+    <link rel='stylesheet' href='css/styles-grupo-admin.css'>
     
 </head>
 <body>
@@ -57,6 +59,12 @@
                             </li>
                             <li class="nav-item   text-center">
                                 <a class="nav-link active " href="reservas-admin.php">Reservas</a>
+                            </li>
+                            <li class="nav-item   text-center">
+                                <a class="nav-link " href="materia-admin.php">Materias</a>
+                            </li>
+                            <li class="nav-item   text-center">
+                                <a class="nav-link " href="grupo-admin.php">Grupos</a>
                             </li>
                             <?php 
                             
@@ -211,7 +219,6 @@
                             </div>
                         </div>
                 </div>
-
     </main>
 
 
@@ -243,7 +250,7 @@
     <script src="js/script-reservas-admin.js"></script>
     <script src="js/script-index.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
- 
+
     
 </body>
 </html>
