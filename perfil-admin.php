@@ -58,6 +58,12 @@
                             <li class="nav-item   text-center">
                                 <a class="nav-link  " href="reservas-admin.php">Reservas</a>
                             </li>
+                            <li class="nav-item   text-center">
+                                <a class="nav-link active " href="materia-admin.php">Materias</a>
+                            </li>
+                            <li class="nav-item   text-center">
+                                <a class="nav-link " href="grupo-admin.php">Grupos</a>
+                            </li>
                             <?php 
                             
                                 echo ("<li class='nav-item  text-center nav-item-usuario'>
