@@ -34,6 +34,7 @@
     <link rel='stylesheet' href='css/styles-index.css'>
     <link rel='stylesheet' href='css/styles-repetitivos.css'>
     <link rel='stylesheet' href='css/styles-docentes-admin.css'>
+    <link rel='stylesheet' href='css/styles-materia-admin.css'>
 </head>
 <body>
     <header>
@@ -54,6 +55,12 @@
                             </li>
                             <li class="nav-item   text-center">
                                 <a class="nav-link" href="reservas-admin.php">Reservas</a>
+                            </li>
+                            <li class="nav-item   text-center">
+                                <a class="nav-link" href="materia-admin.php">Materias</a>
+                            </li>
+                            <li class="nav-item   text-center">
+                                <a class="nav-link" href="grupo-admin.php">Grupos</a>
                             </li>
                             <?php 
                             
