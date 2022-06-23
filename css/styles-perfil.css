@@ -1,0 +1,154 @@
+body{
+    font-family: 'Arimo', sans-serif;
+    box-sizing: border-box;
+}
+
+.contenido-main{
+    width: 88%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario-perfil{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 50px 25px 50px;
+    max-width: 1000px;
+    margin: 20px auto 30px auto;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #D4D4D4;
+    min-width: 890px;
+}
+.titulo-formulario-configuracion{
+    color: #2D2929;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0px auto 20px auto;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #D4D4D4;
+    padding-bottom: 10px;
+}
+
+.seccion-datos{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.input-casilla{
+    width: 500px;
+    outline: none;
+    border-radius: 7px;
+    border: 1px solid #827D7D;
+    padding-left: 7px;
+    padding-right: 7px;
+    font-size: 15px;
+    margin-top: 5px;
+    height: 30px;
+}
+
+.seccion-input{
+    margin: 10px auto 10px 10px;
+    display: flex;
+    flex-direction: row;
+}
+.label-input{
+    color: #5E5E5E;
+    font-size: 15px;
+    margin: 5px 10px auto 0px;
+    min-width: 90px;
+}
+.btn-cambiar {
+    width: 170px;
+    height:  30px;
+    border: none;
+    border-radius: 7px;
+    background-color: #08C912;
+    color: white;
+    text-align: center;
+    font-size: 17px;
+    line-height: 1;
+    margin: auto 5px auto 15px;
+
+}
+
+
+
+.overlay-pagina-configuracion{
+    position: fixed;
+    background: rgba(0,0,0,0.1);
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    z-index: 20;
+}
+
+
+
+.popup-pagina-configuracion{
+    background: #FFFFFF;
+    padding: 15px;
+    border-radius: 50px;
+   /* height: 650px;*/
+    box-shadow: 0px 0px 20px rgb(201, 201, 201);
+    transition: 0.4s ease all ;
+    transform: scale(0.7);
+    opacity: 0;
+    
+}
+
+
+.overlay-pagina-configuracion-activo{
+    visibility: visible;
+}
+
+.popup-pagina-configuracion-activo{
+    opacity: 1;
+    transform: scale(1);
+}
+
+.popup{
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-configuracion{
+    width: 700px;
+}
+
+.btn-actualizar{
+    font-size: 19px;
+    color: white;
+    background-color:#1071E5;
+    border: none;
+    border-radius: 7px;
+    width: 100px;
+    height: 35px;
+    text-align: center;
+    margin: 10px auto 10px auto;
+}
+.btn-actualizar{
+    background-color:#4b97f3;
+}
+
+.btn-cancelar{
+    color: white;
+    background-color: #E01515;
+    font-size: 19px;
+    border: none;
+    border-radius: 7px;
+    width: 100px;
+    height: 35px;
+    margin: 10px auto 10px auto;
+}
+.btn-cancelar{
+    background-color: #f53b3b;
+}

@@ -4,6 +4,7 @@
     $nombre = " ";
     $apellido = " ";
     session_start();
+    include_once ("php/conectar.php");
 
     if(!isset($_SESSION['cuenta'])){
         header('location:index.php');
@@ -14,6 +15,10 @@
         $nombre = $_SESSION['nombre'];
         $apellido = $_SESSION['apellido'];
     }
+    $con=conectar();
+    $consulta = "SELECT * FROM Administrador WHERE nombre = '$nombre'";
+    $ejecuta = $con->query($consulta);
+    $extraer = $ejecuta->fetch_assoc();
 
 ?>
 
@@ -36,6 +41,7 @@
     <!-- <link rel='stylesheet' href='css/styles-index.css'> -->
     <link rel='stylesheet' href='css/styles-index.css'>
     <link rel='stylesheet' href='css/styles-repetitivos.css'>
+    <link rel='stylesheet' href='css/styles-perfil.css'>
     
 </head>
 <body>
@@ -86,6 +92,60 @@
     </header>
 
     <main class="contenido-main">
+    <div class="formulario-perfil">
+        <form method="POST" action="php/actualizar-admin.php">
+      <h1 class="titulo-formulario-configuracion">Configuración de usuario</h1>
+      <div class="seccion-datos">
+        <h2 class="titulo-configuracion-perfil">Configuración del Perfil</h2>
+        <div class="seccion-input">
+          <label class="label-input" for="asunto">Codigo SIS:</label>
+          <p><?php echo $extraer['codigoSis']; ?></p>
+        </div>
+        <div class="seccion-input">
+          <label class="label-input" for="asunto">Nombre(s):</label>
+          <input type="text" class="input-casilla" name="nombre" value="<?php echo $extraer['nombre'];?>" >
+        </div>
+        <div class="seccion-input">
+          <label class="label-input" for="asunto">Apellido(s):</label>
+          <input type="text" class="input-casilla" name="apellido" value="<?php echo $extraer['apellido'];?>" >
+        </div>   
+        <h2 class="titulo-configuracion-perfil">Cambiar Contraseña</h2>             
+        <div>
+          <label class='label-input' for="asunto">Contraseña Actual:  </label>
+           <input type="text" class="input-casilla" name="ca">
+        </div>
+        <div>
+          <label class='label-input' for="asunto">Nueva Contraseña: </label>
+          <input type="text" class="input-casilla" name="nc">
+        </div>
+        <div>
+          <label class='label-input for="asunto"'>Repetir Contraseña:</label>
+          <input type="text" class="input-casilla" name="rc">
+        </div>     
+        <h2 class="titulo-configuracion-perfil">Cambiar Datos de Contacto</h2>        
+        <div class="seccion-input">
+          <label class="label-input" for="asunto">Telefono:</label>
+          <input type="text" class="input-casilla" name="telefono" value="<?php echo $extraer['telefono'];?>">
+        </div>
+        <div class="seccion-input">
+          <label class="label-input" for="asunto">Correo:</label>
+          <input type="email" class="input-casilla" name="correo" value="<?php echo $extraer['correo'];?>">
+        </div>            
+
+            </div>
+                <div class="seccion-botones-form-a">
+                    <tr>
+                        <button type="submit" class="btn-actualizar">Actualizar</button> 
+                    </tr>
+					<br></br>
+                    <tr>
+                        <input type="button" class="btn-cancelar" name="Cancelar" value="Cancelar" onClick="location.href='../reservas-docente.php'"> 
+                    </tr>
+                </div>
+            </div>
+        </div>
+		</form>
+      </div>
     </main>
 
 
