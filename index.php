@@ -79,6 +79,8 @@
                 <div class="seccion-input-sesion">
                     <label>Constaseña</label>
                     <input class="input-contrasena" type="password" name="contrasena">
+                    <div class="btn-contrasenia btn-ocultar-contrasenia">
+                    </div>
                     
                 </div>
  

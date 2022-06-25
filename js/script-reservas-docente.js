@@ -1555,3 +1555,33 @@ function sugerirHorario(){
     }
     
 }
+
+
+
+function ponerEnMayuscula(frase) {  // pone en mayusula solo la primera letra de cada palabra
+    if (typeof frase != 'string') {
+        return "";
+    }
+    frase = frase.trim();
+    var espacio = 0;
+    var aux = "";
+    for (let index = 0; index < frase.length; index++) {
+           if (frase[index] == " ") {
+               if (espacio == 0) {
+                espacio = 1;
+                aux = aux + frase[index];  
+               }           
+           }else{
+                espacio = 0;
+                aux = aux + frase[index];
+           }
+     }
+    frase = aux;
+    if (frase.length == 0) {
+        return "";
+    }
+    frase = frase.toLowerCase();
+    let palabras = frase.split(' ');
+    return palabras.map(p => p[0].toUpperCase() + p.slice(1)).join(' ');
+}
+

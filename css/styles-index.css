@@ -211,7 +211,10 @@ footer p{
     flex-direction: column;
     width: 100%;
     margin-bottom: 70px;
+    position: relative;
 }
+
+
 .seccion-input-sesion label{
     font-size: 1.2em;
     margin-bottom: 10px;
@@ -231,7 +234,29 @@ footer p{
     border-bottom: 1px solid #473af7;
 
 }
+.input-contrasena{
+   padding-right: 37px !important;
+}
 
+.btn-contrasenia{
+    position: absolute;
+    cursor: pointer;
+    bottom: 5px;
+    right: 13px;
+    height: 20px;
+    width: 20px;
+}
+.btn-ver-contrasenia{
+    background-image: url("../img/btn-ver.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.btn-ocultar-contrasenia{
+    background-image: url("../img/btn-ocultar.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
 
 .btn-iniciar-sesion{
     color: white;

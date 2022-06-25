@@ -170,7 +170,7 @@
                         <div class = "motivo-archivo">
                             <textarea class="input-motivo-emergencia" placeholder="Indique el motivo de la emergencia " maxlength = 200></textarea>
                             <p class="oculto mensaje-error mensaje-error-motivo">Debe llenar este campo , maximo 200 caracteres</p>
-                            <input type="file"  class="archivo-emergencia">
+                           <!-- <input type="file"  class="archivo-emergencia">   -->
                         </div>
                         
                         

@@ -2,7 +2,7 @@
 
 funcionBtnIniciarSesion();
 funcionalidadUsuariMenu();
-
+funcionalidadBtnContrasenia();
 
 
 
@@ -86,6 +86,27 @@ function funcionBtnIniciarSesion(){
     }
 }
 
+
+function funcionalidadBtnContrasenia() {
+    try {
+        document.querySelector(".btn-contrasenia").addEventListener("click", e=>{
+            if (e.target.classList.contains("btn-ver-contrasenia")) {
+                e.target.classList.remove("btn-ver-contrasenia");
+                e.target.classList.add("btn-ocultar-contrasenia");
+                document.querySelector(".input-contrasena").setAttribute("type","password");
+            }else{
+                e.target.classList.remove("btn-ocultar-contrasenia");
+                e.target.classList.add("btn-ver-contrasenia");
+                document.querySelector(".input-contrasena").setAttribute("type","text");
+            }
+        });
+        
+    } catch (error) {
+        
+    }
+    
+    
+}
 
 
 
