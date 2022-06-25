@@ -191,13 +191,16 @@ function funcionBonesCambiarPasoFormulario(){   // se pondra la funcio alo boton
 
                 
                         var dato = {asunto,codMateria,codFacultad,horaInicio,horaFin,fechaReserva,comentario,motivoEmergencia,emergencia,ambientes,grupos,solicitantes};
-                        console.log(dato);
+                        
 
                         $.post("./php/reservarAmbientes.php",dato,function(respuesta) {
                             if (respuesta ==  '1') {
                                 Swal.fire({
                                     icon:'success',
                                     text:"La reserva fue exitosa"
+                                }).then(respuesta=>{
+                                    location.reload();
+
                                 });
                                 
                             }else{
