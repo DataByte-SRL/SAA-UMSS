@@ -8,12 +8,17 @@ $consulta="SELECT
 g.`codGrupo`,
 m.`codMateria`,
 m.`nombre`,
-g.`estudiantes` 
+d.`codigoSis` AS CodigoDocente,
+CONCAT(d.`nombre`,' ',d.`apellido`) AS NombreDocente,
+g.`estudiantes`,
+CONCAT(h.`dia`,' ',h.`horaInicio`,' - ',h.`horaFin`) AS Horario 
 FROM 
 `Grupo` AS g, 
-`Materia` AS m 
+`Materia` AS m,
+`Docente` AS d,
+`Horario` AS h 
 WHERE 
-g.`codMateria` = m.`codMateria`;";
+g.`codMateria` = m.`codMateria` AND g.`codDocente` = d.`codigoSis` AND h.`codGrupo` = g.`codGrupo` AND h.`codMateria` = g.`codMateria`;";
 $respuesta= mysqli_query($conexion,$consulta);
 $res = mysqli_fetch_all( $respuesta, $resulttype = MYSQLI_ASSOC);
 
