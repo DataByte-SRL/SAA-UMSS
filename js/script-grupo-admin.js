@@ -163,7 +163,10 @@ function cargarDatosPaginaTablaAula(numPagina){
                            <td class="codigosis-tabla">${element.codGrupo}</td>
                            <td>${element.codMateria}</td>
                            <td>${element.nombre}</td>
-                           <td>${element.estudiantes}</td>       
+                           <td>${element.CodigoDocente}</td>
+                           <td>${element.NombreDocente}</td>
+                           <td>${element.estudiantes}</td>
+                           <td>${element.Horario}</td>       
                      </tr>`;
     }
     $('#tabla-grupo').html(template);
