@@ -103,6 +103,8 @@
 
         <div class="contenedor-lista-reservas">
 
+           
+
         </div>
 
         <div class="formulario-configuracion oculto">
@@ -225,7 +227,7 @@
     <script src="js/script-reservas-admin.js"></script>
     <script src="js/script-index.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/script-verificarSesionAbierta.js"></script>
+    
  
     
 </body>
