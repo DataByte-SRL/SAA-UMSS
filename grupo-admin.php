@@ -100,9 +100,9 @@
                 <input type="text" class="encabezado-input-buscar" placeholder="Buscar Coincidencias">
                 <select  class="opcion-busqueda">
                     <option  value="codGrupo" selected>Codigo Grupo</option>
-                    <option  value="detalles">Detalles</option>
-                    <option  value="capacidad">Capacidad</option>
-                    <option  value="proyector">Proyector</option>
+                    <option  value="detalles">Codigo Materia</option>
+                    <option  value="capacidad">Nombre Materia</option>
+                    <option  value="proyector">Codigo Docente</option>
     
                 </select>
                 <button class="btn-input-bucar">
@@ -170,7 +170,10 @@
                         <th>Codigo Grupo</th>
                         <th>Codigo Materia</th>
                         <th>Nombre Materia</th>
+                        <th>Codígo Docente</th>
+                        <th>Nombre Docente</th>
                         <th>Cantidad estudiantes</th>
+                        <th>Horarios</th>
                        <!-- <th>Capacidad</th>
                         <th>Proyector</th>  -->
                     </tr>
