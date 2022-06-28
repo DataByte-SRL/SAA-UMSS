@@ -99,7 +99,7 @@
                 <input type="text" class="encabezado-input-buscar" placeholder="Buscar Coincidencias">
                 <select  class="opcion-busqueda">
                     <option  value="codAula" selected>Codigo Materia</option>
-                    <option  value="detalles">Detalles</option>
+                    <option  value="detalles">Nombre Materia</option>
                    <!-- <option  value="capacidad">Capacidad</option>
                     <option  value="proyector">Proyector</option>
                     -->
