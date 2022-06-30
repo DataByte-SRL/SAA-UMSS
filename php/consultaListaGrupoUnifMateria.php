@@ -4,21 +4,14 @@ include_once("conectar.php");
 $conexion =conectar();
 
 
-$consulta="SELECT 
-g.`codGrupo`,
-m.`codMateria`,
-m.`nombre`,
-d.`codigoSis` AS CodigoDocente,
-CONCAT(d.`nombre`,' ',d.`apellido`) AS NombreDocente,
-g.`estudiantes`,
-CONCAT(h.`dia`,' ',h.`horaInicio`,' - ',h.`horaFin`) AS Horario 
-FROM
-`Grupo` AS g 
-LEFT JOIN 
-`Materia` AS m 
-ON m.`codMateria` = g.`codMateria`
-LEFT JOIN `Docente` AS d ON d.`codigoSis` = g.`codDocente`
-LEFT JOIN `Horario` AS h ON h.`codGrupo` = g.`codGrupo` ORDER BY g.`codGrupo`,g.`codMateria`;";
+$consulta=
+"
+SELECT G.codGrupo , M.codMateria , M.nombre,G.codDocente AS CodigoDocente ,concat (D.nombre,' ', D.apellido)as NombreDocente ,G.estudiantes , 
+CASE WHEN (concat(H.dia,' ',H.horaInicio, ' - ', H.horaFin ) ) IS NULL THEN 'Sin Horarios'
+ELSE (concat(H.dia,' ',H.horaInicio, ' - ', H.horaFin ) ) 
+END AS Horario 
+FROM (Grupo G LEFT JOIN Horario H ON G.codGrupo = H.codGrupo AND G.codMateria = H.codMateria) ,Materia M ,Docente D WHERE M.codMateria = G.codMateria AND G.codDocente = D.codigoSis ORDER BY M.codMateria , G.codGrupo;"
+;
 $respuesta= mysqli_query($conexion,$consulta);
 $res = mysqli_fetch_all( $respuesta, $resulttype = MYSQLI_ASSOC);
 
