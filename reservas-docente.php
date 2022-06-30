@@ -89,8 +89,67 @@
         </div>
 
         <div class="contenedor-lista-reservas oculto">
+           <div class="opcion-filtro  filtro-facultada">
+                <label >Mostrar:</label>
+                <select  class="select-filtro-mostrar">
+                <option class="opcion-filtro" value="5">5</option>
+                   <option class="opcion-filtro" value="25">25</option>
+                   <option class="opcion-filtro" value="50" selected>50</option>
+                   <option class="opcion-filtro" value="70">70</option>
+                   <option class="opcion-filtro" value="100">100</option>
+               </select>
+           </div>
+
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th  value="asunto" >Asunto</th>
+                        <th  value="codMateria" >Materia</th>
+                        <th  value="fechaReserca" >Fecha Reservada</th>
+                        <th  value="horario" >Horario</th>
+                        <th  >Detalles</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-lista-reservas">
+                   
+                </tbody>
+               
+            </table>
+
+            <div class="seccion-loader-lista-reservas  ">
+                <div class="contenedor-loader">
+                    <div class="loader ">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="seccion-paginacion oculto">
+                <div class="contenedor-paginacion">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="paginacion">
+                            <li class="page-item page-item-atras">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <div  class="numeros-paginacion" id="numeros-paginacion">
+                            </div>
+                            <li class="page-item page-item-adelante">
+                                <a class="page-link" href="#" aria-label="Next" >
+                                <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
 
         </div>
+
+        
         <div class="formulario-reserva ">
             <h1 class="titulo-formulario-reserva">Formulario Para Reserva De Ambientes</h1>
 
@@ -509,6 +568,71 @@
                 <button class="btn-cerrar-popup">Cerrar</button>
             </div> 
 
+        </div>
+
+    </div>
+
+    <div class="overlay-detalles-reservas">
+        <div class="detalles-reservas">
+            <h1 class="titulo-detalles-reservas">DETALLES </h1>
+        
+            <div class="seccion-detalles-reserva">
+                <label>Asunto:</label>
+                <p class="contenido-seccion-detalles contenido-asunto"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Materia:</label>
+                <p class="contenido-seccion-detalles contenido-materia"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Solicitantes:</label>
+                <p class="contenido-seccion-detalles contenido-solicitantes"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Grupos:</label>
+                <p class="contenido-seccion-detalles contenido-grupos"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Total Estudiantes:</label>
+                <p class="contenido-seccion-detalles contenido-estudiantes"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Emergencia:</label>
+                <p class="contenido-seccion-detalles contenido-emeregencia"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Motivo Emergencia:</label>
+                <p class="contenido-seccion-detalles contenido-motivo-emergencia"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Fecha Reservada:</label>
+                <p class="contenido-seccion-detalles contenido-fecha-reservada"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Horario:</label>
+                <p class="contenido-seccion-detalles contenido-horario"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Ambientes:</label>
+                <p class="contenido-seccion-detalles contenido-ambientes"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Capacidad Total:</label>
+                <p class="contenido-seccion-detalles contenido-capacidad"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Comentario:</label>
+                <p class="contenido-seccion-detalles contenido-comentario"></p>
+            </div>
+
+            <div class="seccion-botones-detalles-reservas ">
+                <button class="btn-formulario btn-cerrar">Cerrar</button>
+            </div>
         </div>
 
     </div>

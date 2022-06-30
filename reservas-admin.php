@@ -92,7 +92,7 @@
         
     </header>
 
-    <main class="contenido-main">
+    <main class="contenido-seccion contenido-main">
         
         <div class="encabezado-pagina-reservas">
             <p class="opcion-encabezado-pagina-reserva opcion-encabezdo-selecionado opcion-lista-reservas">Lista de Reservas</p>
@@ -102,14 +102,67 @@
 
 
         <div class="contenedor-lista-reservas">
+           <div class="opcion-filtro  filtro-facultada">
+                <label >Mostrar:</label>
+                <select  class="select-filtro-mostrar">
+                <option class="opcion-filtro" value="5">5</option>
+                   <option class="opcion-filtro" value="25">25</option>
+                   <option class="opcion-filtro" value="50" selected>50</option>
+                   <option class="opcion-filtro" value="70">70</option>
+                   <option class="opcion-filtro" value="100">100</option>
+               </select>
+           </div>
 
-           
+            <table class="table table-striped ">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th  value="asunto" >Asunto</th>
+                        <th  value="codMateria" >Materia</th>
+                        <th  value="fechaReserca" >Fecha Reservada</th>
+                        <th  value="horario" >Horario</th>
+                        <th  >Detalles</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-lista-reservas">
+                   
+                </tbody>
+               
+            </table>
+
+            <div class="seccion-loader-lista-reservas  ">
+                <div class="contenedor-loader">
+                    <div class="loader ">
+                        <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="seccion-paginacion oculto">
+                <div class="contenedor-paginacion">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination" id="paginacion">
+                            <li class="page-item page-item-atras">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <div  class="numeros-paginacion" id="numeros-paginacion">
+                            </div>
+                            <li class="page-item page-item-adelante">
+                                <a class="page-link" href="#" aria-label="Next" >
+                                <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
 
         </div>
 
         <div class="formulario-configuracion oculto">
-            
-           
                 <div class="contenedor-formulario oculto">
                     <div class="seccion-input-configuracion">
                         <label class="label-input"  for="">Habilitar Reservas:</label>
@@ -221,6 +274,71 @@
         <p class="fila-4">Diseñado por<span class="empresa-disenadora"> DataByte S.R.L</span></p>
 
     </footer>
+
+    <div class="overlay-detalles-reservas">
+        <div class="detalles-reservas">
+            <h1 class="titulo-detalles-reservas">DETALLES </h1>
+        
+            <div class="seccion-detalles-reserva">
+                <label>Asunto:</label>
+                <p class="contenido-seccion-detalles contenido-asunto"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Materia:</label>
+                <p class="contenido-seccion-detalles contenido-materia"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Solicitantes:</label>
+                <p class="contenido-seccion-detalles contenido-solicitantes"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Grupos:</label>
+                <p class="contenido-seccion-detalles contenido-grupos"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Total Estudiantes:</label>
+                <p class="contenido-seccion-detalles contenido-estudiantes"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Emergencia:</label>
+                <p class="contenido-seccion-detalles contenido-emeregencia"></p>
+            </div>
+            <div class="seccion-detalles-reserva">
+                <label>Motivo Emergencia:</label>
+                <p class="contenido-seccion-detalles contenido-motivo-emergencia"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Fecha Reservada:</label>
+                <p class="contenido-seccion-detalles contenido-fecha-reservada"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Horario:</label>
+                <p class="contenido-seccion-detalles contenido-horario"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Ambientes:</label>
+                <p class="contenido-seccion-detalles contenido-ambientes"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Capacidad Total:</label>
+                <p class="contenido-seccion-detalles contenido-capacidad"></p>
+            </div>
+
+            <div class="seccion-detalles-reserva">
+                <label>Comentario:</label>
+                <p class="contenido-seccion-detalles contenido-comentario"></p>
+            </div>
+
+            <div class="seccion-botones-detalles-reservas ">
+                <button class="btn-formulario btn-cerrar">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
 
     <script   src="https://code.jquery.com/jquery-3.6.0.min.js"   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="   crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

@@ -1,6 +1,6 @@
 <?php 
    include_once ("conectar.php");
-   session_set_cookie_params(60*60*24*1);
+   
    session_start();
    try {
         if (isset($_POST['codigosis']) && isset($_POST['contrasena'])) {
