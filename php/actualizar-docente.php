@@ -14,9 +14,31 @@
       $telefono = $_POST['telefono'];
       $celular = $_POST['celular'];
       $correo = $_POST['correo'];
+      $ca = $_POST['ca'];
+      $nc = $_POST['nc'];
+      $rc = $_POST['rc'];
       
-      $sql = "UPDATE Docente SET nombre='$nombre', apellido='$apellido', codFacultad='$facultad', telefono='$telefono', celular='$celular', correo='$correo' WHERE codigoSis=$codigoSis ";
-      $resultado = $con->exec($sql);
+      if(!empty($ca)){
+        if(empty($nc)){
+          $sql = "UPDATE Docente SET nombre='$nombre', apellido='$apellido', codFacultad='$facultad', telefono='$telefono', celular='$celular', correo='$correo' WHERE codigoSis=$codigoSis ";
+          $resultado = $con->exec($sql);
+        }
+        else{
+          if($nc!==$rc){
+            $sql = "UPDATE Docente SET nombre='$nombre', apellido='$apellido', codFacultad='$facultad', telefono='$telefono', celular='$celular', correo='$correo' WHERE codigoSis=$codigoSis ";
+            $resultado = $con->exec($sql);
+          }
+          else{
+            $sql = "UPDATE Docente SET nombre='$nombre', apellido='$apellido', codFacultad='$facultad', telefono='$telefono', celular='$celular', correo='$correo',contrasenia='$nc' WHERE codigoSis=$codigoSis ";
+            $resultado = $con->exec($sql);
+          }
+        }
+      }
+      else{
+        $sql = "UPDATE Docente SET nombre='$nombre', apellido='$apellido', codFacultad='$facultad', telefono='$telefono', celular='$celular', correo='$correo' WHERE codigoSis=$codigoSis ";
+        $resultado = $con->exec($sql);
+      }
+      
   
   }
 
@@ -32,11 +54,11 @@
       <div class="row">
         <div class="row" style="text-align:center"
         <?php if (!$resultado){ ?>
-          <h3>ERROR AL MODIFICAR</h3>
+          <h3>ERROR AL MODIFICADO</h3>
         <?php }else{ ?>
           <h3>REGISTRO MODIFICADO</h3>
         <?php } ?>
-        <a href="../reservas-docente.php" class="btn btn-primary">Regresar</a>
+        <a href="../perfil-docente.php" class="btn btn-primary">Regresar</a>
       </div>
     </div>
   </body>

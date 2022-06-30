@@ -141,7 +141,7 @@
           <input type="text" class="input-casilla" name="nc">
         </div>
         <div>
-          <label class='label-input for="asunto"'>Repetir Contraseña:</label>
+          <label class='label-input' for="asunto">Repetir Contraseña:</label>
           <input type="text" class="input-casilla" name="rc">
         </div>  
         <h2 class="titulo-configuracion-perfil">Cambiar Datos de Contacto</h2>        
