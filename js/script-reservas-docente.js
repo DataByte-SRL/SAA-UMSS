@@ -663,8 +663,9 @@ function ponerDatosSeccionSugerencias(){
     sugerencias = [];
      var lista = [];
      lista = sugerirAmbientes();
+     console.log(lista);
      lista.forEach(element => {
-        agregarDatosSugerenciaAmbientes(element.codigoAmbiente,element.capacidad);
+        agregarDatosSugerenciaAmbientes(element.codigoAmbiente,element.capacidad ,element.nomTipoAmbiente);
      });
 
 }
@@ -701,6 +702,7 @@ function ponerDatosPopUpAmbientes(){
                                 </td>
                                 <td class="casilla-columna casilla-codigo ">${element.codigoAmbiente}</td>
                                 <td class="casilla-columna casilla-nombre ">${element.capacidad}</td>
+                                <td class="casilla-columna casilla-nombre ">${element.nomTipoAmbiente}</td>
                             </tr>`;
                 n++;
             });
@@ -1002,13 +1004,13 @@ function eliminarPeriodo(indice){
      });
 }
 
-function agregarDatosSugerenciaAmbientes(codigoA,capacidadA){
-    sugerencias.push({codigoAmbiente:""+codigoA,capacidad:Number(capacidadA)});
+function agregarDatosSugerenciaAmbientes(codigoA,capacidadA,tipoAmbienteA){
+    sugerencias.push({codigoAmbiente:""+codigoA,capacidad:Number(capacidadA),nomTipoAmbiente: ""+tipoAmbienteA});
     var template ="";
 
     sugerencias.forEach(element => {
         template += `<div class="item-seccion-input">
-                        <p class="info-input">${element.codigoAmbiente} - Capacidad ${element.capacidad}</p>
+                        <p class="info-input">${element.codigoAmbiente} - Capacidad ${element.capacidad} -  ${element.nomTipoAmbiente} </p>
                         <button class="btn-item-input btn-item-input-sugerencia">+</button>
                     </div>`;
     });

@@ -548,7 +548,8 @@
                                 <tr class="encabezado-tabla-reserva">
                                     <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-accion">Accion</th>
                                     <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Codigo Aula</th>
-                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-nombre">Capacidad</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Capacidad</th>
+                                    <th class="item-encabezado-tabla-reserva item-encabezado-tabla-reserva-codigo">Tipo</th>
                                 </tr>
                             </thead>
                             <tbody class="contenido-tabla-reserva contenido-tabla-reserva-ambientes">

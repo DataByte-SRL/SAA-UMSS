@@ -16,7 +16,7 @@ if ($_POST) {
     $codFacultad =$_POST['codFacultad'];
     $codDocente =$_SESSION['codigoSis'];
 
-    $respuesta = mysqli_query($con,"SELECT A.codAmbiente as codigoAmbiente, A.codFacultad, A.detalles, A.proyector, A.capacidad, A.codTipoAmbiente FROM Ambiente A WHERE A.codFacultad = $codFacultad AND A.codAmbiente NOT IN (
+    $respuesta = mysqli_query($con,"SELECT A.codAmbiente as codigoAmbiente, A.codFacultad, A.detalles, A.proyector, A.capacidad, A.codTipoAmbiente,TA.nombre as nomTipoAmbiente FROM Ambiente A , TipoAmbiente TA WHERE A.codFacultad = $codFacultad AND A.codTipoAmbiente = TA.codTipoAmbiente AND A.codAmbiente NOT IN (
         SELECT RA.codAmbiente FROM RerservaAmbientes RA WHERE RA.codReserva IN (
             SELECT R.codReserva FROM Reserva R WHERE R.fechaRerserva = '$fecha'  AND
              (('$horaInicio' BETWEEN horaInicio AND timediff(horaFin, '00:00:01')) OR 
